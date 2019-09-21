@@ -1,2 +1,2 @@
 # hrms
-hrms application build in odoo for organization 
+hrms application built in odoo for an organization to deal with complete employee lifecycle

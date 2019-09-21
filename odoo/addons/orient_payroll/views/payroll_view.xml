@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="payroll_data_export_form" model="ir.ui.view">
+            <field name="name">Payroll Data Export</field>
+            <field name="model">payroll.payroll</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Data Export">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="site_ids" widget="many2many_tags" required="0" string="Select Site*"
+                                       options="{'color_field': 'color', 'no_create_edit': True}"/>
+                                <field name="month" string="Select month*" required="1" 
+                                       attrs="{'readonly':[('state','=','done')]}"/>
+                            </group>
+                            <br/>
+                            <br/>
+                            <group>
+                                <button string="Export" type="object" name="export_data_for_payroll" class="oe_highlight"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_export_payroll_data">
+            <field name="name">Payroll Export</field>
+            <field name="res_model">payroll.payroll</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Export Payroll Data
+                </p>
+            </field>
+            <field name="context">{'create':0,'delete': 0}</field>
+        </record>
+
+        <menuitem id="menu_payroll_main_id" name="Payroll" sequence="88" groups="hr.group_hr_manager,orient_hr_resignation.group_finance_employee"/>
+
+        <menuitem id="menu_payroll_id"
+            name="Payroll"
+            parent="menu_payroll_main_id"
+            groups="hr.group_hr_manager,orient_hr_resignation.group_finance_employee"
+            sequence="1"/>
+
+        <menuitem id="menu_export_payroll_data_id"
+            name="Export data for payroll"
+            action="action_export_payroll_data"
+            parent="menu_payroll_id"
+            groups="hr.group_hr_manager,orient_hr_resignation.group_finance_employee"
+            sequence="1"/>
+
+
+
+        <record id="month_month_form_view" model="ir.ui.view">
+            <field name="name">month.month.form.view</field>
+            <field name="model">month.month</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Month">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="month_month_tree_view" model="ir.ui.view">
+            <field name="name">month.month.tree.view</field>
+            <field name="model">month.month</field>
+            <field name="arch" type="xml">
+                <tree string="Months">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="action_month_month">
+            <field name="name">Month</field>
+            <field name="res_model">month.month</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Month</p>
+            </field>
+            <field name="context">{'delete': 0}</field>
+        </record>
+
+
+<!--         <menuitem id="menu_month_month_id"
+                  name="Month Master"
+                  parent="orient_pms.pms_configuration"
+                  action="action_month_month"
+                  sequence="3"
+                  /> -->
+
+
+        <record id="salary_import_tree" model="ir.ui.view">
+            <field name="name">import.salary</field>
+            <field name="model">import.salary</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <tree string="Salary Import">
+                    <field name="datas_fname"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="salary_import_form" model="ir.ui.view">
+            <field name="name">import.salary</field>
+            <field name="model">import.salary</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <form string="Salary Import">
+                    <header>
+                        <button string="Import" class="btn-primary" type="object" states='draft' name="import_salary" style="background-color:lightgreen;"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="datas" filename="datas_fname" attrs="{'invisible':[('state','in',('done','failed'))]}"/>
+                                <field name="file_url" invisible="1"/>
+                                <field name="datas_fname" attrs="{'invisible':[('state','=','draft')]}"/>
+                                <field name="db_datas" invisible="1"/>
+                                <field name="check_exists" invisible="1"/>
+                            </group>
+                                <field name="pay_slip_lines" attrs="{'invisible':[('check_exists','=',False)]}" readonly="1">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="employee_id"/>
+                                        <field name="emp_code"/>
+                                        <field name="join_date"/>
+                                        <field name="pf_no"/>
+                                        <field name="uan"/>
+                                        <field name="esic_no"/>
+                                        <field name="present_days"/>
+                                        <field name="paid_days"/>
+                                        <field name="bank_account_no"/>
+                                        <field name="pl"/>
+                                        <field name="basic_da"/>
+                                        <field name="basic_arrear"/>
+                                        <field name="hra"/>
+                                        <field name="hra_arrear"/>
+                                        <field name="conveyance"/>
+                                        <field name="prof_development"/>
+                                        <field name="other_allowance"/>
+                                        <field name="attire_allowance"/>
+                                        <field name="medical_allowance"/>
+                                        <field name="educational_allowance"/>
+                                        <field name="transport_allowance"/>
+                                        <field name="mobile_allowance"/>
+                                        <field name="contribution_towards_nps_us_80ccd"/>
+                                        <field name="news_paper_journal_allowance"/>
+                                        <field name="paid_leave_encashment"/>
+                                        <field name="gadget_for_professional_use"/>
+                                        <field name="statutory_bonus"/>
+                                        <field name="pf"/>
+                                        <field name="pf_arrear"/>
+                                        <field name="esic"/>
+                                        <field name="esic_arrear"/>
+                                        <field name="tds"/>
+                                        <field name="pt"/>
+                                        <field name="loan"/>
+                                        <field name="salary_advance"/>
+                                        <field name="loan"/>
+                                        <field name="mobile_deduction"/>
+                                        <field name="other_deductions"/>
+                                        <field name="net_pay"/>
+                                        <field name="total_earnings"/>
+                                    </tree>
+                                </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_view_salary_import">
+            <field name="name">Salary Import</field>
+            <field name="res_model">import.salary</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Salary Import Form
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_salary_id"
+            name="Salary"
+            parent="menu_payroll_main_id"
+            groups="orient_hr_resignation.group_finance_employee"
+            sequence="2"/>
+
+        <menuitem id="menu_import_salary_data"
+            name="Import Salary"
+            action="action_view_salary_import"
+            parent="menu_salary_id"
+            groups="orient_hr_resignation.group_finance_employee"
+            sequence="2"/>
+
+
+        <record id="conveyance_data_export_form" model="ir.ui.view">
+            <field name="name">Conveyance Data Export</field>
+            <field name="model">conveyance.export</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Data Export">
+                    <sheet>
+                        <group>
+                            <field name="financial_year" invisible="1"/>
+                            <!-- <group>
+                                <field name="site_ids" widget="many2many_tags" required="0" string="Select Site*"
+                                       options="{'color_field': 'color', 'no_create_edit': True}"/>
+                                <field name="month" string="Select month*" required="1" 
+                                       attrs="{'readonly':[('state','=','done')]}"/>
+                            </group> -->
+                            <br/>
+                            <br/>
+                            <group>
+                                <button string="Export Conveyance Report" type="object" name="generate_xls_conveyance" class="oe_highlight"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_view_conveyance_export">
+            <field name="name">Conveyance Export</field>
+            <field name="res_model">conveyance.export</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Export Conveyance Data
+                </p>
+            </field>
+            <field name="context">{'create':0,'delete': 0}</field>
+        </record>
+
+        <menuitem id="menu_conveyance_id"
+            name="Conveyance Report"
+            parent="menu_payroll_main_id"
+            groups="orient_hr_resignation.group_finance_employee"
+            sequence="3"/>
+
+        <menuitem id="menu_export_conveyance_data"
+            name="Conveyance Report Export"
+            action="action_view_conveyance_export"
+            parent="menu_conveyance_id"
+            groups="orient_hr_resignation.group_finance_employee"
+            sequence="1"/>
+
+
+    </data>
+</odoo>

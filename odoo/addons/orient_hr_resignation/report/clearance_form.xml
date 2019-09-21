@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report 
+            id="action_report_clearance"
+            string="Clearance Form"
+            model="department.clearance" 
+            report_type="qweb-pdf"
+            file="orient_hr_resignation.report_clearance" 
+            name="orient_hr_resignation.report_clearance"
+            print_report_name="('Clearance Form')"
+        />
+
+    </data>
+</odoo>

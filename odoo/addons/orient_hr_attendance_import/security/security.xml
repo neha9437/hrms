@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- <record id="hr_attendance_rule_attendance_admin" model="ir.rule">
+            <field name="name">attendance admin: full access</field>
+            <field name="model_id" ref="orient_hr_attendance_import.model_hr_attendance"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4,ref('hr_attendance.group_hr_attendance_admin'))]"/>
+        </record> -->
+
+        <record id="hr_attendance_officer_rule" model="ir.rule">
+            <field name="name">attendance officer: reporting manager access</field>
+            <field ref="orient_hr_attendance_import.model_hr_attendance" name="model_id"/>
+            <field name="domain_force">['|',('employee_id.user_id','=',user.id),('employee_id.parent_id.user_id','=',user.id)]</field>
+            <field name="groups" eval="[(4,ref('hr_attendance.group_hr_attendance'))]"/>
+        </record>
+
+    </data>
+</odoo>

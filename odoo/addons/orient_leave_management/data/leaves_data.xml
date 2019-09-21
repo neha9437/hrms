@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Privilege leave -->
+        <record id="holiday_status_prls1" model="hr.holidays.status">
+            <field name="name">Privilege Leaves</field>
+            <field name="code">PL</field>
+            <field name="allocable">True</field>
+            <field name="deductable">True</field>
+            <field name="encashable">True</field>
+            <field name="forwardable">True</field>
+            <field name="exclude_from_sites">False</field>
+            <field name="sandwich">True</field>
+            <field name="applicable_to">confirmed</field>
+            <field name="half_day">True</field>
+            <field name="color_name">black</field>
+            <field name="maximum_allocation">12.00</field>
+            <field name="maximum_limit">30</field>
+            <field name="by_data_file">True</field>
+            <field name="allocability">pro_rata</field>
+<!--             <field name="allocation_criteria">second_half</field> -->
+            <field name="number_of_leaves">[limit/12]   days per month</field>
+            <field name="active">True</field>
+        </record>
+
+        <!-- Casual leave -->
+        <record id="holiday_status_csls1" model="hr.holidays.status">
+            <field name="name">Casual Leaves</field>
+            <field name="code">CL</field>
+            <field name="allocable">True</field>
+            <field name="deductable">True</field>
+            <field name="encashable">False</field>
+            <field name="forwardable">False</field>
+            <field name="exclude_from_sites">False</field>
+            <field name="applicable_to">confirmed</field>
+            <field name="half_day">True</field>
+            <field name="color_name">black</field>
+            <field name="sandwich">True</field>
+            <field name="maximum_allocation">0.00</field>
+            <field name="by_data_file">True</field>
+            <field name="allocability"></field>
+<!--             <field name="allocation_criteria"></field> -->
+            <field name="number_of_leaves"></field>
+            <field name="active">False</field>
+        </record>
+
+        <!-- Sick leave -->
+        <record id="holiday_status_sicls1" model="hr.holidays.status">
+            <field name="name">Sick/Casual Leaves</field>
+            <field name="code">SL/CL</field>
+            <field name="allocable">True</field>
+            <field name="deductable">True</field>
+            <field name="encashable">False</field>
+            <field name="forwardable">False</field>
+            <field name="exclude_from_sites">False</field>
+            <field name="applicable_to">confirmed</field>
+            <field name="half_day">True</field>
+            <field name="color_name">black</field>
+            <field name="sandwich">True</field>
+            <field name="maximum_allocation">12.00</field>
+            <field name="by_data_file">True</field>
+            <field name="allocability">pro_rata</field>
+            <!-- <field name="allocation_criteria">first_half</field> -->
+            <field name="number_of_leaves">[limit/12]   days per month</field>
+            <field name="active">True</field>
+        </record>
+
+        <!-- Outdoor leave -->
+        <record id="holiday_status_outdls1" model="hr.holidays.status">
+            <field name="name">On Duty</field>
+            <field name="code">OD</field>
+            <field name="allocable">False</field>
+            <field name="deductable">False</field>
+            <field name="encashable">False</field>
+            <field name="forwardable">False</field>
+            <field name="exclude_from_sites">False</field>
+            <field name="applicable_to">all</field>
+            <field name="half_day">False</field>
+            <field name="color_name">black</field>
+            <field name="sandwich">False</field>
+            <field name="maximum_allocation">0.00</field>
+            <field name="by_data_file">True</field>
+            <field name="allocability"></field>
+            <!-- <field name="allocation_criteria"></field> -->
+            <field name="number_of_leaves"></field>
+            <field name="allocability"></field>
+            <field name="number_of_leaves"></field>
+            <field name="active">True</field>
+        </record>
+
+        <!-- Short Outdoor leave -->
+        <record id="holiday_status_shoutls1" model="hr.holidays.status">
+            <field name="name">Short On Duty</field>
+            <field name="code">SOD</field>
+            <field name="allocable">False</field>
+            <field name="deductable">False</field>
+            <field name="encashable">False</field>
+            <field name="forwardable">False</field>
+            <field name="exclude_from_sites">False</field>
+            <field name="applicable_to">all</field>
+            <field name="half_day">False</field>
+            <field name="color_name">black</field>
+            <field name="sandwich">False</field>
+            <field name="maximum_allocation">0.00</field>
+            <field name="by_data_file">True</field>
+            <field name="allocability"></field>
+            <!-- <field name="allocation_criteria"></field> -->
+            <field name="number_of_leaves"></field>
+            <field name="active">False</field>
+        </record>
+
+        <!-- Compensatory Days -->
+        <record id="holiday_status_compofs1" model="hr.holidays.status">
+            <field name="name">Compensatory Leaves</field>
+            <field name="code">CO</field>
+            <field name="allocable">True</field>
+            <field name="deductable">True</field>
+            <field name="encashable">False</field>
+            <field name="forwardable">False</field>
+            <field name="exclude_from_sites">False</field>
+            <field name="applicable_to">all</field>
+            <field name="half_day">False</field>
+            <field name="color_name">black</field>
+            <field name="sandwich">True</field>
+            <field name="maximum_allocation">0.00</field>
+            <field name="by_data_file">True</field>
+            <field name="allocability"></field>
+            <!-- <field name="allocation_criteria"></field> -->
+            <field name="number_of_leaves"></field>
+            <field name="active">True</field>
+        </record>
+
+        <!-- Paternity Leave -->
+        <record id="holiday_status_patrls1" model="hr.holidays.status">
+            <field name="name">Paternity Leaves</field>
+            <field name="code">PA</field>
+            <field name="allocable">False</field>
+            <field name="deductable">True</field>
+            <field name="encashable">False</field>
+            <field name="forwardable">False</field>
+            <field name="exclude_from_sites">True</field>
+            <field name="applicable_to">confirmed</field>
+            <field name="half_day">False</field>
+            <field name="color_name">black</field>
+            <field name="sandwich">False</field>
+            <field name="maximum_allocation">5.00</field>
+            <field name="by_data_file">True</field>
+            <field name="allocability"></field>
+            <!-- <field name="allocation_criteria"></field> -->
+            <field name="number_of_leaves"></field>
+            <field name="active">True</field>
+        </record>
+
+        <!-- Maternity Leave -->
+        <record id="holiday_status_matrls1" model="hr.holidays.status">
+            <field name="name">Maternity Leaves</field>
+            <field name="code">ML</field>
+            <field name="allocable">False</field>
+            <field name="deductable">True</field>
+            <field name="encashable">False</field>
+            <field name="forwardable">False</field>
+            <field name="exclude_from_sites">False</field>
+            <field name="applicable_to">confirmed</field>
+            <field name="half_day">False</field>
+            <field name="color_name">black</field>
+            <field name="sandwich">False</field>
+            <field name="maximum_allocation">182.00</field>
+            <field name="by_data_file">True</field>
+            <field name="allocability"></field>
+            <!-- <field name="allocation_criteria"></field> -->
+            <field name="number_of_leaves"></field>
+            <field name="active">True</field>
+        </record>
+
+        <!-- Marriage Leave -->
+        <record id="holiday_status_marrls1" model="hr.holidays.status">
+            <field name="name">Marriage Leaves</field>
+            <field name="code">MA</field>
+            <field name="allocable">False</field>
+            <field name="deductable">True</field>
+            <field name="encashable">False</field>
+            <field name="forwardable">False</field>
+            <field name="exclude_from_sites">True</field>
+            <field name="applicable_to">confirmed</field>
+            <field name="half_day">False</field>
+            <field name="sandwich">False</field>
+            <field name="color_name">black</field>
+            <field name="maximum_allocation">7.00</field>
+            <field name="by_data_file">True</field>
+            <field name="allocability"></field>
+            <!-- <field name="allocation_criteria"></field> -->
+            <field name="number_of_leaves"></field>
+            <field name="active">True</field>
+        </record>
+
+        <!-- Leave Without Pay -->
+        <record id="holiday_status_lwpay1" model="hr.holidays.status">
+            <field name="name">Leave Without Pay</field>
+            <field name="code">LWP</field>
+            <field name="allocable">False</field>
+            <field name="deductable">True</field>
+            <field name="encashable">False</field>
+            <field name="forwardable">False</field>
+            <field name="exclude_from_sites">False</field>
+            <field name="applicable_to">all</field>
+            <field name="half_day">False</field>
+            <field name="color_name">black</field>
+            <field name="sandwich">True</field>
+            <field name="by_data_file">True</field>
+            <field name="allocability"></field>
+            <field name="maximum_allocation">0.00</field>
+            <!-- <field name="allocation_criteria"></field> -->
+            <field name="number_of_leaves"></field>
+            <field name="active">True</field>
+        </record>
+
+        <!-- Work From Home leave -->
+        <record id="holiday_status_wfm" model="hr.holidays.status">
+            <field name="name">Work from home</field>
+            <field name="code">WFM</field>
+            <field name="allocable">False</field>
+            <field name="deductable">False</field>
+            <field name="encashable">False</field>
+            <field name="forwardable">False</field>
+            <field name="exclude_from_sites">False</field>
+            <field name="sandwich">False</field>
+            <field name="applicable_to">confirmed</field>
+            <field name="half_day">False</field>
+            <field name="color_name">black</field>
+            <field name="by_data_file">True</field>
+            <field name="allocability"></field>
+            <field name="maximum_allocation">0.00</field>
+            <!-- <field name="allocation_criteria"></field> -->
+            <field name="number_of_leaves"></field>
+            <field name="active">True</field>
+        </record>
+
+	</data>
+</odoo>

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <data>
+        <record id="view_emp_sal_struct_form" model="ir.ui.view">
+            <field name="name">employee.salary.structure.form</field>
+            <field name="model">employee.salary.structure</field>
+            <field name="arch" type="xml">
+                <form string="PMS Freeze Date">
+                    <sheet><group>
+                        <group string="EMPLOYEE DETAILS" colspan="4" col="2">
+                        <group>
+                            <field name="name"/>
+                            <field name="employee_code" style="width:40%%"/>
+                            <!-- <field name="year" style="width:40%%"/> -->
+                            <field name="year_str" style="width:40%%" string="Increment for FY"/>
+                            <!-- <field name="employee" style="width:40%%"/> -->
+                            <field name="tl_name" style="width:40%%"/>
+                            <!-- <field name="tl_id" style="width:40%%"/> -->
+                            <!-- <field name="department" style="width:40%%"/> -->
+                            <field name="department_name" style="width:40%%"/>
+                            <!-- <field name="designation" style="width:40%%"/> -->
+                        </group>
+                        <group>
+                            <field name="current_grade" style="width:40%%"/>
+                            <field name="proposed_grade" style="width:40%%"/>
+                            <field name="designation_name" style="width:40%%"/>
+                            <!-- <field name="proposed_designation" style="width:40%%"/> -->
+                            <field name="proposed_designation_name" style="width:40%%"/>
+                            <field name="site_id" style="width:40%%"/>                     
+                        </group>
+                        </group>
+                        <group string="OLD SALARY CTC AND PROPOSED INCREMENT" colspan="4" col="2">
+                        <group>
+                            <field name="old_ctc" style="width:40%%"/>
+                            <field name="proposed_increment" style="width:40%%"/>        
+                        </group>
+                        <group>
+                            <field name="old_gross_salary" style="width:40%%"/>
+                            <field name="increment_by_team_leader" style="width:40%%"/>
+                        </group>
+                        </group>
+                        <br/>
+                        <group string="REVISED SALARY STRUCTURE"  colspan="4" col="2">
+                        <group>
+                            <field name="new_gross_salary" style="width:40%%"/>
+                            <field name="new_monthly_ctc" style="width:40%%"/>
+                            <field name="current_basic" style="width:40%%"/>
+                            <field name="basic_da" style="width:40%%"/>
+                            <field name="hra" style="width:40%%"/>
+                            <field name="transport_allowance_residence_office" style="width:40%%"/>
+                            <field name="prof_development" style="width:40%%"/>                    
+                            <field name="other_allowance" style="width:40%%"/>
+                            <field name="medical_reimbursement" style="width:40%%"/>
+                            <field name="educational_allowance" style="width:40%%"/>
+                            <field name="advance_bonus_payout" style="width:40%%"/>
+                            <field name="contribution_towards_nps_us_80ccd" style="width:40%%"/>
+                            <field name="news_paper_journal_allowance" style="width:40%%"/>
+                            <field name="gadget_for_professional_use" style="width:40%%"/>
+                        </group>
+                        <group>
+                            
+                            <field name="gross_salary" style="width:40%%"/>
+                            <field name="pf" style="width:40%%"/>
+                            <field name="esic" style="width:40%%"/>
+                            <field name="conveyance" style="width:40%%"/>
+                            <field name="mobile" style="width:40%%"/>
+                            <field name="udio" style="width:40%%"/>
+                            <field name="pli_qbi" style="width:40%%"/>
+                            <field name="qbi" style="width:40%%"/>
+                            <field name="mediclaim" style="width:40%%"/>
+                            <field name="gratuity" style="width:40%%"/>
+                            <field name="monthly_ctc_t" style="width:40%%"/>
+                            <field name="pt" style="width:40%%"/>
+                            <field name="total_deductions" style="width:40%%"/>
+                            <field name="net_pay" style="width:40%%"/>
+                            <field name="salary_with_effect_from" style="width:40%%"/>
+                        </group>
+                        </group>
+                        <group>
+                          <button string="Generate Appraisal Letter" name="print_employee_report_new" type="object" style="width:50%%"/>
+                        </group>
+                    </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_emp_sal_struct_tree" model="ir.ui.view">
+            <field name="name">employee.salary.structure.tree</field>
+            <field name="model">employee.salary.structure</field>
+            <field name="arch" type="xml">
+                <tree string="PMS Freeze Date">
+                    <field name="name"/>
+                    <!-- <field name="year"/> -->
+                    <field name="employee_code"/>
+                    <!-- <field name="employee"/> -->
+                    <field name="tl_name"/>
+                    <!-- <field name="tl_id"/> -->
+                    <!-- <field name="department"/> -->
+                    <field name="department_name"/>
+                    <!-- <field name="current_grade"/> -->
+                    <field name="proposed_grade"/>
+                    <!-- <field name="designation" /> -->
+                    <!-- <field name="designation_name" /> -->
+                    <!-- <field name="proposed_designation" /> -->
+                    <field name="proposed_designation_name" />
+                    <field name="site_id" />
+                    <field name="old_ctc" />
+                    <field name="old_gross_salary" />
+                    <field name="proposed_increment" />
+                    <field name="increment_by_team_leader" />
+                    <field name="new_gross_salary" />
+                    <field name="new_monthly_ctc" />
+                    <!-- <field name="current_basic" />
+                    <field name="basic_da" />
+                    <field name="hra" /> -->
+                    <!-- <field name="transport_allowance_residence_office" /> -->
+                    <!-- <field name="prof_development" /> -->
+                    <!-- <field name="other_allowance" />
+                    <field name="medical_reimbursement" />
+                    <field name="educational_allowance" />
+                    <field name="advance_bonus_payout" />
+                    <field name="contribution_towards_nps_us_80ccd" />
+                    <field name="news_paper_journal_allowance" />
+                    <field name="gadget_for_professional_use" /> -->
+                    <field name="gross_salary" />
+                    <!-- <field name="pf" />
+                    <field name="esic" />
+                    <field name="conveyance" />
+                    <field name="mobile" />
+                    <field name="udio" />
+                    <field name="pli_qbi" />
+                    <field name="qbi" />
+                    <field name="mediclaim" />
+                    <field name="gratuity" /> -->
+                    <field name="monthly_ctc_t" />
+                    <!-- <field name="pt" />
+                    <field name="total_deductions" /> -->
+                    <field name="net_pay" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_emp_sal_struct_report" model="ir.actions.act_window">
+            <field name="name">Employee Salary Structure Import</field>
+            <field name="res_model">employee.salary.structure</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_emp_sal_struct_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Employee Salary Structure Import 
+              </p>
+            </field>
+        </record>
+
+         <menuitem id="emp_sal_struct_menu_id" name="Import Salary Structure" parent="report_menu_id" action="action_emp_sal_struct_report" sequence="90" groups="hr.group_hr_manager,hr.group_hr_user"/>
+
+    </data>
+</odoo>

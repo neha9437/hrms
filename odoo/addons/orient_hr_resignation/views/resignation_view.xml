@@ -1,0 +1,980 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="employee_resignation_tree" model="ir.ui.view">
+            <field name="name">hr.resignation.tree</field>
+            <field name="model">hr.resignation</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <tree string="Employee Resignation">
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="department_id" options="{'no_open': True}"/>
+                    <field name="joined_date"/>
+                    <field name="expected_relieving_date"/>
+                    <field name="approved_relieving_date"/>
+                    <field name="notice_period"/>
+                    <field name="hr_manager_id" options="{'no_open': True}"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="employee_resignation_form" model="ir.ui.view">
+            <field name="name">hr.resignation.form</field>
+            <field name="model">hr.resignation</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <form string="Employee Resignation">
+                    <header>
+                        <button string="Submit" type="object" name="confirm_resignation" states='draft' class="btn-primary"/>
+                        <!-- <button string="Cancel" type="object" name="cancel_resignation" states='draft'/> -->
+                        <button string="Accept" type="object" groups="orient_hr_resignation.group_reporting_manager" name="approve" attrs="{'invisible': ['|',('button_check','=',True),('state','!=','confirm')]}" class="btn-primary"/>
+                        <button string="Accept" type="object" groups="hr.group_hr_manager,hr.group_hr_user" name="approve_resignation" attrs="{'invisible': ['|',('button_check','=',True),('state','!=','approved')]}" class="btn-primary"/>
+                        <button string="Reject" type="object" groups="orient_hr_resignation.group_reporting_manager" name="reject_resignation" attrs="{'invisible': ['|',('button_check','=',True),('state','!=','confirm')]}" />
+                        <button string="Reject" type="object" groups="hr.group_hr_manager,hr.group_hr_user" name="reject_resignation" attrs="{'invisible': ['|',('button_check','=',True),('state','!=','approved')]}"/>
+                        <button string="Resignation Revoked" type="object" groups="hr.group_hr_manager,hr.group_hr_user" name="revoked_approval" attrs="{'invisible':['|',('button_check','=',True),('state','in',('draft','confirm','cancel','rejected','resignation_revoked'))]}"/>
+                        <button string="Reset to HR approval" type="object" groups="hr.group_hr_manager,hr.group_hr_user" name="reset_to_hr_approval" 
+                            attrs="{'invisible': ['|',('button_check','=',True),('state','!=','resignation_accepted')]}"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm" statusbar_colors='{"draft":"blue","rejected":"red","resignation_accepted":"green"}' style="color:Red;"/>
+                    </header>
+                    <sheet>
+                         <field name="button_check" invisible="1" />
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="employee_id" attrs="{'readonly':['|',('state','!=','draft'),('allow_exit_process','=',True)]}" options="{'no_open': True}"/>
+                                <field name="department_id" attrs="{'readonly':['|',('state','!=','draft'),('allow_exit_process','=',True)]}" options="{'no_open': True}"/>
+                                <field name="reporting_manager_id" attrs="{'readonly':['|',('state','!=','draft'),('allow_exit_process','=',True)]}" options="{'no_open': True}"/>
+                                <field name="hr_manager_id" attrs="{'readonly':['|',('state','!=','draft'),('allow_exit_process','=',True)]}" options="{'no_open': True}"/>
+				 <field name="grade" attrs="{'readonly':['|',('state','!=','draft'),('allow_exit_process','=',True)]}" options="{'no_open': True}"/>
+                                <field name="joined_date" attrs="{'readonly':['|',('state','!=','draft'),('allow_exit_process','=',True)]}"/>
+                                <field name="resign_confirm_date" class="oe_read_only" attrs="{'invisible':[('resign_confirm_date','=','')]}" invisible="1"/>
+                                <field name="reason_resignation" required="1" attrs="{'readonly':[('state','!=','draft')]}" options="{'no_open': True}" widget="selection"/>
+                                <field name="reason_process" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="expected_relieving_date" attrs="{'readonly':['|',('state','!=','draft'),('allow_exit_process','=',True)]}"/>
+                                <field name="approved_relieving_date" attrs="{'readonly':[('state','!=','approved')]}"/>
+                                <field name="notice_period"/> 
+                                <field name="resignation_type" attrs="{'readonly':[('state','not in',('draft','approved'))]}" groups="hr.group_hr_manager,hr.group_hr_user,orient_hr_resignation.group_reporting_manager" widget="selection"/> <!--'invisible':[('state','=','draft')]-->
+                                <field name="allow_exit_process" invisible="1"/>
+                            </group>
+                        </group>
+                        <field name="reason" placeholder="Reason for Resignation" 
+                               attrs="{'invisible':[('reason_process','=',False)],
+                                       'readonly':[('state','!=','draft')],
+                                       'required':[('reason_process','=',True)]}"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="view_employee_resignation">
+            <field name="name">Employee Resignation</field>
+            <field name="res_model">hr.resignation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state', 'in', ('confirm','resignation_revoked','rejected'))]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Employee Resignation Form
+                </p>
+            </field>
+        </record>
+
+        <!-- added boolean field for the HR Manager in job position-->
+        <record id="hr_manager_job_survey" model="ir.ui.view">
+        <field name="name">hr.job.manager.form</field>
+        <field name="model">hr.job</field>
+        <field name="inherit_id" ref="hr.view_hr_job_form"/>
+        <field name="arch" type="xml">
+             <xpath expr="//field[@name='no_of_recruitment']" position="after">
+                    <field name="hr_manager_bool"/>
+            </xpath>
+         </field>
+        </record>
+
+        <!-- Added Employee Exit Template form view-->
+        <record id="employee_template_tree" model="ir.ui.view">
+            <field name="name">hr.employee.template.tree</field>
+            <field name="model">hr.employee.template</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <tree string="Employee Exit Template">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="employee_template_form" model="ir.ui.view">
+            <field name="name">hr.employee.template.form</field>
+            <field name="model">hr.employee.template</field>
+            <field name="arch" type="xml">
+                <form string="Employee Exit Template">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Template Name..."/>
+                            </h1>
+                        </div>
+                         <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object" groups="hr.group_hr_user"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                    options='{"terminology": "active"}'/>
+                            </button>
+                        </div>
+                        <notebook>
+                            <page string="Questions">
+                                <field name="template_line" mode="tree" nolabel="1">
+                                        <form>
+                                            <group>
+                                                <field name="name"/>
+                                                <field name="template_id" invisible="1"/>
+                                            </group>
+                                        </form>
+                                        <tree editable="bottom">
+                                            <field name="name"/>
+                                            <field name="template_id" invisible="1"/>
+                                        </tree>
+                                    </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="view_employee_template">
+            <field name="name">Employee Exit Template</field>
+            <field name="res_model">hr.employee.template</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Employee Exit Template Form
+                </p>
+            </field>
+        </record>
+
+
+        <!-- Employee Exit Form with Questions displayed-->
+        <record id="employee_exit_tree" model="ir.ui.view">
+            <field name="name">hr.employee.exit.tree</field>
+            <field name="model">hr.employee.exit</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <tree string="Employee Exit Form" create="false" delete="false">
+                    <field name="name"/>
+                    <field name="last_working_date" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="employee_exit_form" model="ir.ui.view">
+            <field name="name">hr.employee.exit.form</field>
+            <field name="model">hr.employee.exit</field>
+            <field name="arch" type="xml">
+                <form string="Employee Exit Form" create="false" delete="false">
+                    <header>
+                        <button string="Submit" type="object" name="submit" class="btn-primary" attrs="{'invisible':['|',('is_expired','=',True),('state','!=','draft')]}"/>
+                        <button string="Cancel" type="object" name="cancel" attrs="{'invisible':['|',('is_expired','=',True),('state','!=','draft')]}"/>
+                        <!-- <button string="Scheduler" type="object" name="exit_mail_reminder" class="oe_highlight"/> -->
+                        <button string="Print" type="object" name="print_relieving" class="btn-primary" attrs="{'invisible':[('state','=','draft')]}"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm" statusbar_colors='{"draft":"blue","cancel":"red","confirm":"green"}' />
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Template Name..." attrs="{'readonly':['|',('is_expired','=',True),('state','=','confirm')]}"/>
+                            </h1>
+                        </div>
+                        <field name="hr_employee_id" invisible="1"/>
+                        <field name="submit_hr_employee" invisible="1"/>
+                        <field name="last_working_date" invisible="1"/>
+                        <field name="is_expired" invisible="1"/>
+                        <field name="hr_manager_id" invisible="1"/>
+                        <field name="resignation_id" invisible="1"/>
+                        <field name="exit_interview_date" invisible="1"/>
+                        <group>
+                            <field name="assigned_to" attrs="{'readonly':['|',('is_expired','=',True),('state','=','confirm')]}" style="width:30%%"/>
+                        </group>
+                        <notebook>
+                            <page string="Questions">
+                                <field name="exit_line" mode="tree" nolabel="1" attrs="{'readonly':['|',('is_expired','=',True),('state','=','confirm')]}">
+                                        <form>
+                                            <group>
+                                                <field name="name" readonly="1"/>
+                                                <field name="comments"/>
+                                                <!-- <field name="bad_bool"/>
+                                                <field name="very_bad_bool"/>
+                                                <field name="satisfactory_bool"/>
+                                                <field name="good_bool"/>
+                                                <field name="very_good_bool"/> -->
+                                                <field name="exit_id" invisible="1"/>
+                                            </group>
+                                        </form>
+                                        <tree editable="bottom" create="false">
+                                            <field name="name" readonly="1"/>
+                                            <field name="comments"/>
+                                            <!-- <field name="bad_bool"/>
+                                            <field name="very_bad_bool"/>
+                                            <field name="satisfactory_bool"/>
+                                            <field name="good_bool"/>
+                                            <field name="very_good_bool"/> -->
+                                            <field name="exit_id" invisible="1"/>
+                                        </tree>
+                                    </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_hr_employee_exit_calendar" model="ir.ui.view">
+            <field name="name">hr.employee.exit.calendar</field>
+            <field name="model">hr.employee.exit</field>
+            <field name="arch" type="xml">
+                <calendar string="Employee Exit Process" date_start="exit_interview_date" mode="month">
+                    <field name="name"/>
+                </calendar>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="view_employee_exit_form">
+            <field name="name">Employee Exit Form</field>
+            <field name="res_model">hr.employee.exit</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,calendar,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Employee Exit Form
+                </p>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="hr_employee_inherit_form_view">
+            <field name="name">hr.employee.form.view</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="orient_hr_employee_updation.hr_employee_inherit_form_view"/>
+            <field name="arch" type="xml">
+<!--                 <field name="category_ids" position="before">
+                    <group>
+                        <field name="position_type" style="width:30%%" string="Employee Status" required="0" invisible="0"/>
+                    </group>
+                </field> -->
+                <field name="coach_id" position="replace">
+                    <!-- <field name="grade_id" options="{'no_open': True}"/> -->
+                    <field name="group_id" invisible="1"/>
+		    <field name="shift_id"/>
+                </field>
+                <!-- <xpath expr="//page[@name='hr_settings']" position="after">
+                    <group string="Exit Process">
+                        <field name="hr_employee_exit_form" nolabel="1">
+                            <tree create="false" delete="0">
+                                <field name="name"/>
+                            </tree>
+                        </field>
+                    </group>
+                </xpath> -->
+            </field>
+        </record>
+
+
+        <!-- Employee Resignation Type-->
+       <record id="view_employee_type_form" model="ir.ui.view">
+            <field name="name">hr.employee.resignation.type.form</field>
+            <field name="model">hr.employee.resignation.type</field>
+            <field name="arch" type="xml">
+                <form string="Resignation Type">
+                    <sheet>
+                         <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object" groups="hr.group_hr_user"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                    options='{"terminology": "active"}'/>
+                            </button>
+                        </div>
+                    <group>
+                        <field name="name"/>
+                        <field name="allow_exit_process"/>
+                    </group>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_employee_type_list" model="ir.ui.view">
+            <field name="name">hr.employee.resignation.type.list</field>
+            <field name="model">hr.employee.resignation.type</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Resignation Type">
+                    <field name="name"/>
+                    <field name="allow_exit_process"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hr_employee_resignation_type_view" model="ir.actions.act_window">
+            <field name="name">Resignation Type</field>
+            <field name="res_model">hr.employee.resignation.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+
+        <!-- Employee Grade Section-->
+       <record id="view_employee_grade_form" model="ir.ui.view">
+            <field name="name">hr.employee.grade.form</field>
+            <field name="model">hr.employee.grade</field>
+            <field name="arch" type="xml">
+                <form string="Grade Master">
+                    <sheet>
+                         <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object" groups="hr.group_hr_user"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                    options='{"terminology": "active"}'/>
+                            </button>
+                        </div>
+                    <group>
+                        <field name="name"/>
+                        <field name="notice_period"/>
+                        <field name="notice_period_after_confirmation"/>
+                    </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_employee_grade_list" model="ir.ui.view">
+            <field name="name">hr.employee.grade.list</field>
+            <field name="model">hr.employee.grade</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Grade Master">
+                    <field name="name"/>
+                    <field name="notice_period"/>
+                    <field name="notice_period_after_confirmation"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hr_employee_grade_type_view" model="ir.actions.act_window">
+            <field name="name">Grade Master</field>
+            <field name="res_model">hr.employee.grade</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!-- Employee Resignation Reason-->
+       <record id="view_resignation_reason_form" model="ir.ui.view">
+            <field name="name">reason.resignation.form</field>
+            <field name="model">reason.resignation</field>
+            <field name="arch" type="xml">
+                <form string="Reason Resignation">
+                    <sheet>
+                         <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object" groups="hr.group_hr_user"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                    options='{"terminology": "active"}'/>
+                            </button>
+                        </div>
+                    <group>
+                        <field name="name"/>
+                        <field name="comments" string="Comments"/>
+                    </group>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_resignation_reason_list" model="ir.ui.view">
+            <field name="name">reason.resignation.list</field>
+            <field name="model">reason.resignation</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Reason Resgination">
+                    <field name="name"/>
+                    <field name="comments" string="Comments"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="reason_resignation_type_view" model="ir.actions.act_window">
+            <field name="name">Reason of Resignation</field>
+            <field name="res_model">reason.resignation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+
+        <!-- Employee FnF Form displayed-->
+        <record id="fnf_cal_tree" model="ir.ui.view">
+            <field name="name">fnf.form.tree</field>
+            <field name="model">fnf.form</field>
+            <field name="arch" type="xml">
+                <tree string="Full and Final Settlement Form" create="false" delete="false">
+                    <field name="name"/>
+                    <field name="joining_date"/>
+                    <field name="last_working_date"/>
+                    <field name="fnf_date"/>
+                    <field name="employee_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="fnf_cal_form" model="ir.ui.view">
+            <field name="name">fnf.form.form</field>
+            <field name="model">fnf.form</field>
+            <field name="arch" type="xml">
+                <form string="FnF Form" create="false" delete="false">
+                    <header>
+                        <button string="Submit" type="object" name="submit" class="btn-primary" attrs="{'invisible':['|',('is_expired','=',True),('state','!=','draft')]}" groups="hr.group_hr_manager,hr.group_hr_user"/>
+                        <button string="Cancel" type="object" name="cancel" attrs="{'invisible':['|',('is_expired','=',True),('state','!=','draft')]}" groups="hr.group_hr_manager,hr.group_hr_user"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Template Name..." attrs="{'readonly':[('is_expired','=',True)]}"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="is_expired" invisible="1"/>
+                            <field name="joining_date" readonly="1"/>
+                            <field name="last_working_date" readonly="1"/>
+                            <field name="fnf_date" readonly="1"/>
+                            <field name="employee_id" readonly="1"/>
+                        </group> 
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_hr_fnf_calendar" model="ir.ui.view">
+            <field name="name">fnf.form.calendar</field>
+            <field name="model">fnf.form</field>
+            <field name="arch" type="xml">
+                <calendar string="FnF Form" date_start="fnf_date" mode="month">
+                    <field name="name"/>
+                </calendar>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="view_fnf_form">
+            <field name="name">FnF Form</field>
+            <field name="res_model">fnf.form</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">FnF Form
+                </p>
+            </field>
+        </record>
+
+
+        <record id="view_company_form_department_inherit" model="ir.ui.view">
+            <field name="name">res.company.form.inherit</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/notebook/page" position="after">
+                        <page string="Department Information">
+                            <group>
+                            <field name="logo1" widget="image"/>
+                            <group>
+                                <field name="hr_group_email" widget="email"/>
+                                <field name="finance_email" widget="email"/>
+                                <field name="sdm_group_email" widget="email"/>
+                            </group>
+                            <group>
+                                <field name="rim_email" widget="email"/>
+                                <field name="all_employee_email" widget="email"/>
+                                <field name="admin_user_email" widget="email"/>
+                            </group>
+                        </group>
+                        </page>
+                        </xpath>
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <!-- <br/> -->
+                    <!-- <label for="parent_company"  string="Parent Company"/> -->
+                    <field name="parent_company"/>
+                </xpath>
+            </field>
+        </record>
+
+
+
+
+
+        <!-- Clearance Points Master-->
+       <record id="view_clearance_master_form" model="ir.ui.view">
+            <field name="name">clearance.master.form</field>
+            <field name="model">clearance.master</field>
+            <field name="arch" type="xml">
+                <form string="Clearance Master">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object" groups="hr.group_hr_user" class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button" options='{"terminology": "active"}'/>
+                            </button>
+                        </div>
+                    <group>
+                        <field name="name"/>
+                        <field name="rim_points"/>
+                        <field name="finance_points"/>
+                        <field name="hr_points"/>
+                    </group>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_clearance_master_list" model="ir.ui.view">
+            <field name="name">clearance.master.list</field>
+            <field name="model">clearance.master</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Clearance Master">
+                        <field name="name"/>
+                        <field name="rim_points"/>
+                        <field name="finance_points"/>
+                        <field name="hr_points"/>
+                        <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="clearance_master_view" model="ir.actions.act_window">
+            <field name="name">Clearance Master</field>
+            <field name="res_model">clearance.master</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+
+        <!-- Clearance Form for RIM, Finance and HR -->
+        <record id="department_clearance_tree" model="ir.ui.view">
+            <field name="name">department.clearance.tree</field>
+            <field name="model">department.clearance</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <tree string="Clearance Form" create="false" delete="false">
+                    <field name="employee_id" options="{'no_open': True}"/>
+                    <field name="employee_code" options="{'no_open': True}"/>
+                    <field name="department_id" options="{'no_open': True}"/>
+                    <field name="designation_id" options="{'no_open': True}"/>
+                    <field name="last_working_date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="department_clearance_form" model="ir.ui.view">
+            <field name="name">department.clearance.form</field>
+            <field name="model">department.clearance</field>
+            <field name="arch" type="xml">
+                <form string="Clearance Form" create="false" delete="false">
+                    <header>
+                        <button string="Submit" type="object" name="confirm_rim" class="btn-primary" groups="orient_hr_resignation.group_rim_employee" attrs="{'invisible':['|',('is_expired','=',True),('state','!=','draft')]}"/>
+                        <button string="Cancel" type="object" name="cancel" groups="orient_hr_resignation.group_rim_employee" attrs="{'invisible':['|',('is_expired','=',True),('state','!=','draft')]}"/>
+
+                        <button string="Submit" type="object" name="approve" groups="orient_hr_resignation.group_finance_employee" attrs="{'invisible':['|',('is_expired','=',True),('state','!=','finance_approval')]}" class="btn-primary"/>
+                        <button string="Cancel" type="object" name="cancel" groups="orient_hr_resignation.group_finance_employee" attrs="{'invisible':['|',('is_expired','=',True),('state','!=','finance_approval')]}"/>
+
+                        <button string="Submit" type="object" name="hr_approval" groups="hr.group_hr_manager,hr.group_hr_user" attrs="{'invisible':['|',('is_expired','=',True),('state','!=','hr_approval')]}" class="btn-primary"/>
+                        <button string="Cancel" type="object" name="cancel" groups="hr.group_hr_manager,hr.group_hr_user" attrs="{'invisible':['|',('is_expired','=',True),('state','!=','hr_approval')]}"/>
+
+                        <button string="Print" states='done' type="object" name="print_clearance" class="btn-primary"/>
+
+                        <field name="state" widget="statusbar" statusbar_visible="draft,finance_approval,hr_approval,done"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Clearance Name..." readonly="1"/>
+                            </h1>
+                        </div>
+                        <group colspan="8">
+                            <group>
+                                <field name="employee_id" readonly="1" options="{'no_open': True}"/>
+                                <field name="employee_code" readonly="1" options="{'no_open': True}"/>
+                                <field name="designation_id" readonly="1" options="{'no_open': True}"/>
+                                <field name="department_id" readonly="1" options="{'no_open': True}"/>
+                                <!-- attrs="{'readonly':['|',('is_expired','=',True),('state','!=','draft')]}" -->
+                            </group>
+                            <group>
+                                <field name="joining_date" readonly="1"/>
+                                <field name="resignation_date" readonly="1"/>
+                                <field name="last_working_date" readonly="1"/>
+                                <field name="resignation_id" invisible="1"/>
+                                <field name="is_expired" invisible="1"/>
+                            </group>
+                                <group colspan="8" attrs="{'readonly':['|',('is_expired','=',True),('state','!=','draft')]}" groups="orient_hr_resignation.group_rim_employee,hr.group_hr_manager,hr.group_hr_user">
+                                <notebook>
+
+                                <page string="RIM Approval" colspan="8" attrs="{'readonly':['|',('is_expired','=',True),('state','!=','draft')]}" groups="orient_hr_resignation.group_rim_employee,hr.group_hr_manager,hr.group_hr_user">
+                                <field name="rim_line" mode="tree" nolabel="1" attrs="{'readonly':['|',('is_expired','=',True),('state','!=','draft')]}" groups="orient_hr_resignation.group_rim_employee,hr.group_hr_manager,hr.group_hr_user" colspan="8">
+                                        <form>
+                                            <group>
+                                                <field name="rim_clearance_id" readonly="1"/>
+                                                <field name="state"/>
+                                                <field name="comments"/>
+                                                <field name="rim_date"/>
+                                                <field name="rim_user_id"/>
+                                                <field name="rim_id" invisible="1"/>
+                                            </group>
+                                        </form>
+                                        <tree editable="bottom" create="false">
+                                            <field name="rim_clearance_id" readonly="1"/>
+                                            <field name="state"/>
+                                            <field name="comments"/>
+                                            <field name="rim_date"/>
+                                            <field name="rim_user_id"/>
+                                            <field name="rim_id" invisible="1"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                            </notebook>
+                            </group>
+                            <group colspan="8" attrs="{'readonly':['|',('is_expired','=',True),('state','!=','finance_approval')]}" groups="orient_hr_resignation.group_finance_employee,hr.group_hr_manager,hr.group_hr_user">
+                            <notebook>
+                                <page string="Finance Approval" colspan="8" attrs="{'readonly':['|',('is_expired','=',True),('state','!=','finance_approval')]}" groups="orient_hr_resignation.group_finance_employee,hr.group_hr_manager,hr.group_hr_user">
+                                <field name="finance_line" mode="tree" nolabel="1" attrs="{'readonly':['|',('is_expired','=',True),('state','!=','finance_approval')]}" groups="orient_hr_resignation.group_finance_employee,hr.group_hr_manager,hr.group_hr_user" colspan="8">
+                                        <form>
+                                            <group>
+                                                <field name="finance_clearance_id" readonly="1"/>
+                                                <field name="state"/>
+                                                <field name="comments"/>
+                                                <field name="finance_date"/>
+                                                <field name="finance_user_id"/>
+                                                <field name="finance_id" invisible="1"/>
+                                            </group>
+                                        </form>
+                                        <tree editable="bottom" create="false">
+                                            <field name="finance_clearance_id" readonly="1"/>
+                                            <field name="state"/>
+                                            <field name="comments"/>
+                                            <field name="finance_date"/>
+                                            <field name="finance_user_id"/>
+                                            <field name="finance_id" invisible="1"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                            </notebook>
+                            </group>
+                            <group colspan="8" attrs="{'readonly':['|',('is_expired','=',True),('state','!=','hr_approval')]}" groups="hr.group_hr_manager,hr.group_hr_user">
+                            <notebook>
+                                <page string="HR Approval" attrs="{'readonly':['|',('is_expired','=',True),('state','!=','hr_approval')]}" groups="hr.group_hr_manager,hr.group_hr_user">
+                                <field name="hr_line" mode="tree" nolabel="1" attrs="{'readonly':['|',('is_expired','=',True),('state','!=','hr_approval')]}" groups="hr.group_hr_manager,hr.group_hr_user" colspan="8">
+                                        <form>
+                                            <group>
+                                                <field name="hr_clearance_id" readonly="1"/>
+                                                <field name="state"/>
+                                                <field name="comments"/>
+                                                <field name="hr_date"/>
+                                                <field name="hr_user_id"/>
+                                                <field name="hr_id" invisible="1"/>
+                                            </group>
+                                        </form>
+                                        <tree editable="bottom" create="false">
+                                            <field name="hr_clearance_id" readonly="1"/>
+                                            <field name="state"/>
+                                            <field name="comments"/>
+                                            <field name="hr_date"/>
+                                            <field name="hr_user_id"/>
+                                            <field name="hr_id" invisible="1"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                                </notebook>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_employee_clearance_calendar" model="ir.ui.view">
+            <field name="name">department.clearance</field>
+            <field name="model">department.clearance</field>
+            <field name="arch" type="xml">
+                <calendar string="Employee Clerance" date_start="last_working_date" mode="month">
+                    <field name="name"/>
+                </calendar>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="view_employee_clearance">
+            <field name="name">Employee Clearance</field>
+            <field name="res_model">department.clearance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain"></field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Employee Clearance Form
+                </p>
+            </field>
+        </record>
+
+
+        <!-- Holiday Master Section-->
+       <record id="view_holiday_master_form" model="ir.ui.view">
+            <field name="name">holiday.master.form</field>
+            <field name="model">holiday.master</field>
+            <field name="arch" type="xml">
+                <form string="Holidays">
+                    <group>
+                        <field name="name" required="1"/>
+                        <field name="holiday_date" required="1"/>
+                        <!-- <field name="notice_period_after_confirmation"/> -->
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_holiday_master_list" model="ir.ui.view">
+            <field name="name">holiday.master.list</field>
+            <field name="model">holiday.master</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Holiday Master">
+                    <field name="name" string="Holiday name"/>
+                    <field name="holiday_date"/>
+                    <!-- <field name="notice_period_after_confirmation"/> -->
+                </tree>
+            </field>
+        </record>
+
+        <record id="holiday_master_type_view" model="ir.actions.act_window">
+            <field name="name">Holiday Master</field>
+            <field name="res_model">holiday.master</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Employee Shift Timings-->
+       <record id="view_employee_shift_timing_form" model="ir.ui.view">
+            <field name="name">hr.employee.shift.timing.form</field>
+            <field name="model">hr.employee.shift.timing</field>
+            <field name="arch" type="xml">
+                <form string="Employee Shift Timing">
+                    <sheet>
+                            <div class="oe_title">
+                                <h1>
+                                    <field name="name" placeholder="Shift Name" style="width:30%%" readonly="1"/>
+                                </h1>
+                            </div>
+                            <group>
+                            <group>
+                                <field name="in_time" readonly="1"/>
+                                <field name="out_time" readonly="1"/>
+                            </group>
+                            <group> 
+                                <field name="in_time_select" nolabel="1" style="width:30%%" readonly="1"/>
+                                <newline/>
+                                <field name="out_time_select" nolabel="1" style="width:30%%" readonly="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_employee_shift_timing_list" model="ir.ui.view">
+            <field name="name">hr.employee.shift.timing.list</field>
+            <field name="model">hr.employee.shift.timing</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Employee Shift Timing">
+                    <field name="name"/>
+                    <field name="in_shift_time"/>
+                    <field name="out_shift_time"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hr_employee_shift_timing_view" model="ir.actions.act_window">
+            <field name="name">Shift Timing</field>
+            <field name="res_model">hr.employee.shift.timing</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!-- Shift Application -->
+        
+
+         <!-- Employee Wall Post Points-->
+        <record id="view_wall_post_form" model="ir.ui.view">
+            <field name="name">wall.post.points.form</field>
+            <field name="model">wall.post.points</field>
+            <field name="arch" type="xml">
+                <form string="Wall Post">
+                    <group>
+                        <field name="name" nolabel="1" widget="html"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_wall_post_list" model="ir.ui.view">
+            <field name="name">wall.post.points.list</field>
+            <field name="model">wall.post.points</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Wall Post">
+                    <field name="name" widget="html"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="wall_post_points_view" model="ir.actions.act_window">
+            <field name="name">Wall Post</field>
+            <field name="res_model">wall.post.points</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!-- Employee Wall Post-->
+        <record id="view_wall_post_section_form" model="ir.ui.view">
+            <field name="name">wall.post.form</field>
+            <field name="model">wall.post</field>
+            <field name="arch" type="xml">
+                <form string="Wall Post">
+                    <sheet>
+                    <group name="wallpost">
+                        <field name="name" readonly="1" nolabel="1" widget="html"/>
+                    </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="wall_post_section_view" model="ir.actions.act_window">
+            <field name="name">Wall Post</field>
+            <field name="res_model">wall.post</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="context">{'create':0,'delete': 0,'edit':0}</field>
+            <field name="target">inline</field>
+        </record>
+
+        <record id="view_exit_report_form" model="ir.ui.view">
+            <field name="name">exit.reports.form</field>
+            <field name="model">exit.reports</field>
+            <field name="arch" type="xml">
+                <form string="Exit Report">
+                    <sheet>
+                    <group colspan="8">
+                    <group>
+                        <field name="from_date"/>
+                        <field name="to_date"/>
+                    </group>
+                    <group>
+                        <field name="site_master_id"/>
+                        <field name="department_id"/>
+                        <field name="time_period"/>
+                    </group>
+                    </group>
+                    <button string="Export Report" type="object" name="generate_excelreport" class="btn-primary" colspan="2"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_exit_report_view" model="ir.actions.act_window">
+            <field name="name">Exit Report</field>
+            <field name="res_model">exit.reports</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="context">{'create':0,'delete': 0,'edit':0}</field>
+            <field name="target">inline</field>
+        </record>        
+
+        <menuitem id="menu_wall_post" name="Wall Post" sequence="74" action="wall_post_section_view"/>
+
+        <menuitem id="menu_view_wall_post_points" action="wall_post_points_view" parent="hr.menu_human_resources_configuration" groups="hr.group_hr_manager,hr.group_hr_user" sequence="40"/>
+
+        <menuitem id="menu_view_hr_employee_grade" action="hr_employee_grade_type_view" parent="hr.menu_human_resources_configuration" groups="hr.group_hr_manager" sequence="21"/>
+
+        <menuitem id="menu_view_hr_employee_shift_timing" action="hr_employee_shift_timing_view" parent="hr.menu_human_resources_configuration" groups="hr.group_hr_manager" sequence="25"/>
+
+        <menuitem id="hr_holiday_master_id" parent="hr.menu_human_resources_configuration" name="Holiday Master" action="holiday_master_type_view" sequence="18"/>
+
+        <menuitem id="exit_process" name="Exit Process" sequence="90"/>
+
+        <menuitem id="exit_configuration" parent="exit_process" name="Master" sequence="30"/>
+
+        <menuitem id="menu_view_reason_resignation" action="reason_resignation_type_view" parent="exit_configuration" groups="hr.group_hr_manager" sequence="1"/>
+
+        <menuitem id="menu_view_hr_employee_resignation_type" action="hr_employee_resignation_type_view" parent="exit_configuration" groups="hr.group_hr_manager" sequence="2"/>
+
+        <menuitem id="menu_view_clearance_master" action="clearance_master_view" parent="exit_configuration" groups="hr.group_hr_manager" sequence="3"/>
+
+        <menuitem id="employee_template_request" parent="exit_configuration" name="Employee Exit Template" action="view_employee_template" sequence="4" groups="hr.group_hr_manager"/>
+
+        <menuitem id="employee_resignation" parent="exit_process" name="Resignation"
+                  groups="base.group_user" sequence="21"/>
+
+
+<!--         <record id="view_users_form_simple_modif_change_password1" model="ir.ui.view">
+            <field name="name">res.users.preferences.form.change.password1</field>
+            <field name="model">res.users</field>
+            <field eval="18" name="priority"/>
+            <field name="arch" type="xml">
+                <form>
+                    <button name="action_change_pass_preference1" type="object" string="Change my password" class="oe_link"/>
+                    <footer>
+                        <button name="preference_save" type="object" string="Save" class="btn-primary"/>
+                        <button name="preference_cancel" string="Cancel" special="cancel" class="btn-default"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_change_password1" model="ir.actions.act_window">
+            <field name="name">Change Password</field>
+            <field name="res_model">res.users</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_users_form_simple_modif_change_password1"/>
+        </record>
+
+        <menuitem id="change_password_preference_id1" parent="hr.menu_hr_root" name="Change my password"
+                  action="action_change_password1"
+                  sequence="4"/> -->
+
+
+        <menuitem id="employee_resignation_request" parent="employee_resignation" name="Resignation Request" action="view_employee_resignation" groups="base.group_user" sequence="4"/>
+
+        <menuitem id="employee_exit_request" parent="employee_resignation" name="Employee Exit Form" action="view_employee_exit_form" sequence="5"/>
+
+        <menuitem id="employee_fnf_cal" parent="employee_resignation" name="Fnf Form" action="view_fnf_form" sequence="7"/>
+
+        <menuitem id="employee_clerance_menu" parent="employee_resignation" name="Clearance Form" action="view_employee_clearance" sequence="8"  groups="orient_hr_resignation.group_rim_employee,orient_hr_resignation.group_finance_employee,hr.group_hr_manager,hr.group_hr_user"/>
+
+
+       <!--   <menuitem id="shift_application_menu" parent="employee_resignation" name="Shift Application Form" action="view_shift_application" sequence="9"/> -->
+
+        <menuitem id="employee_resignation_reports" parent="exit_process" name="Exit Reports"
+         sequence="29" groups="hr.group_hr_manager,hr.group_hr_user"/>
+
+        <menuitem id="menu_employee_resignation_reports" parent="employee_resignation_reports" name="Exit Report" action="action_exit_report_view" sequence="1"/>
+    </data>
+</odoo>
+
+

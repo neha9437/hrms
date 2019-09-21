@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<odoo noupdate="1">
+
+<record forcecreate="True" id="cron_import_data" model="ir.cron">
+        <field name="name">Import Attendance Data</field>
+        <field eval="True" name="active" />
+        <field name="user_id" ref="base.user_root" />
+        <field name="interval_number">10</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field name="model_id" ref="orient_hr_attendance_import.model_hr_attendance_import" />
+        <field name="state">code</field>
+        <field name="code">model.cron_import_data()</field>
+    </record>
+
+
+    <record forcecreate="True" id="cron_import_data_absent" model="ir.cron">
+        <field name="name">Absent Attendance Scheduler</field>
+        <field eval="True" name="active" />
+        <field name="user_id" ref="base.user_root" />
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="model_id" ref="orient_hr_attendance_import.model_hr_attendance" />
+        <field name="state">code</field>
+        <field name="code">model.cron_import_data_absent()</field>
+    </record>
+    
+
+    <record forcecreate="True" id="cron_yearly_scheduler" model="ir.cron">
+        <field name="name">Yearly Scheduler</field>
+        <field eval="True" name="active" />
+        <field name="user_id" ref="base.user_root" />
+        <field name="interval_number">12</field>
+        <field name="interval_type">months</field>
+        <field name="numbercall">-1</field>
+        <field name="model_id" ref="orient_hr_attendance_import.model_hr_attendance" />
+        <field name="state">code</field>
+        <field name="code">model.cron_yearly_scheduler()</field>
+    </record>
+
+
+    <record forcecreate="True" id="create_yearly_scheduler_new_employee" model="ir.cron">
+        <field name="name">Yearly Scheduler New Employee</field>
+        <field eval="True" name="active" />
+        <field name="user_id" ref="base.user_root" />
+        <field name="interval_number">12</field>
+        <field name="interval_type">months</field>
+        <field name="numbercall">-1</field>
+        <field name="model_id" ref="orient_hr_attendance_import.model_hr_attendance_utility" />
+        <field name="state">code</field>
+        <field name="code">model.create_yearly_scheduler()</field>
+    </record>
+
+    <record forcecreate="True" id="cron_check_absent" model="ir.cron">
+        <field name="name">Attendance Absent Data</field>
+        <field eval="True" name="active" />
+        <field name="user_id" ref="base.user_root" />
+        <field name="interval_number">60</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field name="model_id" ref="orient_hr_attendance_import.model_hr_attendance" />
+        <field name="state">code</field>
+        <field name="code">model.cron_check_absent()</field>
+    </record>
+
+
+</odoo>

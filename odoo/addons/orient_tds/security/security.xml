@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<odoo>
+	<data>
+
+<!-- 	    <record id="property_rule_trainingrequest_reportingmanager" model="ir.rule">
+	        <field name="name">Reporting Manager Training Request Rule</field>
+	        <field name="model_id" ref="model_training_request"/>
+	        <field name="domain_force">[('requested_by.user_id','=',user.id)]</field>
+	        <field name="perm_create" eval="True"/>
+	        <field name="perm_write" eval="True"/>
+	        <field name="perm_unlink" eval="True"/>
+	        <field name="groups" eval="[(4,ref('orient_hr_resignation.group_reporting_manager'))]"/>
+	    </record> -->
+
+    </data>
+</odoo>

@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<odoo>
+<data>
+
+    <!-- Templates for Leaves Management from employee process : Apply-->
+    <record id="email_template_for_leavesapproval" model="mail.template">
+        <field name="name">Leave Application</field>
+        <field name="subject">${object.code} Application of Employee: ${object.employee_id.name | safe}</field>
+        <field name="email_from">${object.employee_id.work_email | safe}</field>
+        <field name="email_to">${object.manager_id.work_email | safe}</field>
+        <!-- <field name="partner_to">${object.partner_id.id or ''}</field> -->
+        <field name="email_cc">${object.employee_id.hr_executive_id.work_email | safe}, ${object.leave_manager_id.work_email | safe}</field>
+        <field name="lang">${object.employee_id.user_id.partner_id.lang or ''}</field>
+        <field name="model_id" ref="orient_leave_management.model_hr_holidays"/>
+        <field name="user_signature" eval="False"/>
+        <field name="body_html"><![CDATA[
+        <p>Hi,</p>
+        <p>Employee  <strong> ${object.employee_id.name} </strong> has applied for ${object.code} from  ${object.date_from_new} to ${object.date_to_new} for the reason ${object.name}</p>
+        <p><a href="http://quikhr.orientindia.net/web#id=${object.id}&view_type=form&model=hr.holidays&action=275">Click here to take action</a></p>
+        ]]></field>
+    </record>
+
+    <!-- Templates for Leaves Management from employee process : Reset-->
+    <record id="email_template_for_leavesreset" model="mail.template">
+        <field name="name">Leave Cancelled</field>
+        <field name="subject">${object.code} Application of Employee: ${object.employee_id.name | safe}</field>
+        <field name="email_from">${object.employee_id.work_email | safe}</field>
+        <field name="email_to">${object.manager_id.work_email | safe}</field>
+        <!-- <field name="partner_to">${object.partner_id.id or ''}</field> -->
+        <field name="email_cc">${object.employee_id.hr_executive_id.work_email | safe}, ${object.hr_manager_id.work_email | safe}</field>
+        <field name="lang">${object.employee_id.user_id.partner_id.lang or ''}</field>
+        <field name="model_id" ref="orient_leave_management.model_hr_holidays"/>
+        <field name="user_signature" eval="False"/>
+        <field name="body_html"><![CDATA[
+        <p>Hi,</p>
+        <p>Employee Name  <strong> ${object.employee_id.name} </strong> has cancelled the ${object.code} application for date from ${object.date_from_new} to ${object.date_to_new} </p>
+        ]]></field>
+    </record>
+
+
+    <!-- Templates for Leaves Management from employee process : Approved-->
+    <record id="email_template_for_leavesapproved" model="mail.template">
+        <field name="name">Leave Approved</field>
+        <field name="subject">${object.code} Application Approval of Employee: ${object.employee_id.name | safe}</field>
+        <field name="email_from">${object.approved_by.work_email | safe}</field>
+        <field name="email_to">${object.employee_id.work_email | safe}</field>
+        <!-- <field name="partner_to">${object.partner_id.id or ''}</field> -->
+        <field name="email_cc">${object.employee_id.hr_executive_id.work_email | safe}, ${object.hr_manager_id.work_email | safe}</field>
+        <field name="lang">${object.employee_id.user_id.partner_id.lang or ''}</field>
+        <field name="model_id" ref="orient_leave_management.model_hr_holidays"/>
+        <field name="user_signature" eval="False"/>
+        <field name="body_html"><![CDATA[
+        <p>Hi,</p>
+        <p>${object.code} application dated from ${object.date_from_new} to ${object.date_to_new} has been approved by <strong> ${object.approved_by.name} </p>
+        ]]></field>
+    </record>
+
+    <!-- Templates for Leaves Management from employee process : Refused-->
+    <record id="email_template_for_leavesrefused" model="mail.template">
+        <field name="name">Leave Rejected</field>
+        <field name="subject">${object.code} Application Rejection of Employee: ${object.employee_id.name | safe}</field>
+        <field name="email_from">${object.refused_by.work_email | safe}</field>
+        <field name="email_to">${object.employee_id.work_email | safe}</field>
+        <!-- <field name="partner_to">${object.partner_id.id or ''}</field> -->
+        <field name="email_cc">${object.employee_id.hr_executive_id.work_email | safe}, ${object.hr_manager_id.work_email | safe}</field>
+        <field name="lang">${object.employee_id.user_id.partner_id.lang or ''}</field>
+        <field name="model_id" ref="orient_leave_management.model_hr_holidays"/>
+        <field name="user_signature" eval="False"/>
+        <field name="body_html"><![CDATA[
+        <p>Hi,</p>
+        <p>${object.code} application dated from ${object.date_from_new} to ${object.date_to_new} has been rejected by <strong> ${object.refused_by.name} for reason ${object.report_note}</p>
+        ]]></field>
+    </record>
+
+    <!-- Templates for Leaves Management from employee process : Sandwich-->
+    <record id="email_template_for_leavessandwich" model="mail.template">
+        <field name="name">Leave Application</field>
+        <field name="subject">${object.code} Application of Employee: ${object.employee_id.name | safe}</field>
+        <field name="email_from">${object.employee_id.work_email | safe}</field>
+        <field name="email_to">${object.manager_id.work_email | safe}</field>
+        <!-- <field name="partner_to">${object.partner_id.id or ''}</field> -->
+        <field name="email_cc">${object.employee_id.hr_executive_id.work_email | safe}, ${object.hr_manager_id.work_email | safe}</field>
+        <field name="lang">${object.employee_id.user_id.partner_id.lang or ''}</field>
+        <field name="model_id" ref="orient_leave_management.model_sandwich_leaves"/>
+        <field name="user_signature" eval="False"/>
+        <field name="body_html"><![CDATA[
+        <p>Hi,</p>
+        <p>Employee  <strong> ${object.employee_id.name} </strong> has applied for ${object.code} from  ${object.date_from_new} to ${object.date_to_new}</p>
+        <p><a href="http://quikhr.orientindia.net/web#id=${object.id}&view_type=form&model=hr.holidays&action=275">Click here to take action</a></p>
+        ]]></field>
+    </record>
+
+</data>
+</odoo>

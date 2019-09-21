@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_kra_kpi_wizard_form" model="ir.ui.view">
+            <field name="name">kra.kpi.wizard.form</field>
+            <field name="model">kra.kpi.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Create Quarterly Review Form">
+                    <group>
+                         
+                         <group colspan="8">
+                             <!-- <div class="oe_grey" colspan="4"> -->
+                                <group>
+                                    <field name="kra_year" readonly="1"  options="{'no_open': True}"/>
+                                    <field name="quarter" readonly="0"/>
+                                </group>
+                                <group>
+                                    <field name="month" string="Application Month" readonly="1"/>
+                                    <field name="duration" readonly="1" class="oe_inline" force_save="1"/>
+                                    <!-- <label colspan="2"/> -->
+                                </group>
+                            </group>
+                            <group colspan="8">
+                                    <field name="employee" colspan="6" invisible="1"/>
+                                    <field name="all_employee" colspan="8" invisible="1"/>
+                            </group>
+                             <!-- </div> -->
+                         
+                    </group>
+                    <footer>
+                        <button string='Create Quarterly Review Form' name="create_kra" type="object" class="btn-primary"/>
+                        <button string="Cancel" special="cancel" class="btn-primary"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_kra_kpi_wizard" model="ir.actions.act_window">
+            <field name="name">Create Quarterly Review Form</field>
+            <field name="res_model">kra.kpi.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+           <field name="view_id" ref="view_kra_kpi_wizard_form"/>
+           <field name="target">new</field>
+        </record>
+
+
+         <record id="view_annual_kra_wizard_form" model="ir.ui.view">
+            <field name="name">annual.kra.wizard.form</field>
+            <field name="model">annual.kra.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Create Quarterly Review">
+                    <group>
+                         
+                         <group colspan="8">
+                             <!-- <div class="oe_grey" colspan="4"> -->
+                                <group>
+                                    <field name="kra_year" readonly="0"/>
+                                    <!-- <field name="quarter" readonly="0"/> -->
+                                </group>
+                                <group>
+                                    <field name="employee" colspan="6" invisible="1"/>
+                                </group>
+                            </group>                         
+                    </group>
+                    <footer>
+                        <button string='Create Annual Review' name="create_annual_kra" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_annual_kra_wizard" model="ir.actions.act_window">
+            <field name="name">Create Annual KRA</field>
+            <field name="res_model">annual.kra.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+           <field name="view_id" ref="view_annual_kra_wizard_form"/>
+           <field name="target">new</field>
+        </record>
+
+
+        <menuitem id="kra_kpi_wizard_menu_id" name="Create Review Forms" parent="PMS" sequence="98" groups="base.group_user"/>
+        <menuitem id="menu_create_kra_wizard" name="Quarterly Review Form" parent="kra_kpi_wizard_menu_id" action="action_kra_kpi_wizard"/>
+        <!-- <menuitem id="menu_create_annual_kra_wizard" name="Annual Review" parent="kra_kpi_wizard_menu_id" action="action_annual_kra_wizard"/> -->
+
+    </data>
+</odoo>

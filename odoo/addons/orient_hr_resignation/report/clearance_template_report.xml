@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<template id="report_clearance_document">
+    <t t-call="orient_hr_resignation.external_layout_standard_list">
+        <t t-set="doc" t-value="doc.with_context({'lang':doc.employee_id.user_id.partner_id.lang})" /><br/>
+        <div class="page">
+            <head>
+                <style>
+                    table {
+                            font-family: arial, sans-serif;
+                            border-collapse: collapse;
+                            width: 100%;
+                        }
+
+                        td, th {
+                            border: 1px solid #dddddd;
+                            text-align: left;
+                            padding: 8px;
+                        }
+                        .make_center{
+                            text-align: center;
+                    }
+                    .underline {
+                            border-bottom: 2px solid currentColor;
+                            font-size: 25px;
+                    }
+                    .padding {
+                        padding-left: 2cm;
+                        padding-right: 2cm;
+                        font-size: 18px;
+                    }
+
+                </style>
+            </head>
+            <div class="oe_structure"/>
+            <div class="row">
+            <div>
+                <p class="make_center">
+                        <span class="underline"><b>Clearance Form</b></span><br/><br/>
+                    </p>
+                <table>
+                        <tr>
+                            <td>Employee Name</td>
+                            <td><var t-field="doc.employee_id.name"/></td>
+                            <td>Date of Joining</td>
+                            <td><var t-field="doc.joining_date"/></td>
+                        </tr>
+                        <tr>
+                            <td>Employee Code</td>
+                            <td><var t-field="doc.employee_id.emp_code"/></td>
+                            <td>Date of Resignation</td>
+                            <td><var t-field="doc.resignation_date"/></td>
+                        </tr>
+                        <tr>
+                            <td>Designation</td>
+                            <td><var t-field="doc.designation_id.name"/></td>
+                            <td>Last Working Day</td>
+                            <td><var t-field="doc.last_working_date"/></td>
+                        </tr>
+                        <tr>
+                            <td>Department :</td>
+                            <td><var t-field="doc.department_id.name"/></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                </table><br/>
+                <p><b>Note : Department in-charge are required to sign-off in the respective sections mentioned below. Clearance by HR Advising team and Reporting Manager of employee should be signed after all clearances.</b></p><br/>
+                <p><b>Department: RIM</b></p><br/>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th width="8%">Sr no</th>
+                            <th class="text-left" width="50%">Clearance</th>
+                            <th class="text-left">Status</th>
+                            <th class="text-left">Comment</th>
+                            <th class="text-left">Date</th>
+                            <th class="text-left">User</th>
+
+                        </tr>
+                   </thead>
+                   <tbody>
+                                <t t-set="i" t-value="1"/> 
+                                <tr t-foreach="doc.rim_line" t-as="line">
+                                    <td><span t-esc="i"/></td>
+                                    <td><span t-field="line.rim_clearance_id.name"/></td>
+                                    <td><span t-field="line.state"/></td>
+                                    <td><span t-field="line.comments"/></td>
+                                    <td><span t-field="line.rim_date"/></td>
+                                    <td><span t-field="line.rim_user_id"/></td>
+                                    <t t-set="i" t-value="i+1"/> 
+                                </tr>
+                            </tbody>
+                
+                </table>
+
+                <p><b>Department: Finance</b></p><br/>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th width="8%">Sr no</th>
+                            <th class="text-left" width="50%">Clearance</th>
+                            <th class="text-left">Status</th>
+                            <th class="text-left">Comment</th>
+                            <th class="text-left">Date</th>
+                            <th class="text-left">User</th>
+                        </tr>
+                   </thead>
+                   <tbody>
+                                <t t-set="i" t-value="1"/> 
+                                <tr t-foreach="doc.finance_line" t-as="line">
+                                    <td><span t-esc="i"/></td>
+                                    <td><span t-field="line.finance_clearance_id.name"/></td>
+                                    <td><span t-field="line.state"/></td>
+                                    <td><span t-field="line.comments"/></td>
+                                    <td><span t-field="line.finance_date"/></td>
+                                    <td><span t-field="line.finance_user_id"/></td>
+                                    <t t-set="i" t-value="i+1"/> 
+                                </tr>
+                            </tbody>
+                
+                </table>
+
+                <p><b>Department: HR/Admin</b></p><br/>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th width="8%">Sr no</th>
+                            <th class="text-left" width="50%">Clearance</th>
+                            <th class="text-left">Status</th>
+                            <th class="text-left">Comments</th>
+                            <th class="text-left">Date</th>
+                            <th class="text-left">User</th>
+                        </tr>
+                   </thead>
+                   <tbody>
+                                <t t-set="i" t-value="1"/> 
+                                <tr t-foreach="doc.hr_line" t-as="line">
+                                    <td><span t-esc="i"/></td>
+                                    <td><span t-field="line.hr_clearance_id.name"/></td>
+                                    <td><span t-field="line.state"/></td>
+                                    <td><span t-field="line.comments"/></td>
+                                    <td><span t-field="line.hr_date"/></td>
+                                    <td><span t-field="line.hr_user_id"/></td>
+                                    <t t-set="i" t-value="i+1"/> 
+                                </tr>
+                            </tbody>
+                
+                </table>
+                <p class="make_center"><tt>This is a computer - generated document. No signature is required.</tt></p>
+
+
+            </div>
+            </div>
+        </div>
+    </t>
+</template>
+
+
+<template id="report_clearance">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="doc">
+            <t t-call="orient_hr_resignation.report_clearance_document" t-lang="doc.employee_id.user_id.partner_id.lang"/>
+        </t>
+    </t>
+</template>
+
+
+
+</odoo>

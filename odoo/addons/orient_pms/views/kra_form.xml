@@ -1,0 +1,1438 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <data>
+
+<!-- KRA Master -->
+
+    	<record id="view_kra_form" model="ir.ui.view">
+            <field name="name">kra.form</field>
+            <field name="model">kra.master</field>
+            <field name="arch" type="xml">
+
+            	<form string="KRA Form">
+            		<sheet>
+            			<group>
+		    				<group>
+                                <field name="name" />
+                                <field name="weightage" required="1"/>
+                            </group>
+                            <group>
+                                <field name="designation" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                <field name="active"/>
+                            </group>
+                            <!-- <group>
+		    			        <field name="employee" widget="many2many_tags" options="{'color_field': 'color'}"/>
+		    				    <field name="all_employee"/>
+                            </group> -->
+                            <group colspan="8">
+                            <notebook>
+                            <page name="public" string="KPI">    
+                                <field name="kpi_one2many" mode="tree" nolable="1" colspan="8">
+                                    <tree string="KRA Form" editable="bottom">
+                                        <field name="name"/>
+                                        <field name="description"/>
+                                        <!-- <field name="hint"/> -->
+                                        <field name="weightage"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            </notebook>
+                            </group>
+        				</group>
+        			</sheet>
+        		</form>
+    		</field>
+		</record>
+
+        <record id="view_kra_tree" model="ir.ui.view">
+            <field name="name">kra.tree</field>
+            <field name="model">kra.master</field>
+            <field name="arch" type="xml">
+
+                <tree string="KRA Form">
+                    <field name="name"/>
+                    <field name="weightage"/>
+                    <field name="designation"/>
+                    <!-- <field name="employee"/> -->
+                    <!-- <field name="all_employee"/> -->
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_kra_form" model="ir.actions.act_window">
+            <field name="name">KRA Form</field>
+            <field name="res_model">kra.master</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <!-- <field name="search_view_id" ref="view_activity_class_search"/> -->
+            <field name="view_id" ref="view_kra_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                KRA 
+              </p>
+            </field>
+        </record>
+
+<!-- KPI Form -->
+
+        <record id="view_kpi_form" model="ir.ui.view">
+            <field name="name">kpi.form</field>
+            <field name="model">kpi.master</field>
+            <field name="arch" type="xml">
+
+                <form string="KPI Form">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object" groups="hr.group_hr_user"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                    options='{"terminology": "active"}'/>
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <!-- <field name="description"/> -->
+                            </group>
+                            <group>
+                                <!-- <field name="hint"/> -->
+                                <field name="weightage"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_kpi_tree" model="ir.ui.view">
+            <field name="name">kpi.tree</field>
+            <field name="model">kpi.master</field>
+            <field name="arch" type="xml">
+
+                <tree string="KPI Form">
+                    <field name="name"/>
+                    <!-- <field name="description"/> -->
+                    <!-- <field name="hint"/> -->
+                    <field name="weightage"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_kpi_form" model="ir.actions.act_window">
+            <field name="name">KPI Form</field>
+            <field name="res_model">kpi.master</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+            <!-- <field name="search_view_id" ref="view_activity_class_search"/> -->
+            <field name="view_id" ref="view_kpi_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                KRA 
+              </p>
+            </field>
+        </record>
+
+
+
+<!-- Job template -->
+
+        <record id="view_jobtemplate_form" model="ir.ui.view">
+            <field name="name">jobtemplate.form</field>
+            <field name="model">job.template</field>
+            <field name="arch" type="xml">
+                <form string="Job">
+                    <sheet>
+                        <group>
+                            <field name="name" required="1" />
+                            <field name="department" options="{'no_open': True}"/>
+                            <field name="kra"/>
+                            <field name="expected_employees" />
+                            <field name="decription" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_jobtemplate_tree" model="ir.ui.view">
+            <field name="name">jobtemplate.tree</field>
+            <field name="model">job.template</field>
+            <field name="arch" type="xml">
+                <tree string="Job">
+                    <field name="name" required="1" />
+                    <field name="department"/>
+                    <field name="kra"/>
+                    <field name="expected_employees" />
+                    <field name="decription" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_jobtemplate_form" model="ir.actions.act_window">
+            <field name="name">Job</field>
+            <field name="res_model">job.template</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+            <!-- <field name="search_view_id" ref="view_activity_class_search"/> -->
+            <field name="view_id" ref="view_jobtemplate_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Job 
+              </p>
+            </field>
+        </record>
+
+<!-- KRA Form -->
+
+        <record id="view_kramain_form" model="ir.ui.view">
+            <field name="name">Employee KRA Form</field>
+            <field name="model">kra.main</field>
+            <field name="arch" type="xml">
+                <form string="KRA" create="false">
+                    <header>
+                       <!--  <button string='Submit To Employee' name="submit_to_employee" type="object" class="btn-primary" attrs="{'invisible': [('state', '!=','draft')]}" groups="hr.group_hr_manager,hr.group_hr_user, orient_hr_resignation.group_reporting_manager" /> -->
+                        <button string='Submit To Manager' name="submit_to_manager" type="object" class="btn-primary" attrs="{'invisible': ['|',('state', '!=','draft'),('active','=',True)]}" groups="base.group_user" confirm="Do you want to submit the form?"/>
+                        <button string='Approve' name="approve" type="object" class="btn-primary" attrs="{'invisible': ['|',('button_check','=',True),('state','=','done')]}" groups="hr.group_hr_manager,hr.group_hr_user, orient_hr_resignation.group_reporting_manager" confirm="Do you want to submit the form?"/>
+                        <button string="Reject" class="btn-primary" name="cancel" type="object" groups="hr.group_hr_manager,hr.group_hr_user, orient_hr_resignation.group_reporting_manager" attrs="{'invisible': [('state','in',('done','cancel'))]}" confirm="Do you want to reject the form?"/>
+                        <!-- <button string="Set to Draft" class="btn-primary" type="object" name="set_to_draft" groups="hr.group_hr_manager,hr.group_hr_user, orient_hr_resignation.group_reporting_manager" attrs="{'invisible': [('state', 'not in',('cancel','done'))]}"/> attrs="{'invisible': [('state', '!=','reportee')]}"-->
+                        <button string="Excel" class="btn-primary" type="object" name="generate_xls_report" groups="hr.group_hr_manager,hr.group_hr_user, orient_hr_resignation.group_reporting_manager" attrs="{'invisible': [('state', '!=','done')]}"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,done,cancel"/> <!--statusbar_colors='{"draft":"blue","complete":"green","pending":"red"}'-->
+                    </header>
+                    <sheet>
+                        <group colspan="8">
+                            <field name="button_check" invisible="1" />
+                                <group>
+                                    <field name="employee" readonly="1" options="{'no_open': True}"/>
+                                    <field name="company_id" invisible="1" options="{'no_open': True}"/>
+                                    <field name="designation" readonly="1" options="{'no_open': True,'no_create':True}"/>
+                                    <field name="location" readonly="1" options="{'no_open': True,'no_create':True}"/>
+                                    <field name="kra_year" readonly="1" options="{'no_open': True,'no_create':True}"/>
+                                    <field name="final_rating" readonly="1"/>
+                                    <field name="review_start_date" invisible="1"/>
+                                    <field name="review_end_date" invisible="1"/>
+                                    <field name="application_date" invisible="1"/>
+                                    <field name="approved_date" invisible="1"/>
+                                    <field name="active" invisible="1"/>
+                                    <field name="check_user" invisible="1"/>
+                                    <field name="select_record" invisible="1"/>
+                                </group>
+                                <group>
+                                    <field name="employee_code" readonly="1"/>
+                                    <field name="department" readonly="1" options="{'no_open': True}"
+
+                                        />
+                                    <field name="kra_month" readonly="1"/>                                
+                                    <field name="quarter" readonly="1"/>
+                                    <field name="check1" invisible="1"/>
+                                    <field name="review_summary" invisible="0" attrs="{'readonly': [('state','in',('draft','done','cancel'))]}" groups="hr.group_hr_manager,hr.group_hr_user, orient_hr_resignation.group_reporting_manager"/> <!--'required':[('state','=','reportee')]-->
+                                    <field name="attachment" invisible="0"/>
+                                </group>
+                            <group colspan="8">
+                                <notebook>
+                                    <page name="public" string="KRA/KPI">
+                                        <field name="kra_one2many" mode="tree" nolable="1" colspan="8" create="false" delete="false" attrs="{'readonly': [('state', 'in',('done','cancel'))]}">
+                                            <tree string="KRA Questions" create="false" editable="bottom">
+                                                <field name="state" invisible="1"/>
+                                                <field name="self_check" invisible="1"/>
+                                                <field name="sr_no" readonly="1"/>                     
+                                                <field name="check1" invisible="1"/>
+                                                <field name="check2" invisible="1"/>
+                                                <field name="kra" string="Key Result Area" readonly="1" invisible="1" options="{'no_open': True}"/>
+                                                <field name="kra_name" string="Key Result Area" readonly="1" invisible="0"/>
+                                                <field name="description" string="Key Performance Indicator" readonly="1"/>
+                                                <field name="weightage" readonly="1" sum="Total"/>
+                                                <field name="emp_rating" string="Self" sum="Total" required="1" attrs="{'readonly':[('self_check','=',True)]}"/> <!--'|',('check1','=',True),('check2','=',False)-->
+                                                <field name="man_rating" string="Team Leader" attrs="{'readonly':[('check1','=',False),('check2','=',True)]}" sum="Total" />
+                                                <field name="comments" string="Comments/Justification" attrs="{'readonly':[('state','=','done')]}" sum="Total" />
+                                            </tree>
+                                        </field>
+                                    </page>
+                                </notebook>
+                            </group>
+                            <group colspan="8">
+                                <notebook>
+                                    <page name="public" string="Quarterly Review Meeting">
+                                        <field name="quarterly_meeting_one2many" mode="tree" nolable="1" colspan="8" delete="false" attrs="{'readonly': [('state', '=','done')]}" create="false">
+                                            <tree string="Quarterly Review Meeting" editable="bottom" create="false">
+                                                <field name="check1" invisible="1"/>
+                                                <field name="sr_no" attrs="{'readonly': [('check1', '=',False)]}" readonly="1"/>
+                                                <field name="agenda_item" attrs="{'readonly': [('check1', '=',False)]}" readonly="1"/>
+                                                <field name="outcomes" attrs="{'readonly': [('check1', '=',False)]}"/>
+                                                <field name="action_taken" attrs="{'readonly': [('check1', '=',False)]}"/>
+                                                <field name="deadline_date" attrs="{'readonly': [('check1', '=',False)]}"/>
+                                            </tree>
+                                        </field>
+                                    </page>
+                                </notebook>
+                            </group>
+                    </group>
+                    </sheet>
+                    <footer> 
+                        <button string='Submit To Manager' name="submit_to_manager" type="object" class="btn-primary" attrs="{'invisible': ['|',('state', '!=','draft'),('active','=',True)]}" groups="base.group_user" confirm="Do you want to submit the form?"/>
+                        <button string='Approve' name="approve" type="object" class="btn-primary" attrs="{'invisible': ['|',('button_check','=',True),('state','=','done')]}" groups="hr.group_hr_manager,hr.group_hr_user, orient_hr_resignation.group_reporting_manager" confirm="Do you want to submit the form?"/>
+                        <button string="Reject" class="btn-primary" name="cancel" type="object" groups="hr.group_hr_manager,hr.group_hr_user, orient_hr_resignation.group_reporting_manager" attrs="{'invisible': [('state','=','done')]}" confirm="Do you want to reject the form?"/>
+                        <button name="cancel" string="Close" special="cancel" class="oe_link"/> 
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_kramain_tree" model="ir.ui.view">
+            <field name="name">kramain.tree</field>
+            <field name="model">kra.main</field>
+            <field name="arch" type="xml">
+                <tree string="KRA" decoration-success="state=='done'" decoration-info="state=='draft'" decoration-danger="state=='cancel'" create="false">
+                    <field name="employee"/>
+                    <field name="kra_year"  options="{'no_open': True,'no_create':True}"/>
+                    <field name="kra_month" string="Application Month"/>
+                    <field name="quarter"/>
+                    <field name="review_start_date"/>
+                    <field name="review_end_date"/>
+                    <field name="state" string="Status"/>
+                    <field name="active" readonly="1"/>
+                    <button class="btn-primary" type="object" name="open_review_form" string="Open"/>
+                    <!-- <field name="kra" /> -->
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_kramain_tree1" model="ir.ui.view">
+            <field name="name">kramain.tree1</field>
+            <field name="model">kra.main</field>
+            <field name="arch" type="xml">
+                <tree string="KRA" decoration-success="state=='done'" decoration-info="state=='draft'" decoration-danger="state=='cancel'" create="false">
+                    <field name="employee"/>
+                    <field name="kra_year"  options="{'no_open': True,'no_create':True}"/>
+                    <field name="kra_month" string="Application Month"/>
+                    <field name="quarter"/>
+                    <field name="review_start_date"/>
+                    <field name="review_end_date"/>
+                    <field name="state" string="Status"/>
+                    <field name="active" readonly="1"/>
+                    <button class="btn-primary" type="object" name="open_review_form" string="Open"/>
+                    <!-- <field name="kra" /> -->
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_kra_employee_calendar" model="ir.ui.view">
+            <field name="name">kra.main</field>
+            <field name="model">kra.main</field>
+            <field name="arch" type="xml">
+                <calendar string="Quarterly KRA Review" date_start="application_date" mode="month">
+                    <field name="employee"/>
+                </calendar>
+            </field>
+        </record>
+
+        <record id="view_kra_main_search" model="ir.ui.view">
+        <field name="name">account.invoice.report.search</field>
+        <field name="model">kra.main</field>
+        <field name="arch" type="xml">
+            <search string="Invoices Analysis">
+                <filter string="Quarterly Review Form" name="employee"/>
+                <field name="employee" operator="child_of"/>
+                <group expand="1" string="Group By">                   
+                    <filter string="Employee" name="employee" context="{'group_by':'employee','residual_visible':True}"/>                
+                </group>
+            </search>
+        </field>
+    </record>
+
+        <record id="action_kramain_form" model="ir.actions.act_window">
+            <field name="name">Quarterly KRA Review List</field>
+            <field name="res_model">kra.main</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_kra_main_search"/>
+            <field name="view_id" ref="view_kramain_tree"/>
+            <field name="domain">[('check_user','=',False),('employee.user_id.id', '!=', uid)]</field>
+            <field name="context">{'create':1,'delete': 1,'search_default_employee':1,}</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Quarterly Review
+              </p>
+            </field>
+        </record>
+
+         
+
+        <record id="action_kramain_form1" model="ir.actions.act_window">
+            <field name="name">Quarterly KRA Review List</field>
+            <field name="res_model">kra.main</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <!-- <field name="search_view_id" ref="view_kra_main_search"/> -->
+            <field name="domain">[('employee.user_id.id', '=', uid)]</field>
+
+            <field name="view_id" ref="view_kramain_tree1"/>
+            <field name="context">{'create':1,'delete': 1}</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Quarterly Review
+              </p>
+            </field>
+        </record>
+
+
+<!-- Year Master -->
+
+        <record id="view_year_form" model="ir.ui.view">
+            <field name="name">yearmaster.form</field>
+            <field name="model">year.master</field>
+            <field name="arch" type="xml">
+                <form string="Year">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object" groups="hr.group_hr_user"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                    options='{"terminology": "active"}'/>
+                            </button>
+                        </div>
+                         <group>
+                            <field name="start_date" required="1"/>
+                            <field name="end_date" required="1"/>
+                        </group>
+                        <group>
+                            <field name="name" required="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_yearmaster_tree" model="ir.ui.view">
+            <field name="name">yearmaster.tree</field>
+            <field name="model">year.master</field>
+            <field name="arch" type="xml">
+                <tree string="Year">
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_yearmaster_form" model="ir.actions.act_window">
+            <field name="name">Year Master</field>
+            <field name="res_model">year.master</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+            <!-- <field name="search_view_id" ref="view_activity_class_search"/> -->
+            <field name="view_id" ref="view_yearmaster_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Year 
+              </p>
+            </field>
+        </record>
+
+
+
+        <record id="view_emp_kra_kpi_form" model="ir.ui.view">
+            <field name="name">kra.form</field>
+            <field name="model">employee.kra.kpi</field>
+            <field name="arch" type="xml">
+
+                <form string="KRA Form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" readonly="1" />
+                                <field name="kra_master_id" readonly="1" invisible="1"/>
+                                <field name="weightage" readonly="1"/>
+                                <field name="imported1" invisible="1"/>
+                            </group>
+                            <!-- <group>
+                                <field name="designation" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                            </group> -->
+                            <!-- <group>
+                                <field name="employee" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                <field name="all_employee"/>
+                            </group> -->
+                            <group colspan="8">
+                            <notebook>
+                            <page name="public" string="KPI">    
+                                <field name="emp_kpi_one2many" mode="tree" nolable="1" colspan="8">
+                                    <tree string="KRA Form" editable="bottom" >
+                                        <field name="kpi_name"/>
+                                        <field name="description"/>
+                                        <field name="kpi_weightage"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            </notebook>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer> 
+                        <button name="write" type="object" string="Save" class="btn-primary"/> 
+                        <button name="cancel" string="Close" special="cancel" class="oe_link"/> 
+                    </footer>
+                </form>
+                
+            </field>
+        </record>
+
+        <record id="view_emp_kra_upload_tree" model="ir.ui.view">
+            <field name="name">Bulk Upload KRA</field>
+            <field name="model">employee.kra.kpi</field>
+            <field name="arch" type="xml">
+                <tree string="Sub Department">
+                    <field name="employee_code"/>
+                    <field name="emp_kra_id"/>
+                    <field name="name"/>
+                    <field name="kpi"/>
+                    <field name="weightage"/>
+                    <field name="imported1" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_emp_kra_kpi_form" model="ir.actions.act_window">
+            <field name="name">KRA Form</field>
+            <field name="res_model">employee.kra.kpi</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <!-- <field name="search_view_id" ref="view_activity_class_search"/> -->
+            <field name="view_id" ref="view_emp_kra_upload_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                KRA 
+              </p>
+            </field>
+        </record>
+
+        <record id="view_emp_kpi_form" model="ir.ui.view">
+            <field name="name">employee.kpi.form</field>
+            <field name="model">employee.kpi</field>
+            <field name="arch" type="xml">
+                <form string="KPI">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="kpi_name"/>
+                                <field name="description"/>
+                            </group>
+                            <group>
+                                <field name="hint"/>
+                                <field name="kpi_weightage"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_emp_kpi_tree" model="ir.ui.view">
+            <field name="name">employee.kpitree</field>
+            <field name="model">employee.kpi</field>
+            <field name="arch" type="xml">
+                <tree string="KPI">
+                    <field name="kpi_name"/>
+                    <field name="description"/>
+                    <field name="hint"/>
+                    <field name="kpi_weightage"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_emp_kpi_form" model="ir.actions.act_window">
+            <field name="name">KPI Form</field>
+            <field name="res_model">employee.kpi</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+            <!-- <field name="search_view_id" ref="view_activity_class_search"/> -->
+            <field name="view_id" ref="view_emp_kpi_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                KRA 
+              </p>
+            </field>
+        </record>
+
+	     <record id="view_employee_form_kra" model="ir.ui.view"> 
+            <field name="model">hr.employee</field> 
+            <field name="inherit_id" ref="hr.view_employee_form" /> 
+            <field name="arch" type="xml"> 
+                <xpath expr="//field[@name='name']" position="before">
+                  <field name="can_edit_name" invisible="1"/>
+                </xpath>
+<!--                 <xpath expr="//div[@class='oe_title']" position="after">
+                    <group>
+                        <field name="emp_code" placeholder="Employee's Code" style="width:30%%" string="Employee Code" required="1" attrs="{'readonly':[('can_edit_name','=',True)]}"/>
+                    </group>
+                </xpath> -->
+                <xpath expr="//field[@name='address_id']" position="before">
+                    <field name="company_id" string="Company" required="0" options="{'no_open': True}" attrs="{'readonly':[('can_edit_name','=',True)]}"/>
+                    <field name="report_id" invisible="1"/>
+                    <!-- <field name="site_master_id" options="{'no_open': True}" attrs="{'readonly':[('can_edit_name','=',True)]}"/> -->
+                </xpath>
+                <xpath expr="//page[@name='hr_settings']" position="after">
+                    <page name="kra_applicable" string="Performance Metrics" groups="hr.group_hr_user,hr.group_hr_manager,base.group_user">
+                        <group colspan="8">
+                            <field name="kra_ids" widget="many2many_tags" invisible="1" /> 
+                            <field name="kra_one2many" nolabel="1" mode="tree">
+                                <tree string="KRA Form" editable="bottom" open="false">
+                                    <field name="kra_master_id" invisible="1"/>
+                                    <field name="check1" invisible="1"/>
+                                    <field name="check2" invisible="1"/>
+                                    <field name="name" string="KRA" attrs="{'readonly':[('check1','=',False),('check2','=',True)]}"/>
+                                    <field name="kpi" attrs="{'readonly':[('check1','=',False),('check2','=',True)]}"/>
+                                    <field name="weightage" sum="Total" attrs="{'readonly':[('check1','=',False),('check2','=',True)]}"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>                    
+                </xpath>
+<!--                 <xpath expr="//field[@name='job_id']" position="after">
+                    <field name="hr_executive_id" string="HR Executive" options="{'no_open': True}" attrs="{'readonly':[('can_edit_name','=',True)]}"/>
+                </xpath> -->
+<!--                  <field name="user_id" position="after">
+                    <field name="appraisal_cycle" required="0" attrs="{'readonly':[('can_edit_name','=',True)]}"/>
+                </field> -->
+            </field> 
+        </record> 
+
+<!-- HR JOB -->
+
+        <record id="view_hrjob_kra_form" model="ir.ui.view">
+            <field name="name">hr.jobkra.form</field>
+            <field name="model">hr.job</field>
+            <field name="arch" type="xml">
+                <form name="Job" string="KRA Job">
+                    <sheet>
+                        <group>
+                            <group colspan="8" col="8">
+                                <field name="name" colspan="4" string="Job Role"/>
+                                <label string="" colspan="2"/>   
+                                <label string="" colspan="2"/>   
+                                <label string="" colspan="2"/>                                
+                                <field name="job_kra_one2many" nolabel="0"  colspan="8">
+                                    <tree string="KRA" editable="bottom" open="false" delete="false" create="false">
+                                        <field name="kra_master" string="KRA" widget="selection" invisible="1"/>
+                                        <field name="kra_name"/>
+                                        <field name="kpi"/>
+                                        <field name="weightage" sum="Total"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_kra_job_tree11" model="ir.ui.view">
+            <field name="name">JOB KRA tree</field>
+            <field name="model">hr.job</field>
+            <field name="arch" type="xml">
+                <tree string="KPI">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="parent_hrjob_kra_action">
+            <field name="name">KRA Form</field>
+            <field name="res_model">hr.job</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="child_action_hrjob_kra_tree" model="ir.actions.act_window.view">
+                <field name="view_mode">tree</field>
+                <field name="view_id" ref="view_kra_job_tree11" />
+                <field name="act_window_id" ref="parent_hrjob_kra_action" />
+        </record>
+
+        <record id="child_action_hrjob_kra_form" model="ir.actions.act_window.view">
+               <field name="view_mode">form</field>
+               <field name="view_id" ref="view_hrjob_kra_form" />
+               <field name="act_window_id" ref="parent_hrjob_kra_action" />
+        </record>  
+
+        <record id="view_pip_form" model="ir.ui.view">
+            <field name="name">pip.form</field>
+            <field name="model">pip.list</field>
+            <field name="arch" type="xml">
+                <form string="Year" create="false">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="employee" readonly="1" options="{'no_open': True}"/>
+                                <field name="designation" readonly="1" options="{'no_open': True}"/>
+                                <field name="ratings" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="quarter" readonly="1"/>
+                                <field name="month" readonly="1"/>
+                                <field name="kra_year" readonly="1" options="{'no_open': True,'no_create':True}"/>
+                            </group>
+                                <field name="plan_of_action" placeholder="Plan of Action ..." colspan="4"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_pip_tree" model="ir.ui.view">
+            <field name="name">pip.tree</field>
+            <field name="model">pip.list</field>
+            <field name="arch" type="xml">
+                <tree string="Year">
+                    <field name="employee"/>
+                    <field name="designation"/>
+                    <field name="ratings"/>
+                    <field name="quarter"/>
+                    <field name="month"/>
+                    <field name="kra_year"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_pip_form" model="ir.actions.act_window">
+            <field name="name">Performance Improvement Plan</field>
+            <field name="res_model">pip.list</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+            <field name="view_id" ref="view_pip_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Year 
+              </p>
+            </field>
+        </record>
+
+
+        <record id="qr_status_report_form" model="ir.ui.view">
+            <field name="name">qr.status.report.form</field>
+            <field name="model">qr.status.report</field>
+            <field name="arch" type="xml">
+                <form string="Year" create="false">
+                    <sheet>
+                        <group>
+                            <group >
+                                <field name="kra_year" options="{'no_open': True,'no_create':True}"/>
+                                <field name="quarter"/>
+                                <field name="status"/>
+                                <button class="btn-primary" type="object" name="generate_qr_status_report" string="Generate" colspan="2"/>
+                                <label string="" colspan="2"/>
+                                <field name="applications_done" invisible="1"/>
+                                <field name="applications_not_done" invisible="1"/>
+                                <field name="total_applications" invisible="1"/>
+                                <label string="" colspan="2"/>
+                                <field name="qr_status_report_lines" invisible="1">
+                                    <tree string="Quarterly Review Status Report" editable="bottom">
+                                        <field name="sr_no"/>
+                                        <field name="reporting_code" options="{'no_open': True}"/>
+                                        <field name="reporting_name" options="{'no_open': True}"/>
+                                        <field name="hr_code"/>
+                                        <field name="hr_name"/>
+                                        <field name="employee_code"/>
+                                        <field name="employee_name"/>
+                                        <field name="employee" options="{'no_open': True}"/>
+                                        <field name="department" options="{'no_open': True}"/>
+                                        <field name="designation" options="{'no_open': True}"/>
+                                        <field name="application_date"/>
+                                        <field name="approved_date"/>
+                                        <field name="review_status"/>
+                                        <field name="average_rating"/>
+                                        <field name="review_summary"/>
+                                        <field name="eligible_for_pip"/>
+                                        <field name="employee_status"/>                                        
+                                    </tree>
+                                </field>
+                            </group>                            
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="qr_status_report_tree" model="ir.ui.view">
+            <field name="name">Quarterly Review Status Report</field>
+            <field name="model">qr.status.report</field>
+            <field name="arch" type="xml">
+                <tree string="Year">
+                    <field name="quarter"/>
+                    <field name="status"/>
+                    <field name="kra_year"  options="{'no_open': True,'no_create':True}"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_qr_status_report" model="ir.actions.act_window">
+            <field name="name">Quarterly Review Status Report</field>
+            <field name="res_model">qr.status.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">inline</field>
+            <field name="view_id" ref="qr_status_report_form"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Year 
+              </p>
+            </field>
+        </record>
+
+<!-- Year Master -->
+
+        <record id="view_appraisal_scale_form" model="ir.ui.view">
+            <field name="name">appraisal.scale.form</field>
+            <field name="model">appraisal.scale</field>
+            <field name="arch" type="xml">
+                <form string="Year">
+                    <sheet>
+                             <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object" groups="hr.group_hr_user"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                    options='{"terminology": "active"}'/>
+                            </button>
+                        </div>
+                         <group>
+                            <field name="name" />
+                            <field name="minimum" />
+                            <field name="maximum" />
+                        </group>
+                        <group>
+                            <field name="scale" />
+                            <field name="pip_applicable" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_appraisal_scale_tree" model="ir.ui.view">
+            <field name="name">appraisal.scale</field>
+            <field name="model">appraisal.scale</field>
+            <field name="arch" type="xml">
+                <tree string="Year">
+                    <field name="name" />
+                    <field name="minimum" />
+                    <field name="maximum" />
+                    <field name="scale" />
+                    <field name="pip_applicable" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_appraisal_scale_form" model="ir.actions.act_window">
+            <field name="name">Appraisal Scale</field>
+            <field name="res_model">appraisal.scale</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+            <field name="view_id" ref="view_appraisal_scale_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Year 
+              </p>
+            </field>
+        </record>
+
+
+        <record id="view_increment_scale_form" model="ir.ui.view">
+            <field name="name">increment.scale.form</field>
+            <field name="model">increment.scale</field>
+            <field name="arch" type="xml">
+                <form string="Year">
+                    <sheet>
+                             <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object" groups="hr.group_hr_user"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                    options='{"terminology": "active"}'/>
+                            </button>
+                        </div>
+                         <group>
+                            <field name="minimum_weightage" />
+                            <field name="maximum_weightage" />
+                            
+                        </group>
+                        <group>
+                            <field name="minimum_increment" />
+                            <field name="maximum_increment" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_increment_scale_tree" model="ir.ui.view">
+            <field name="name">increment.scale</field>
+            <field name="model">increment.scale</field>
+            <field name="arch" type="xml">
+                <tree string="Year">
+                    <field name="minimum_weightage" />
+                    <field name="maximum_weightage" />
+                    <field name="minimum_increment" />
+                    <field name="maximum_increment" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_increment_scale_form" model="ir.actions.act_window">
+            <field name="name">Increment Scale</field>
+            <field name="res_model">increment.scale</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+            <field name="view_id" ref="view_increment_scale_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Year 
+              </p>
+            </field>
+        </record>
+<!-- KRA Templates -->
+        
+        <record id="view_kra_templates_form" model="ir.ui.view">
+            <field name="name">kra.templates.form</field>
+            <field name="model">kra.templates</field>
+            <field name="arch" type="xml">
+                <form string="Templates">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" widget="selection"/>
+                                <field name="department" required="1" options="{'no_open': True}"/>
+                                <field name="sub_department" string="Annual Appraisal Form" options="{'no_open': True}"/>
+                            </group>
+                             <group>
+                                <field name="financial_year" required="1" options="{'no_open': True,'no_create':True}"/>
+                                <field name="appraisal_cycle" required="1"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="question_one2many" nolabel="1" >
+                                <tree string="Questions" editable="bottom" open="false">
+                                    <field name="question_id" invisible="1"/>
+                                    <field name="questions"/>
+                                    <field name="answer" invisible="1"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group>
+                            <field name="behavioural_attributes_one2many" nolabel="1" attrs="{'invisible': [('name', '=','Goalsheet')]}">
+                                <tree string="Questions" editable="bottom" open="false">
+                                    <field name="attributes_id" invisible="1"/>
+                                    <field name="attributes"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group string="What motivates you?"  attrs="{'invisible': [('name', '=','Goalsheet')]}">
+                            <group>
+                                <field name="increment" />
+                                <field name="recognition" />
+                                <field name="sec_emp" />
+                                <field name="creative_work" />
+                            </group>
+                            <group>
+                                <field name="designation_choice" />
+                                <field name="role_exp" />
+                                <field name="promotion" />
+                                <field name="training" />
+                            </group>
+                        </group>
+                        <group string="Your goal in the Organization in near future" col="4"  attrs="{'invisible': [('name', '=','Goalsheet')]}">
+                            <group col="1">
+                                <label string="By"/>
+                                <newline/>
+                                <label string="Designation"/>
+                                <newline/>
+                                <label string="Salary"/>
+                            </group>
+                            <group col="1">
+                                <field name="last_year" nolabel="1" style="width:35%%"/>
+                                <newline/>
+                                <field name="designation_last" nolabel="1" style="width:35%%"/>
+                                <newline/>
+                                <field name="salary_last" nolabel="1" style="width:35%%"/>
+                            </group>
+                            <group col="1">
+                                <field name="current_year" nolabel="1" style="width:35%%"/>
+                                <newline/>
+                                <field name="designation_current" nolabel="1" style="width:35%%"/>
+                                <newline/>
+                                <field name="salary_current" nolabel="1" style="width:35%%"/>
+                            </group>
+                            <group col="1">
+                                <field name="next_year" nolabel="1" style="width:35%%"/>
+                                <newline/>
+                                <field name="designation_next" nolabel="1" style="width:35%%"/>
+                                <newline/>
+                                <field name="salary_next" nolabel="1" style="width:35%%"/>
+                            </group>
+                        </group>
+                        <group string="Prospects of growth of Orient in the IT Industry as per your perception"  attrs="{'invisible': [('name', '=','Goalsheet')]}">
+                            <field name="excellent"/>
+                            <field name="good"/>
+                            <field name="scope"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_kra_templates_tree" model="ir.ui.view">
+            <field name="name">kra.templates.tree</field>
+            <field name="model">kra.templates</field>
+            <field name="arch" type="xml">
+                <tree string="Templates">
+                    <field name="name" />
+                    <field name="department"/>
+                    <field name="sub_department"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_view_kra_templates_form" model="ir.actions.act_window">
+            <field name="name">Templates</field>
+            <field name="res_model">kra.templates</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+            <!-- <field name="search_view_id" ref="view_activity_class_search"/> -->
+            <field name="view_id" ref="view_kra_templates_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Year --> 
+              </p>
+            </field>
+        </record>
+
+        <record id="view_quarterly_review_auth_form" model="ir.ui.view">
+            <field name="name">quarterly.kra.review.auth.form</field>
+            <field name="model">quarterly.kra.review.auth</field>
+            <field name="arch" type="xml">
+                <form string="Increment List">
+                    <sheet>
+                        <group>
+                            <field name="employee" style="width:30%%" colspan="2" domain="['|','|','|',('parent_id.user_id', '=', uid),('parent_id.parent_id.user_id', '=', uid),('parent_id.parent_id.parent_id.user_id', '=', uid),('hr_executive_id.user_id','!=',uid)]" options="{'no_open': True}"/>
+                            <field name="approval_status" style="width:30%%" colspan="2"/>
+                            <!-- <field name="quarter" style="width:30%%" colspan="2"/> -->
+                            <field name="year" style="width:30%%" colspan="2" options="{'no_open': True,'no_create':True}"/>                            
+                        </group>
+                        <group>
+                            <button string="Search" name="search_quarterly_record" type="object" class="btn-primary" style="width:20%%"/>
+                        </group>
+                        <notebook>
+                        <page name="public" string="Review Form Approval">
+                            <group string="" colspan="8">
+                                <label string="" colspan="2"/>
+                            </group>  
+                        <button string='View' name="approve_review_form" type="object" class="btn-primary"  />
+                        <label string="" colspan="2"/>   
+                        <button string='Approval' name="approve_review_form" type="object" class="btn-primary" invisible="1"/>
+                        <!-- <label string="" colspan="2"/> -->
+                        <!-- <newline/> -->
+                        <group>
+                            <label string="" colspan="1"/>
+                        </group>
+                        <group>
+                            <field name="quarterly_review_one2many" nolabel="1" mode="tree">
+                                <tree string="Increment List" editable="bottom" open="false" create="false" delete="false">
+                                    <field name="quarterly_kra_auth_id" invisible="1"/>
+                                    <field name="select_record"/>
+                                    <field name="employee_code" readonly="1"/>
+                                    <field name="employee" readonly="1" options="{'no_open': True}"/>
+                                    <field name="application_date" readonly="1"/>
+                                    <field name="quarter" readonly="1"/>
+                                    <field name="review_start_date" readonly="1"/>
+                                    <field name="review_end_date" readonly="1"/>
+                                    <field name="state" readonly="1"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </notebook>
+                        <!-- <button string="Generate" type="object"/> -->
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_quarterly_review_auth_report" model="ir.actions.act_window">
+            <field name="name">Quarterly KRA Review Authorisation</field>
+            <field name="res_model">quarterly.kra.review.auth</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <!-- <field name="search_view_id" ref="view_activity_class_search"/> -->
+            <field name="view_id" ref="view_quarterly_review_auth_form"/>
+            <field name="target">inline</field>            
+            <field name="context">{'create':1,'delete': 1}</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Year  -->
+              </p>
+            </field>
+        </record>
+
+
+<!-- Subordinate Employee View -->
+
+        <record id="view_subordinate_view_form" model="ir.ui.view">
+            <field name="name">subordinate.kra.view.form</field>
+            <field name="model">subordinate.kra.view</field>
+            <field name="arch" type="xml">
+                <form string="Subordinate Kra View">
+                    <sheet>
+                        <group>
+                            <group>
+                             <field name="name" readonly="1" colspan="2" options="{'no_open': True}"/>
+                             <field name="emp_code" readonly="1" colspan="2"/> 
+                             <!-- <label string="" colspan="2"/>
+                             <label string="" colspan="2"/> -->
+                            </group>
+                            <group>
+                                <button string="View Self KRAs" type="object" name="view_emp_kra" colspan="2" class="btn-primary"/>
+                                <!-- <label string="" colspan="2"/>
+                                <label string="" colspan="2"/>                     
+                                <label string="" colspan="2"/> -->
+                            </group>
+                        </group>
+                        <button string="Reporting Employee List" type="object" name="view_emp_data" groups="hr.group_hr_manager,hr.group_hr_user,orient_hr_resignation.group_reporting_manager" class="btn-primary"/>
+                        <group>                            
+                            <field name="hr_kra_one2many" nolabel="1" open="false" groups="hr.group_hr_manager,hr.group_hr_user,orient_hr_resignation.group_reporting_manager">
+                                <tree string="Subordinate Employee KRA Details" editable="bottom" open="false" create="false" delete="false">
+                                    <field name="report_id" invisible="1"/>
+                                    <field name="name" readonly="1" options="{'no_open': True}"/>
+                                    <field name="emp_code" readonly="1"/>
+                                    <!-- <field name="parent_id" invisible="1"/> -->
+                                    <button string="View KRA" type="object" name="kra_details" class="btn-primary"/>
+                                </tree>
+                            </field>
+                        </group>
+                        
+                        <!-- </group> -->
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_subordinate_view_tree" model="ir.ui.view">
+            <field name="name">subordinate.kra.view.form</field>
+            <field name="model">subordinate.kra.view</field>
+            <field name="arch" type="xml">
+                <tree string="Subordinate Kra View" create="false">
+                    <field name="name"/>
+                    <field name="emp_code"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_subordinate_view_form" model="ir.actions.act_window">
+            <field name="name">Subordinate Kra View</field>
+            <field name="res_model">subordinate.kra.view</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <!-- <field name="search_view_id" ref="view_activity_class_search"/> -->
+            <field name="view_id" ref="view_subordinate_view_form"/>
+            <field name="target">inline</field>
+            <field name="context">{'create':1,'delete': 1}</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Year 
+              </p>
+            </field>
+        </record>
+
+<!-- HR KRA -->
+    
+        <record id="hr_kra_details_form" model="ir.ui.view">
+            <field name="name">hr.kra.view.form</field>
+            <field name="model">hr.employee</field>
+            <!-- <field name="inherit_id" ref="hr.view_employee_form" /> -->
+            <field name="arch" type="xml">
+                <form string="Subordinate Kra View">
+                    <group>
+                        <field name="name" readonly="1"/>
+                    <!-- <br/> -->
+                        <field name="emp_code" readonly="1"/>
+                    </group>
+                    <!-- <field name=""/> -->
+                    <group string="KRA Details">
+                        <field name="kra_one2many" nolabel="1" mode="tree" open="false" readonly="1">
+                            <tree string="KRA Form" editable="bottom" open="false" delete="false" create="false">
+                                <field name="kra_master_id" invisible="1"/>
+                                <field name="name" string="KRA"/>
+                                <field name="kpi" />
+                                <field name="weightage" sum="Total"/>
+                                <!-- <button class="oe_stat_button" type="object" name="open_kpi" string="View KPI"/> -->
+                            </tree>
+                        </field>
+                    </group>
+                    <footer> 
+                        <button name="write" type="object" string="Save" class="btn-primary"/> 
+                        <button name="cancel" string="Close" special="cancel" class="oe_link"/> 
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+<!-- Site Master -->
+
+        <record id="view_site_master_form" model="ir.ui.view">
+            <field name="name">site.master.form</field>
+            <field name="model">site.master</field>
+            <field name="arch" type="xml">
+                <form string="Site Master">
+                    <sheet>
+                         <group>
+                            <field name="name" required="1" placeholder="Site Name" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_site_master_tree" model="ir.ui.view">
+            <field name="name">site.master.tree</field>
+            <field name="model">site.master</field>
+            <field name="arch" type="xml">
+                <tree string="Site Master">
+                    <field name="name"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_site_master_form" model="ir.actions.act_window">
+            <field name="name">Site Master</field>
+            <field name="res_model">site.master</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+            <!-- <field name="search_view_id" ref="view_activity_class_search"/> -->
+            <field name="view_id" ref="view_site_master_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Site Master 
+              </p>
+            </field>
+        </record>
+
+<!-- Sub Department -->
+
+        <record id="view_subdepartment_form" model="ir.ui.view">
+            <field name="name">sub.department.form</field>
+            <field name="model">sub.department</field>
+            <field name="arch" type="xml">
+                <form string="Sub Department">
+                    <sheet>
+                        <group>
+                            <field name="name" style="width:40%%"/>
+                            <field name="active"/>
+                            <!-- <field name="department_id" style="width:40%%"/> -->
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_subdepartment_tree" model="ir.ui.view">
+            <field name="name">sub.department.tree</field>
+            <field name="model">sub.department</field>
+            <field name="arch" type="xml">
+                <tree string="Sub Department">
+                    <field name="name"/>
+                    <field name="active"/>        
+                    <!-- <field name="department_id"/>       -->
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_subdepartment_report" model="ir.actions.act_window">
+            <field name="name">Sub Department</field>
+            <field name="res_model">sub.department</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+            <!-- <field name="search_view_id" ref="view_activity_class_search"/> -->
+            <field name="view_id" ref="view_subdepartment_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Department 
+              </p>
+            </field>
+        </record>
+
+<!-- GenerateAppraisalLetter  -->
+
+        <record id="view_appraisalletter_form" model="ir.ui.view">
+            <field name="name">generate.appraisal.letter.form</field>
+            <field name="model">generate.appraisal.letter</field>
+            <field name="arch" type="xml">
+                <form string="Generate Appraisal Letter">
+                    <sheet>
+                        <group>
+                            <field name="employee" style="width:40%%" required="1" options="{'no_open': True}"/>
+                            <field name="file_upload" style="width:40%%"/>
+                        </group>
+                         <group>
+                          <button string="Generate Appraisal Letter" name="print_employee_report_new" type="object" style="width:20%%" class="btn-primary"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_appraisalletter_report" model="ir.actions.act_window">
+            <field name="name">Generate Appraisal Letter</field>
+            <field name="res_model">generate.appraisal.letter</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <!-- <field name="search_view_id" ref="view_activity_class_search"/> -->
+            <field name="view_id" ref="view_subdepartment_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Generate Appraisal Letter 
+              </p>
+            </field>
+        </record>
+
+<!--Quarterly Rating for Annual-->
+
+        <record id="view_quarterly_rating_annual_form" model="ir.ui.view">
+            <field name="name">quarterly.rating.annual.form</field>
+            <field name="model">quarterly.rating.annual</field>
+            <field name="arch" type="xml">
+                <form string="Sub Department" create="false">
+                    <sheet>
+                        <group>
+                            <field name="review_cycle" style="width:30%%"/>
+                            <field name="year" style="width:30%%"  options="{'no_open': True,'no_create':True}"/>
+                            <field name="exists" invisible="1"/>
+                        </group>
+                        <group>
+                          <button string="Get Report" class="btn-primary" name="search_records" type="object" style="width:20%%"/>
+                        </group>
+                         <field name="quarterly_rating_annual_one2many" nolabel="1" mode="tree" open="false" readonly="1" attrs="{'invisible':[('exists','=',False)]}">
+                            <tree string="KRA Form" editable="bottom" open="false" delete="false" create="false">
+                                <field name="quarterly_rating_annual_id" invisible="1"/>
+                                <field name="sr_no"/>
+                                <field name="reporting_code" invisible="1"/>
+                                <field name="reporting_name" options="{'no_open': True}"/>
+                                <field name="employee" options="{'no_open': True}"/>
+                                <field name="employee_code"/>
+                                <field name="employee_name" invisible="1"/>
+                                <field name="joining_date" invisible="1"/>
+                                <field name="department" options="{'no_open': True}"/>
+                                <field name="designation" options="{'no_open': True}"/>
+                                <field name="quarter1"/>
+                                <field name="quarter2"/>
+                                <field name="quarter3"/>
+                                <field name="quarter4"/>
+                                <field name="q1_status"/>
+                                <field name="q2_status"/>
+                                <field name="q3_status"/>
+                                <field name="q4_status"/>
+                                <field name="eligible_for_pip"/>
+                                <!-- <field name="employee_status"/> -->
+                            </tree>
+                        </field>
+                        <group>
+                            <button string="Excel" attrs="{'invisible':[('exists','=',False)]}" name="generate_excel" class="btn-primary" type="object"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_quarterly_rating_annual_tree" model="ir.ui.view">
+            <field name="name">quarterly.rating.annual.tree</field>
+            <field name="model">quarterly.rating.annual</field>
+            <field name="arch" type="xml">
+                <tree string="Sub Department">
+                    <field name="review_cycle"/>        
+                    <field name="year"  options="{'no_open': True,'no_create':True}"/>      
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_view_quarterly_rating_annual" model="ir.actions.act_window">
+            <field name="name">Quarterly Rating for Annual</field>
+            <field name="res_model">quarterly.rating.annual</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+            <field name="target">inline</field>
+            <!-- <field name="search_view_id" ref="view_activity_class_search"/> -->
+            <field name="view_id" ref="view_quarterly_rating_annual_form"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Department 
+              </p>
+            </field>
+        </record>
+
+<!--department-->
+        <record id="view_department_form_inherit" model="ir.ui.view">
+            <field name="model">hr.department</field>
+            <field name="inherit_id" ref="hr.view_department_form" /> 
+            <field name="arch" type="xml"> 
+                <xpath expr="//field[@name='manager_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='parent_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='hr_executive_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="sub_department" required="0"/>
+                </xpath>
+                <!-- <group col="4">
+                    <field name="name"/>
+                    <field name="manager_id"/>
+                    <field name="parent_id"/>
+                    <field name="hr_executive_id" string="HR Executive"/>
+                    <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+                </group> -->
+            </field>
+        </record>
+
+<!-- Menus -->
+
+        <menuitem id="PMS" name="PMS" sequence="87"/>
+
+        <menuitem id="kra_id" name="Appraisal Process" parent="PMS" sequence="1" />
+        <menuitem id="subordinate_id" name="KRA View" action="action_subordinate_view_form" parent="kra_id" groups="base.group_user" sequence="1"/>       
+        <menuitem id="kramain_id1" name="Quarterly KRA " parent="kra_id" sequence="2" action="action_kramain_form1" />
+        <!-- <menuitem id="kramain_id" name="Quarterly KRA Review Authorization" parent="kra_id" sequence="3" action="action_kramain_form" groups="hr.group_hr_manager,hr.group_hr_user,orient_hr_resignation.group_reporting_manager"/> -->        
+        <menuitem id="quarterly_review_auth_id" name="Quarterly KRA Review Authorization" parent="kra_id" sequence="4" action="action_quarterly_review_auth_report" groups="hr.group_hr_manager,hr.group_hr_user,orient_hr_resignation.group_reporting_manager"/>   
+        <!-- <menuitem id="kra_applicable_id" name="KRA view " parent="kra_id" sequence="6" action="action_view_kra_applicable" /> -->
+
+        <menuitem id="pip_menu_id" name="Performance Improvement Plan" parent="PMS" sequence="90" groups="hr.group_hr_manager,hr.group_hr_user,orient_hr_resignation.group_reporting_manager"/>
+        <menuitem id="menu_pip_list" name="PIP List" parent="pip_menu_id" action="action_pip_form" groups="hr.group_hr_manager,hr.group_hr_user"/>
+
+        <menuitem id="report_menu_id" name="Reports" parent="PMS" sequence="80" groups="hr.group_hr_manager,hr.group_hr_user,orient_hr_resignation.group_reporting_manager"/>
+        <menuitem id="qr_status_report_menu_id" name="Quarterly Review Status Report" parent="report_menu_id" action="action_qr_status_report" sequence="81" groups="hr.group_hr_manager,hr.group_hr_user"/>
+        <menuitem id="qr_annual_status_report_menu_id" name="Quarterly Rating for Annual" parent="report_menu_id" action="action_view_quarterly_rating_annual" sequence="82" groups="hr.group_hr_manager,hr.group_hr_user"/>
+
+       <!--  <menuitem id="qr_generalappraisal_menu_id" name="Generate Appraisal Letter" parent="report_menu_id" action="action_appraisalletter_report" sequence="89" groups="hr.group_hr_manager,hr.group_hr_user"/> -->
+        <!--groups="hr.group_hr_manager,hr.group_hr_user,orient_hr_resignation.group_reporting_manager"-->
+        <menuitem id="pms_configuration" name="Master" parent="PMS" sequence="100" groups="base.group_erp_manager"/>
+<!--       "hr.group_hr_manager,hr.group_hr_user,orient_hr_resignation.group_reporting_manager"  <menuitem id="pms_jobtemplate" name="Job" parent="pms_configuration" action="action_jobtemplate_form" /> -->
+        <menuitem id="pms_kra_form" name="KRA Master" parent="pms_configuration" action="action_kra_form" groups="base.group_erp_manager"/>
+        <menuitem id="pms_kpi_form" name="KPI Master" parent="pms_configuration" action="action_kpi_form" groups="base.group_erp_manager"/>
+        <menuitem id="yearmaster_id" name="Year Master" parent="pms_configuration" action="action_yearmaster_form" groups="base.group_erp_manager"/>
+        <!-- <menuitem id="kra_jobmaster_id" name="Designation Master" parent="pms_configuration" action="parent_hrjob_kra_action" groups="hr.group_hr_manager,hr.group_hr_user"/> -->
+        <menuitem id="view_hr_job_id_inherit_pms" action="parent_hrjob_kra_action" parent="hr.menu_human_resources_configuration"   sequence="24" name="Designation Master" groups="base.group_erp_manager"/>
+        <menuitem id="appraisal_scale_id" name="Appraisal Scale Master" parent="pms_configuration" action="action_appraisal_scale_form" groups="base.group_erp_manager"/>
+        <menuitem id="increment_scale_id" name="Increment Scale Master" parent="pms_configuration" action="action_increment_scale_form" groups="base.group_erp_manager"/>
+        <menuitem id="templates_id" name="KRA Templates" parent="pms_configuration" action="action_view_kra_templates_form" groups="base.group_erp_manager"/>
+
+        <menuitem id="id_site_master_menu" name="Site Master" action="action_site_master_form" parent="hr.menu_human_resources_configuration"  sequence="19" groups="base.group_erp_manager"/>
+
+        <menuitem id="action_subdepartmentq_form" name="Sub Department" parent="pms_configuration" action="action_subdepartment_report" groups="base.group_erp_manager"/>
+
+        <menuitem id="menu_emp_view_kra_upload" name="Employee Bulk KRA Upload" parent="pms_configuration" action="action_emp_kra_kpi_form" groups="base.group_erp_manager"/>
+
+        <menuitem
+            action="hr.open_module_tree_department"
+            id="hr.menu_hr_department_tree"
+            parent="hr.menu_human_resources_configuration"
+            sequence="30"
+            />
+
+	</data>
+</odoo>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<template id="report_exitreport_document">
+    <t t-call="orient_hr_resignation.external_layout_standard_list">
+        <t t-set="doc" t-value="doc.with_context({'lang':doc.submit_hr_employee.user_id.partner_id.lang})" /><br/>
+        <div class="page">
+            <head>
+                <style>
+                    p.padding {
+                        padding-left: 2cm;
+                        padding-right: 2cm;
+                        font-size: 18px;
+                    }
+                    h1 {
+                        border-bottom: solid;
+                    }
+                    .underline {
+                            border-bottom: 2px solid currentColor;
+                            font-size: 25px;
+                    }
+                    .make_center{
+                            text-align: center;
+                    }
+
+                </style>
+            </head>
+            <div class="oe_structure"/>
+            <div class="row">
+                <m><p style="padding-left:1cm; font-size:18px">Date: <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d %B %Y')"/></p></m>
+                <div>
+                    <p class="make_center">
+                        <span class="underline"><b>Relieving &amp; Experience Letter</b></span><br/><br/>
+                    </p>
+                    <!-- <h1 align="center"><b>Relieving &amp; Experience Letter</b></h1><br/><br/> -->
+                    <p class="padding">
+                      This is to certify that <b><var t-field="doc.submit_hr_employee.name"/></b> was in employment with us from <b><span t-esc="datetime.datetime.strptime(doc.submit_hr_employee.joining_date, '%Y-%m-%d').strftime('%d %B %Y')"/></b>. <span t-if="doc.submit_hr_employee.gender == 'male'">He has been relieved from his duties with effect from the close working hours of</span> <span t-if="doc.submit_hr_employee.gender == 'female'">She has been relieved from her duties with effect from the close working hours of</span> <b><span t-esc="datetime.datetime.strptime(doc.last_working_date, '%Y-%m-%d').strftime('%d %B %Y')"/></b>.</p><br/><p class="padding">
+                      At the time of leaving the organization <span t-if="doc.submit_hr_employee.gender == 'male'">he</span> <span t-if="doc.submit_hr_employee.gender == 'female'">she</span> was holding the designation of <b><var t-field="doc.submit_hr_employee.job_id.name"/></b>.</p><br/><p class="padding">
+                      During <span t-if="doc.submit_hr_employee.gender == 'male'">his</span> <span t-if="doc.submit_hr_employee.gender == 'female'">her</span> tenure of employment, <span t-if="doc.submit_hr_employee.gender == 'male'">he</span><span t-if="doc.submit_hr_employee.gender == 'female'">she</span> was found to be Sincere, Honest, Hardworking and a Supportive Team Player. </p><br/>
+                      <p class="padding">We wish <span t-if="doc.submit_hr_employee.gender == 'male'">him</span><span t-if="doc.submit_hr_employee.gender == 'female'">her</span> all the Best in <span t-if="doc.submit_hr_employee.gender == 'male'">his</span><span t-if="doc.submit_hr_employee.gender == 'female'">her</span>  future endeavors.
+                    </p>
+                    <br/>
+                    <p class="padding"><strong> Orient Technologies Pvt Ltd</strong></p><br/><br/>
+                    <p class="padding"><strong> Authorized Signatory</strong></p>
+                </div>
+            </div>
+        </div>
+    </t>
+</template>
+
+
+<template id="report_exitreport">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="doc">
+            <t t-call="orient_hr_resignation.report_exitreport_document" t-lang="doc.submit_hr_employee.user_id.partner_id.lang"/>
+        </t>
+    </t>
+</template>
+
+
+
+</odoo>

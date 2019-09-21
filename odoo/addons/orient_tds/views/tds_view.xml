@@ -1,0 +1,921 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <data>
+
+<!-- Trainer Name -->
+    	<record id="view_employee_provisional_form" model="ir.ui.view">
+            <field name="name">employee.provisional.form</field>
+            <field name="model">employee.provisional</field>
+            <field name="arch" type="xml">
+
+            	<form string="Add/Modify Employees Provisional Investments">
+            		<sheet>
+                        <!-- <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object" groups="hr.group_hr_user"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                    options='{"terminology": "active"}'/>
+                            </button>
+                        </div> -->
+            			<group>
+		    				<group>
+                                <field name="name" invisible="1"/>
+                                <field name="employee" 
+                                groups="orient_hr_resignation.group_finance_employee"/>
+                                <field name="year" options="{'no_open': True}" required="1" widget="selection"/>
+                                <field name="particulars_name" required="0" options="{'no_open': True,'nocreate':True}" widget="selection"/>
+                                <field name="section" required="0" options="{'no_open': True,'nocreate':True}" widget="selection"/>
+                                <!-- <field name="active" /> -->
+                                <field name="particulars" domain="[('section','=',section)]" required="0" options="{'no_open': True,'nocreate':True}" widget="selection"/>
+                                <field name="description" class="oe_inline" force_save="1" readonly="1"/>
+                                <field name="date_of_submission" readonly="1"/>
+                                <field name="amount" required="1"/>
+                                <field name="check_exists" invisible="1"/>
+                                <field name="period_exists" invisible="1"/>
+                                <field name="from_date" attrs="{'invisible':[('period_exists','=',False)],'required':[('period_exists','=',True)]}"/>
+                                <field name="to_date" attrs="{'invisible':[('period_exists','=',False)],'required':[('period_exists','=',True)]}"/>
+                            </group>
+                            <group>
+                                <label string="" colspan="2"/>
+                                <label string="" colspan="2"/>
+                                <button string="Search" type="object" name="search_recs" colspan="2" class="btn-primary"/>
+                            </group>
+        				</group>                       
+                            <button string="Add" type="object" name="add_recs" class="btn-primary"/>
+			    <label string="" colspan="2"/>
+                            <button string="View" type="object" name="view_recs" class="btn-primary"/>
+                         <!-- <group>
+                            
+                        </group> -->
+                        <newline/>
+                        <!-- <tree string="Annual Details" editable="bottom" open="false" mode="tree"> -->
+                            <field name="provisional_lines" editable="top" attrs="{'invisible':[('check_exists','=',False)]}" context="{'provisional_id': active_id}" create="false">
+                                <tree string="Provisional Lines" editable="bottom" mode="tree" create="false" >
+                                    <field name="provisional_id" invisible="1"/>
+                                    <field name="particulars_name" readonly="1"/>
+                                    <field name="employee" invisible="1"/>
+                                    <field name="amount" readonly="1"/>
+                                    <field name="status" readonly="1"/>
+                                    <button string="Edit" type="object" name="select_rec" class="btn-primary"/>
+                                    <!-- <button string="Delete" type="object" name="add_recs"/> -->
+                                    <button string="Attach File" type="object" name="attach_file" class="btn-primary"/>
+                                    <!-- <field name="doc_attachment" widget="binary"/> -->
+                                    <!-- <field name="attachments" />  -->
+                                    <field name="section" invisible="1"/>
+                                    <field name="particulars" invisible="1"/>
+                                    <field name="description" invisible="1"/>
+                                    <field name="date_of_submission" invisible="1"/>
+                                    <field name="period_exists" invisible="1"/>
+                                </tree>
+                            </field>
+        			</sheet>
+        		</form>
+    		</field>
+		</record>
+
+        <record id="ir_attachment_view_search_inherit_hr_recruitment" model="ir.ui.view">
+            <field name="name">ir.attachment.search.inherit.recruitment</field>
+            <field name="model">ir.attachment</field>
+            <field name="mode">primary</field>
+            <field name="inherit_id" ref="base.view_attachment_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='create_date']" position="after">
+                    <field name="index_content" string="Content"/>
+                </xpath>
+                <xpath expr="//filter[@name='my_documents_filter']" position="attributes">
+                    <attribute name='invisible'>1</attribute>
+                </xpath>
+                <xpath expr="//filter[@name='url_filter']" position="attributes">
+                    <attribute name='invisible'>1</attribute>
+                </xpath>
+                <xpath expr="//filter[@name='binary_filter']" position="attributes">
+                    <attribute name='invisible'>1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_employee_provisional_tree" model="ir.ui.view">
+            <field name="name">employee.provisional.tree</field>
+            <field name="model">employee.provisional</field>
+            <field name="arch" type="xml">
+
+                <tree string="Employee Provisional">
+                    <field name="employee"/>
+                    <field name="year" invisible="0"/>
+                    <field name="particulars_name"/>
+                    <field name="section" />
+                    <field name="date_of_submission" />
+                    <field name="amount" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_employee_provisional_form" model="ir.actions.act_window">
+            <field name="name">Employee Provisional</field>
+            <field name="res_model">employee.provisional</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_employee_provisional_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Trainer
+              </p>
+            </field>
+        </record>
+
+        <record id="view_employee_provisional_lines_form" model="ir.ui.view">
+            <field name="name">employee.provisional.form</field>
+            <field name="model">employee.provisional.lines</field>
+            <field name="arch" type="xml">
+
+                <form string="Add/Modify Employees Provisional Investments">
+                    <sheet>
+                        <!-- <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object" groups="hr.group_hr_user"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                    options='{"terminology": "active"}'/>
+                            </button>
+                        </div> -->
+                        <group>
+                            <group>
+                                <field name="employee" invisible="1"/>
+                                <field name="year" options="{'no_open': True}" required="1"/>
+                                <!-- <field name="name" required="0" options="{'no_open': True,'nocreate':True}"/> -->
+                                <field name="section" required="0" options="{'no_open': True,'nocreate':True}"/>
+                                <!-- <field name="active" /> -->
+                                <field name="particulars" domain="[('section','=',section)]" options="{'no_open': True,'nocreate':True}" required="0"/>
+                                <field name="description" class="oe_inline" force_save="1" readonly="1"/>
+                                <field name="date_of_submission" readonly="1"/>
+                                <field name="amount" required="1"/>
+                                <!-- <field name="check_exists" invisible="1"/> -->
+                                <field name="period_exists" invisible="1"/>
+                                <field name="from_date" attrs="{'invisible':[('period_exists','=',False)],'required':[('period_exists','=',True)]}"/>
+                                <field name="to_date" attrs="{'invisible':[('period_exists','=',False)],'required':[('period_exists','=',True)]}"/>
+                                <field name="doc_attachment" widget="binary"/>
+                            </group>
+                            <!-- <group>
+                                <label string="" colspan="2"/>
+                                <label string="" colspan="2"/>
+                                <button string="Search" type="object" name="search_records" colspan="2"/>
+                            </group> -->
+                        </group>
+                        <footer> 
+                            <button string="Save &amp; Exit" type="object" name="save_exit"  class="btn-primary"/>
+                            <button name="cancel" string="Close" special="cancel" class="oe_link"/>
+                        </footer> 
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_employee_provisional_lines_form_approval" model="ir.ui.view">
+            <field name="name">employee.provisional.form</field>
+            <field name="model">employee.provisional.lines</field>
+            <field name="arch" type="xml">
+
+                <form string="Add/Modify Employees Provisional Investments">
+                    <header>
+                        <button string='Approve' name="approve_rec" type="object" class="btn-primary" attrs="{'invisible': [('status', 'in',('Authorized','Rejected'))]}" groups="hr.group_hr_manager,hr.group_hr_user, orient_hr_resignation.group_finance_employee" />
+                        <button string='Reject' name="reject_rec" type="object" class="btn-primary" attrs="{'invisible': [('status', 'in',('Authorized','Rejected'))]}" groups="hr.group_hr_manager,hr.group_hr_user, orient_hr_resignation.group_finance_employee" />
+                        <!-- <button string='Submit To Manager' name="submit_to_manager" type="object" class="btn-primary" attrs="{'invisible': ['|',('state', '!=','draft'),('active','=',True)]}" groups="base.group_user" confirm="Do you want to submit the form?"/> -->
+                        <field name="status" widget="statusbar" statusbar_visible="Pending,Authorized,Rejected"/>
+                        </header>
+                    <sheet>                        
+                        <group>
+                            <group>
+                                <field name="employee" options="{'no_open': True}" invisible="0" readonly="1"/>
+                                <field name="year" options="{'no_open': True}" required="1" readonly="1"/>
+                                <!-- <field name="name" required="0" options="{'no_open': True,'nocreate':True}"/> -->
+                                <field name="section" required="0" readonly="1" options="{'no_open': True}"/>
+                                <!-- <field name="active" /> -->
+                                <field name="particulars" domain="[('section','=',section)]" required="0" readonly="1" options="{'no_open': True}"/>
+                                <field name="description" class="oe_inline" force_save="1" readonly="1"/>
+                                <field name="date_of_submission" readonly="1"/>
+                                <field name="amount" required="1" readonly="1"/>
+                                <!-- <field name="check_exists" invisible="1"/> -->
+                                <field name="period_exists" invisible="1"/>
+                                <field name="from_date" attrs="{'invisible':[('period_exists','=',False)],'required':[('period_exists','=',True)]}" readonly="1"/>
+                                <field name="to_date" attrs="{'invisible':[('period_exists','=',False)],'required':[('period_exists','=',True)]}" readonly="1"/>
+                                <field name="doc_attachment" widget="binary"/>
+                            </group>
+                            <!-- <group>
+                                <label string="" colspan="2"/>
+                                <label string="" colspan="2"/>
+                                <button string="Search" type="object" name="search_records" colspan="2"/>
+                            </group> -->
+                        </group>
+                        <!-- <footer> 
+                            <button string="Save &amp; Exit" type="object" name="save_exit"/>
+                            <button name="cancel" string="Close" special="cancel" class="oe_link"/>
+                        </footer>  -->
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_employee_provisional_lines_form_attach" model="ir.ui.view">
+            <field name="name">employee.provisional.form</field>
+            <field name="model">employee.provisional.lines</field>
+            <field name="arch" type="xml">
+
+                <form string="Add Attachments">
+                    <sheet>
+                        <!-- <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object" groups="hr.group_hr_user"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                    options='{"terminology": "active"}'/>
+                            </button>
+                        </div> -->
+                        <group colspan="8">
+                            <group colspan="8">
+
+                                <field name="attachments" widget="many2many"/>
+                                <!-- <tree string="Attachments" editable="bottom" mode="tree" > -->
+                                    <!-- <field name="datas_fname" readonly="0"/>
+                                    <field name="datas" invisible="0"/> -->
+                                    <!-- <field name="db_datas" readonly="0"/> -->
+                                    <!-- <field name="file_url" readonly="0"/> -->
+                                    <!-- <button string="Delete" type="object" name="add_recs"/> -->
+                                    <!-- <button string="Attach File" type="object" name="attach_file"/> -->
+                                    <!-- <field name="doc_attachment" widget="binary"/> -->
+                                    <!-- <field name="attachments" />  -->
+                                    <!-- <field name="section" invisible="1"/>
+                                    <field name="particulars" invisible="1"/>
+                                    <field name="description" invisible="1"/>
+                                    <field name="date_of_submission" invisible="1"/>
+                                    <field name="period_exists" invisible="1"/> -->
+                                <!-- </tree> -->
+                            <!-- </field> -->
+                                <!-- <field name="employee" invisible="1"/>
+                                <field name="year" options="{'no_open': True}" required="1"/> -->
+                                <!-- <field name="name" required="0" options="{'no_open': True,'nocreate':True}"/> -->
+                                <!-- <field name="section" required="0"/> -->
+                                <!-- <field name="active" /> -->
+                               <!--  <field name="particulars" domain="[('section','=',section)]" required="0"/>
+                                <field name="description" class="oe_inline" force_save="1" readonly="1"/>
+                                <field name="date_of_submission" readonly="1"/>
+                                <field name="amount" required="1"/> -->
+                                <!-- <field name="check_exists" invisible="1"/> -->
+                                <!-- <field name="period_exists" invisible="1"/>
+                                <field name="from_date" attrs="{'invisible':[('period_exists','=',False)],'required':[('period_exists','=',True)]}"/>
+                                <field name="to_date" attrs="{'invisible':[('period_exists','=',False)],'required':[('period_exists','=',True)]}"/>
+                                <field name="doc_attachment" widget="binary"/> -->
+                            </group>
+                            <!-- <group>
+                                <label string="" colspan="2"/>
+                                <label string="" colspan="2"/>
+                                <button string="Search" type="object" name="search_records" colspan="2"/>
+                            </group> -->
+                        </group>
+                        <footer> 
+                            <button string="Save &amp; Exit" type="object" name="save_attachment"  class="btn-primary"/>
+                            <button name="cancel" string="Close" special="cancel" class="oe_link"/>
+                        </footer> 
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_employee_provisional_lines_tree" model="ir.ui.view">
+            <field name="name">employee.provisional.tree</field>
+            <field name="model">employee.provisional.lines</field>
+            <field name="arch" type="xml">
+
+                <tree string="Employee Provisional">
+                    <field name="employee"/>
+                    <field name="year" invisible="0"/>
+                    <!-- <field name="name"/> -->
+                    <field name="section" string="Section"/>
+                    <field name="particulars" string="Particulars"/>
+                    <field name="date_of_submission" />
+                    <field name="amount" />
+                    <field name="status"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_employee_provisional_search" model="ir.ui.view">
+        <field name="name">employee.provisional.lines.search</field>
+        <field name="model">employee.provisional.lines</field>
+        <field name="arch" type="xml">
+            <search string="Search">
+                <filter string="Search Provisions" name="employee"/>
+                <field name="employee" operator="child_of"/>
+            </search>
+        </field>
+    </record>
+
+        <record id="action_employee_provisional_lines_form" model="ir.actions.act_window">
+            <field name="name">Employee Provisional</field>
+            <field name="res_model">employee.provisional.lines</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('status', '=', 'Pending')]</field>
+            <field name="context">{'create':1,'delete': 1}</field>
+            <field name="search_view_id" ref="view_employee_provisional_search"/>
+            <!-- <field name="view_id" ref="view_employee_provisional_lines_tree"/> -->
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Trainer
+              </p>
+            </field>
+        </record>
+
+        <record id="view_employee_provisional_lines_tree_approved" model="ir.ui.view">
+            <field name="name">employee.provisional.tree</field>
+            <field name="model">employee.provisional.lines</field>
+            <field name="arch" type="xml">
+
+                <tree string="Employee Provisional">
+                    <field name="employee"/>
+                    <field name="year" invisible="0"/>
+                    <!-- <field name="name"/> -->
+                    <field name="section" string="Section"/>
+                    <field name="particulars" string="Particulars"/>
+                    <field name="date_of_submission" />
+                    <field name="amount" />
+                    <field name="status"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_employee_provisional_lines_form_approved" model="ir.actions.act_window">
+            <field name="name">Employee Provisional</field>
+            <field name="res_model">employee.provisional.lines</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('status', '=', 'Authorized')]</field>
+            <field name="context">{'create':1,'delete': 1}</field>
+            <field name="search_view_id" ref="view_employee_provisional_search"/>
+            <!-- <field name="view_id" ref="view_employee_provisional_lines_tree"/> -->
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Trainer
+              </p>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_view_employee_provisional_lines_tree">
+         <field name="sequence" eval="1"/>
+         <field name="view_mode">tree</field>
+         <field name="view_id" ref="view_employee_provisional_lines_tree"/>
+         <field name="domain">[('status', '=', 'Pending')]</field>
+         <field name="act_window_id" ref="action_employee_provisional_lines_form"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_view_employee_provisional_lines_form">
+         <field name="sequence" eval="2"/>
+         <field name="view_mode">form</field>
+         <field name="view_id" ref="view_employee_provisional_lines_form_approval"/>
+         <field name="act_window_id" ref="action_employee_provisional_lines_form"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_view_employee_provisional_lines_tree1">
+         <field name="sequence" eval="1"/>
+         <field name="view_mode">tree</field>
+         <field name="view_id" ref="view_employee_provisional_lines_tree_approved"/>
+         <field name="domain">[('status', '=', 'Authorized')]</field>
+         <field name="act_window_id" ref="action_employee_provisional_lines_form_approved"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_view_employee_provisional_lines_form1">
+         <field name="sequence" eval="2"/>
+         <field name="view_mode">form</field>
+         <field name="view_id" ref="view_employee_provisional_lines_form_approval"/>
+         <field name="act_window_id" ref="action_employee_provisional_lines_form_approved"/>
+        </record>
+
+        <record id="view_section_master_form" model="ir.ui.view">
+            <field name="name">section.master.form</field>
+            <field name="model">section.master</field>
+            <field name="arch" type="xml">
+                <form string="Section Master">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" />
+                                <field name="active" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_section_master_tree" model="ir.ui.view">
+            <field name="name">section.master.tree</field>
+            <field name="model">section.master</field>
+            <field name="arch" type="xml">
+
+                <tree string="Section Master">
+                    <field name="name"/>
+                    <field name="active" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_section_master_form" model="ir.actions.act_window">
+            <field name="name">Section Master</field>
+            <field name="res_model">section.master</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_section_master_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Section Master
+              </p>
+            </field>
+        </record>
+
+        <record id="view_particulars_master_form" model="ir.ui.view">
+            <field name="name">particulars.master.form</field>
+            <field name="model">particulars.master</field>
+            <field name="arch" type="xml">
+
+                <form string="Particulars Master">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="description"/>
+                                <field name="section"/>
+                                <field name="period_required"/>
+                                <field name="active"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_particulars_master_tree" model="ir.ui.view">
+            <field name="name">particulars.master.tree</field>
+            <field name="model">particulars.master</field>
+            <field name="arch" type="xml">
+
+                <tree string="Particulars Master">
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="section"/>
+                    <field name="period_required"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_particulars_master_form" model="ir.actions.act_window">
+            <field name="name">Particulars Master</field>
+            <field name="res_model">particulars.master</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_particulars_master_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Particulars Master
+              </p>
+            </field>
+        </record>
+
+
+        <record id="view_pay_slip_form" model="ir.ui.view">
+            <field name="name">Pay Slip</field>
+            <field name="model">pay.slip</field>
+            <field name="arch" type="xml">
+
+                <form string="Pay Slip">
+                    <sheet>
+                        <group string="Pay Slip"></group>
+                        <group>
+                            <group>
+                                <field name="employee_id" invisible="1"/>
+                                <field name="name" invisible="1"/>
+                                <field name="month_sel"/>
+                                <field name="year_sel" widget="selection"/>
+                                <field name="join_date" invisible="1"/>
+                            </group>
+                        </group>
+                        <button string='HTML' name="html_payslip" type="object" class="btn-primary" invisible="1"/>
+                        <label string="" colspan="2"/>
+                        <button string='PDF' name="pdf_payslip" type="object" class="btn-primary" />
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_pay_slip_tree" model="ir.ui.view">
+            <field name="name">Pay Slip</field>
+            <field name="model">pay.slip</field>
+            <field name="arch" type="xml">
+                <tree string="Generate Pay Slip">
+                    <field name="employee_id"/>
+                    <field name="name"/>
+                    <field name="month_sel"/>
+                    <field name="year_sel" widget="selection"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_pay_slip_form" model="ir.actions.act_window">
+            <field name="name">Pay Slip</field>
+            <field name="res_model">pay.slip</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+            <field name="view_id" ref="view_pay_slip_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Pay Slip
+              </p>
+            </field>
+        </record>
+
+
+        <record id="view_form_16_form" model="ir.ui.view">
+            <field name="name">Form 16</field>
+            <field name="model">form.16</field>
+            <field name="arch" type="xml">
+                <form string="Form 16">
+                    <sheet>
+                        <group string="Form 16"></group>
+                        <group>
+                            <group>
+                                <field name="employee_id" invisible="1"/>
+                                <field name="month_sel" invisible="1"/>
+                                <field name="year_sel" widget="selection" required="1" readonly="1"/>
+                                <field name="generated" invisible="1"/>
+                            </group>
+                        </group>
+                        <button string='Generate' type="object" name="generate_form_16" class="btn-primary"  
+                                attrs="{'invisible':[('generated','=',True)]}"/>
+                        <label string="" colspan="2"/>
+                        <br/>
+                        <group>
+                                <field name="form_a" readonly="1" string="Form 16 Part A"
+                                       attrs="{'invisible':[('generated','=',False)]}"/>
+                                <!-- <label string="" colspan="4"/> -->
+                                <!-- <font attrs="{'invisible': [('generated', '=', False)]}">Click here to download</font> -->
+                                <field name="form_b" readonly="1" string="Form 16 Part B"
+                                       attrs="{'invisible':[('generated','=',False)]}"/>
+                                <!-- <font attrs="{'invisible': [('generated', '=', False)]}">Click here to download</font> -->
+                         </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_form_16_tree" model="ir.ui.view">
+            <field name="name">Form 16</field>
+            <field name="model">form.16</field>
+            <field name="arch" type="xml">
+
+                <tree string="Form 16">
+                    <field name="employee_id"/>
+                    <field name="month_sel"/>
+                    <field name="year_sel"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_form_16_form" model="ir.actions.act_window">
+            <field name="name">Form 16</field>
+            <field name="res_model">form.16</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="context">{'create':0,'delete': 0,'edit':0}</field>
+            <field name="target">inline</field>
+            <field name="view_id" ref="view_form_16_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Particulars Master
+              </p>
+            </field>
+        </record>
+
+
+        <record id="view_tds_summary_form" model="ir.ui.view">
+            <field name="name">TDS Summary</field>
+            <field name="model">tds.summary</field>
+            <field name="arch" type="xml">
+
+                <form string="TDS Summary">
+                    <sheet>
+                        <group string="TDS Summary"></group>
+                        <group>
+                            <group>
+                                <field name="employee_id" invisible="1"/>
+                                <field name="month_sel" invisible="1"/>
+                                <field name="year_sel" widget="selection"/>
+                            </group>
+                        </group>
+                        <button string='Details' name="tds_summary_details" type="object" class="btn-primary" />
+                        <label string="" colspan="2"/>
+                        <button string='Summary' name="tds_summary" type="object" class="btn-primary" />
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_tds_summary_tree" model="ir.ui.view">
+            <field name="name">TDS Summary</field>
+            <field name="model">tds.summary</field>
+            <field name="arch" type="xml">
+
+                <tree string="TDS Summary">
+                    <field name="employee_id"/>
+                    <field name="month_sel"/>
+                    <field name="year_sel"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_tds_summary_form" model="ir.actions.act_window">
+            <field name="name">TDS Summary</field>
+            <field name="res_model">tds.summary</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+            <field name="view_id" ref="view_tds_summary_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                TDS Summary
+              </p>
+            </field>
+        </record>
+
+
+        <record id="view_conveyance_reimbursement_form" model="ir.ui.view">
+            <field name="name">Conveyance Reimbursement</field>
+            <field name="model">conveyance.reimbursement</field>
+            <field name="arch" type="xml">
+
+                <form string="Conveyance Reimbursement">
+                    <sheet>
+                        <group string="Conveyance Reimbursement"></group>
+                        <group>
+                            <group>
+                                <field name="name" invisible="1"/>
+                                <field name="employee_id" invisible="1"/>
+                                <field name="year" widget="selection" readonly="1"/>
+                                <field name="month_sel" invisible="0"/>
+                                <field name="monthly_amount" readonly="1"/>
+                                <field name="remaining_amount" readonly="1"/>
+                                <field name="application_amount" readonly="0"/>
+                                <field name="doc_attachment" readonly="0"/>
+                                <field name="record_exists" invisible="1"/>
+                            </group>
+                        </group>
+                         
+                        <button string='Add' name="add_conveyance" type="object" class="btn-primary" />
+                        <label string="" colspan="2"/>
+                        <button string='View Applied Conveyance' name="conveyance_summary" type="object" class="btn-primary" />
+
+                        <newline/>
+                        <field name="conveyance_reimbursement_lines" editable="top" attrs="{'invisible':[('record_exists','=',False)]}" context="{'conveyance_reimbursement_id': active_id}" create="false" delete="false">
+                            <tree string="Provisional Lines" editable="bottom" mode="tree" create="false">
+                                <field name="conveyance_reimbursement_id" invisible="1"/>
+                                <field name="employee" invisible="1"/>
+                                <field name="application_date" readonly="1"/>
+                                <field name="month_sel" readonly="1"/>
+                                <field name="year" readonly="1"/>
+                                <field name="applied_amount" readonly="1" sum="Total"/>
+                                <field name="authorized_amount" readonly="1" sum="Total"/>
+                                <field name="doc_attachment" invisible="1"/>
+                                <field name="status" readonly="1"/>
+                            </tree>
+                        </field>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        
+
+        <record id="action_conveyance_reimbursement_form" model="ir.actions.act_window">
+            <field name="name">Conveyance Reimbursement</field>
+            <field name="res_model">conveyance.reimbursement</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="context">{'create':1,'delete': 1}</field>
+            <field name="view_id" ref="view_conveyance_reimbursement_form"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Conveyance Reimbursement
+              </p>
+            </field>
+        </record>
+
+        <record id="view_documents_master_form" model="ir.ui.view">
+            <field name="name">Documents Master</field>
+            <field name="model">documents.master</field>
+            <field name="arch" type="xml">
+
+                <form string="Documents Master">
+                    <sheet>
+                        <group string="Documents Master"></group>
+                        <group>
+                            <group>
+                                <field name="type_of_document"/>
+                                <field name="name" invisible="0"/>
+                                <field name="doc_attachment"/>
+                            </group>
+                        </group>
+                        <button string='Save' type="object" name="save_document" class="btn-primary" />
+                        <label string="" colspan="2"/>
+                        <!-- <button string='PDF' name="" type="object" class="btn-success" /> -->
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="view_conveyance_reimbursement_import_tree" model="ir.ui.view">
+            <field name="name">conveyance.reimbursement.import.tree</field>
+            <field name="model">conveyance.reimbursement.import</field>
+            <field name="arch" type="xml">
+            <tree string="Conveyance Uploaded">
+                <field name="employee"/>
+                <field name="employee_code" readonly="1" force_save="1"/>
+                <field name="year_id"/>
+                <field name="monthly_conveyance"/>
+                <field name="authorized_amount"/>
+            </tree>
+            </field>
+        </record>
+
+        <record id="conveyance_import_search_view" model="ir.ui.view">
+            <field name="name">aconveyance.reimbursement.import.search.view</field>
+            <field name="model">conveyance.reimbursement.import</field>
+            <field name="arch" type="xml">
+                <search string="Search Conveyance Applicable">
+                    <field name="employee_code" string="Employee Code" filter_domain="[('employee_code','ilike',self)]"/>
+                    <field name="employee" string="Employee Name" filter_domain="[('employee.name','ilike',self)]"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_conveyance_reimbursement_import" model="ir.actions.act_window">
+            <field name="name">Conveyance Reimbursement</field>
+            <field name="res_model">conveyance.reimbursement.import</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_conveyance_reimbursement_import_tree"/>
+            <field name="search_view_id" ref="conveyance_import_search_view"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Documents Master
+              </p>
+            </field>
+        </record>
+
+        <record id="view_documents_master_tree" model="ir.ui.view">
+            <field name="name">Documents Master</field>
+            <field name="model">documents.master</field>
+            <field name="arch" type="xml">
+            <tree string="Documents Master">
+                <field name="type_of_document"/>
+                <field name="name"/>
+                <field name="doc_attachment"/>
+            </tree>
+            </field>
+        </record>
+
+        <record id="action_documents_master_form" model="ir.actions.act_window">
+            <field name="name">Documents Master</field>
+            <field name="res_model">documents.master</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_documents_master_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Documents Master
+              </p>
+            </field>
+        </record>
+
+
+        <record id="view_policy_documents_form" model="ir.ui.view">
+            <field name="name">Policy Documents</field>
+            <field name="model">policy.documents</field>
+            <field name="arch" type="xml">
+
+                <form string="Policy Documents">
+                    <sheet>
+                        <group string="Policy Documents"></group>
+                        <group>
+                            <group>
+                                <field name="type_of_document" invisible="1"/>
+                                <field name="name" invisible="0" readonly="1"/>
+                                <field name="doc_attachment" readonly="1"/>
+                            </group>
+                        </group>
+                        <!-- <button string='Save' type="object" name="save_document" class="btn-primary" />
+                        <label string="" colspan="2"/> -->
+                        <!-- <button string='PDF' name="" type="object" class="btn-success" /> -->
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_policy_documents_tree" model="ir.ui.view">
+            <field name="name">Policy Documents</field>
+            <field name="model">policy.documents</field>
+            <field name="arch" type="xml">
+            <tree string="Documents Master">
+                <!-- <field name="type_of_document"/> -->
+                <field name="name"/>
+                <field name="doc_attachment"/>
+            </tree>
+            </field>
+        </record>
+
+        <record id="action_policy_documents_form" model="ir.actions.act_window">
+            <field name="name">Policy Documents</field>
+            <field name="res_model">policy.documents</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'create':1,'delete': 1}</field>
+            <field name="view_id" ref="view_policy_documents_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                No Policies to View
+              </p>
+            </field>
+        </record>
+
+        <record id="view_application_documents_form" model="ir.ui.view">
+            <field name="name">Application Forms</field>
+            <field name="model">application.documents</field>
+            <field name="arch" type="xml">
+
+                <form string="Application Forms">
+                    <sheet>
+                        <group string="Application Forms"></group>
+                        <group>
+                            <group>
+                                <field name="type_of_document" invisible="1"/>
+                                <field name="name" invisible="0" readonly="1"/>
+                                <field name="doc_attachment" readonly="1"/>
+                            </group>
+                        </group>
+                        <!-- <button string='Save' type="object" name="save_document" class="btn-primary" />
+                        <label string="" colspan="2"/> -->
+                        <!-- <button string='PDF' name="" type="object" class="btn-success" /> -->
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_application_documents_tree" model="ir.ui.view">
+            <field name="name">Application Forms</field>
+            <field name="model">application.documents</field>
+            <field name="arch" type="xml">
+            <tree string="Documents Master">
+                <!-- <field name="type_of_document"/> -->
+                <field name="name"/>
+                <field name="doc_attachment"/>
+            </tree>
+            </field>
+        </record>
+
+        <record id="action_app_documents_form" model="ir.actions.act_window">
+            <field name="name">Application Forms</field>
+            <field name="res_model">application.documents</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'create':1,'delete': 1}</field>
+            <field name="view_id" ref="view_application_documents_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                No Applications Form to view
+              </p>
+            </field>
+        </record>
+
+<!-- Meus -->
+
+        <menuitem id="menu_employee_provisional" name="TDS Provisionals" parent="hr.menu_hr_root" sequence="5"/>
+
+        <menuitem id="employee_provisional_menu" name="Investment Declaration" parent="menu_employee_provisional" sequence="1" action="action_employee_provisional_form" groups="base.group_user"/>
+        <menuitem id="section_master_menu" name="" parent="menu_employee_provisional" sequence="4" action="action_section_master_form" groups="orient_hr_resignation.group_finance_employee"/>
+        <menuitem id="particulars_master_menu" name="" parent="menu_employee_provisional" sequence="5" action="action_particulars_master_form" groups="orient_hr_resignation.group_finance_employee"/>
+        <menuitem id="approval_menu" name="Approve/Reject Declaration" parent="menu_employee_provisional" sequence="2" action="action_employee_provisional_lines_form" groups="orient_hr_resignation.group_finance_employee"/>
+        <menuitem id="menu_pay_slip" name="Pay Slip" parent="hr.menu_hr_root" sequence="4" action="action_pay_slip_form" groups="base.group_user"/>
+        <menuitem id="menu_form_16" name="Form 16" parent="hr.menu_hr_root" sequence="7" action="action_form_16_form" groups="base.group_user"/>
+        <menuitem id="menu_tds_summary" name="TDS Summary" parent="hr.menu_hr_root" sequence="6" action="action_tds_summary_form" groups="base.group_user"/>
+        <menuitem id="menu_conveyance_reimbursement" name="Conveyance Reimbursement" parent="hr.menu_hr_root" sequence="10" action="action_conveyance_reimbursement_form" groups="base.group_user"/>
+        <menuitem id="menu_conveyance_reimbursement_import" name="Conveyance Reimbursement Import" parent="hr.menu_hr_root" sequence="11" action="action_conveyance_reimbursement_import" groups="base.group_erp_manager,orient_hr_resignation.group_finance_employee"/>
+        <!-- <menuitem id="menu_conveyance_reimbursement" name="Conveyance Reimbursement" parent="hr.menu_hr_root" sequence="10" action="action_conveyance_reimbursement_form" groups="base.group_user"/> -->
+        <menuitem id="menu_policy_documents" name="Policy Documents" parent="hr.menu_hr_root" sequence="12" action="action_policy_documents_form" groups="base.group_user"/>
+        <menuitem id="menu_app_documents" name="Application Forms" parent="hr.menu_hr_root" sequence="13" action="action_app_documents_form" groups="base.group_user"/>
+        <menuitem id="menu_document_master"
+            name="Documents Master"
+            action="action_documents_master_form"
+            parent="hr.menu_human_resources_configuration"
+            groups="hr.group_hr_manager,hr.group_hr_user"
+            sequence="35"/>
+
+	</data>
+</odoo>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.cron" id="employee_quarterly_mail_remider">
+            <field name="name">Quarterly KRA Form Reminder</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model_id" ref="model_hr_employee"/>
+            <field name="state">code</field>
+            <field name="code">model.quarterly_kra_mail_reminder()</field>
+        </record>
+    </data>
+
+   <!--  <data>
+        <record model="ir.cron" id="auto_create_annual_review">
+            <field name="name">Create Annual Review Form</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model_id" ref="model_hr_employee"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_annual_review()</field>
+        </record>
+    </data> -->
+</odoo>

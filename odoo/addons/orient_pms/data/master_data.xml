@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+<!-- Appraisal Scale -->
+
+        <record id="appraisal_un" model="appraisal.scale">
+            <field name="name">Unsatisfactory</field>
+            <field name="scale">0.5</field>
+            <field name="pip_applicable">True</field>
+            <field name="active">True</field>
+            <field name="maximum">10</field>
+            <field name="minimum">0</field>
+        </record>
+
+        <record id="appraisal_mar" model="appraisal.scale">
+            <field name="name">Unsatisfactory</field>
+            <field name="scale">1</field>
+            <field name="pip_applicable">True</field>
+            <field name="active">True</field>
+            <field name="maximum">20</field>
+            <field name="minimum">11</field>
+        </record>
+
+        <record id="appraisal_sat" model="appraisal.scale">
+            <field name="name">Marginal</field>
+            <field name="scale">1.5</field>
+            <field name="pip_applicable">True</field>
+            <field name="active">True</field>
+            <field name="maximum">30</field>
+            <field name="minimum">21</field>
+        </record>
+
+        <record id="appraisal_hsat" model="appraisal.scale">
+            <field name="name">Marginal</field>
+            <field name="scale">2.0</field>
+            <field name="pip_applicable">True</field>
+            <field name="active">True</field>
+            <field name="maximum">40</field>
+            <field name="minimum">31</field>
+        </record>
+
+        <record id="appraisal_excp" model="appraisal.scale">
+            <field name="name">Satisfactory</field>
+            <field name="scale">2.5</field>
+            <field name="pip_applicable">False</field>
+            <field name="active">True</field>
+            <field name="maximum">50</field>
+            <field name="minimum">41</field>
+        </record>
+
+
+        <record id="appraisal_un1" model="appraisal.scale">
+            <field name="name">Satisfactory</field>
+            <field name="scale">3.0</field>
+            <field name="pip_applicable">False</field>
+            <field name="active">True</field>
+            <field name="maximum">60</field>
+            <field name="minimum">51</field>
+        </record>
+
+        <record id="appraisal_mar1" model="appraisal.scale">
+            <field name="name">Highly Satisfactory</field>
+            <field name="scale">3.5</field>
+            <field name="pip_applicable">False</field>
+            <field name="active">True</field>
+            <field name="maximum">70</field>
+            <field name="minimum">61</field>
+        </record>
+
+        <record id="appraisal_sat1" model="appraisal.scale">
+            <field name="name">Highly Satisfactory</field>
+            <field name="scale">4.0</field>
+            <field name="pip_applicable">False</field>
+            <field name="active">True</field>
+            <field name="maximum">80</field>
+            <field name="minimum">71</field>
+        </record>
+
+        <record id="appraisal_hsat1" model="appraisal.scale">
+            <field name="name">Exceptional</field>
+            <field name="scale">4.5</field>
+            <field name="pip_applicable">False</field>
+            <field name="active">True</field>
+            <field name="maximum">90</field>
+            <field name="minimum">81</field>
+        </record>
+
+        <record id="appraisal_excp1" model="appraisal.scale">
+            <field name="name">Exceptional</field>
+            <field name="scale">5.0</field>
+            <field name="pip_applicable">False</field>
+            <field name="active">True</field>
+            <field name="maximum">100</field>
+            <field name="minimum">91</field>
+        </record>
+<!-- Increment Scale -->
+
+        <record id="increment1" model="increment.scale">
+            <field name="maximum_increment">2</field>
+            <field name="minimum_increment">0</field>
+            <field name="maximum_weightage">1.55</field>
+            <field name="minimum_weightage">1.1</field>            
+        </record>
+
+        <record id="increment2" model="increment.scale">
+            <field name="maximum_increment">5</field>
+            <field name="minimum_increment">2</field>
+            <field name="maximum_weightage">2</field>
+            <field name="minimum_weightage">1.56</field>            
+        </record>
+
+        <record id="increment3" model="increment.scale">
+            <field name="maximum_increment">7</field>
+            <field name="minimum_increment">5</field>
+            <field name="maximum_weightage">2.55</field>
+            <field name="minimum_weightage">2.1</field>            
+        </record>
+
+        <record id="increment4" model="increment.scale">
+            <field name="maximum_increment">10</field>
+            <field name="minimum_increment">7</field>
+            <field name="maximum_weightage">3</field>
+            <field name="minimum_weightage">2.56</field>            
+        </record>
+
+        <record id="increment5" model="increment.scale">
+            <field name="maximum_increment">12</field>
+            <field name="minimum_increment">10</field>
+            <field name="maximum_weightage">3.55</field>
+            <field name="minimum_weightage">3.1</field>            
+        </record>
+
+        <record id="increment6" model="increment.scale">
+            <field name="maximum_increment">15</field>
+            <field name="minimum_increment">12</field>
+            <field name="maximum_weightage">4</field>
+            <field name="minimum_weightage">3.56</field>            
+        </record>
+
+        <record id="increment7" model="increment.scale">
+            <field name="maximum_increment">17</field>
+            <field name="minimum_increment">15</field>
+            <field name="maximum_weightage">4.55</field>
+            <field name="minimum_weightage">4.1</field>            
+        </record>
+
+        <record id="increment8" model="increment.scale">
+            <field name="maximum_increment">20</field>
+            <field name="minimum_increment">17</field>
+            <field name="maximum_weightage">5</field>
+            <field name="minimum_weightage">4.56</field>            
+        </record>
+	</data>
+</odoo>

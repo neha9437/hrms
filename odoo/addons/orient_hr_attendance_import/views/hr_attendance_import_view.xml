@@ -1,0 +1,1300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="hr_attendance_import_tree" model="ir.ui.view">
+            <field name="name">hr.attendance.import.tree</field>
+            <field name="model">hr.attendance.import</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <tree string="Attendance Import">
+                    <field name="datas_fname"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hr_attendance_import_form" model="ir.ui.view">
+            <field name="name">hr.attendance.import.form</field>
+            <field name="model">hr.attendance.import</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <form string="Attendance Import">
+                    <header>
+                        <button string="Import" class="btn-primary" type="object" states='draft' name="import_data" style="background-color:lightgreen;"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="datas" filename="datas_fname" attrs="{'invisible':[('state','in',('done','failed'))]}"/>
+                                <field name="file_url" invisible="1"/>
+                                <field name="datas_fname" attrs="{'invisible':[('state','=','draft')]}"/>
+                                <field name="db_datas" invisible="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="view_hr_attendance_import">
+            <field name="name">Attendance Import</field>
+            <field name="res_model">hr.attendance.import</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Attendance Import Form
+                </p>
+            </field>
+        </record>
+
+
+        <!-- Customize Attendance Report -->
+        <record id="inherited_view_attendance_tree_new" model="ir.ui.view">
+            <field name="name">inherited_hr.attendance.tree</field>
+            <field name="model">hr.attendance</field>
+            <!-- <field name="inherit_id" ref="hr_attendance.view_attendance_tree"/> -->
+            <field name="arch" type="xml">
+                <tree string="Employee attendance" editable="top">
+                    <field name="employee_code" readonly="1" invisible="0"/>
+                    <field name="employee_id" readonly="1" invisible="0" options="{'no_open': True}"/>
+                    <field name="site_master_id" readonly="1" />
+                    <field name="attendance_date" readonly="1"/>
+                    <field name="in_time" readonly="1"/>
+                    <field name="out_time" readonly="1"/>
+                    <field name="worked_hours" type="measure"/>
+                    <field name="shift" readonly="1" options="{'no_open': True}"/>
+                    <field name="early_leaving" readonly="1"/>
+                    <field name="late_coming" readonly="1"/>
+                    <field name="employee_status" readonly="1"/>
+                    <field name="state" readonly="1" invisible="1"/>
+                    <field name="import_status" readonly="1" string="Last Updated From"/>
+                    <field name="approved_rejected_date" invisible="1"/>
+                    <!-- <button string="Update Time" name="update_time" type="object" attrs="{'invisible':[('state','in',('approval','done'))]}"/> -->
+                    <!-- <button string="Update" type="object" name="update_time_admin" groups="hr_attendance.group_hr_attendance_admin"/> -->
+                </tree>
+            </field>
+        </record>
+
+        <record id="inherited_view_attendance_tree1" model="ir.ui.view">
+            <field name="name">inherited_hr.attendance.tree1</field>
+            <field name="model">hr.attendance</field>
+            <!-- <field name="inherit_id" ref="hr_attendance.view_attendance_tree"/> -->
+            <field name="arch" type="xml">
+                <tree string="Employee attendance" editable="top">
+                    <field name="employee_id" readonly="1" invisible="1"/>
+                    <field name="site_master_id" readonly="1" options="{'no_open': True}"/>
+                    <field name="attendance_date" readonly="1"/>
+                    <field name="in_time" readonly="1"/>
+                    <field name="out_time" readonly="1"/>
+                    <field name="worked_hours" type="measure"/>
+                    <field name="shift" readonly="1" options="{'no_open': True}"/>
+                    <field name="early_leaving" readonly="1"/>
+                    <field name="late_coming" readonly="1"/>
+                    <field name="employee_status" readonly="1"/>
+                    <field name="state" readonly="1" invisible="1"/>
+                    <field name="import_status" readonly="1" string="Last Updated From"/>
+                    <field name="approved_rejected_date" invisible="1"/>
+                    <button string="Update Time" name="update_time" type="object"  class="btn-primary"/>
+                    <!-- attrs="{'invisible':[('state','=','done')]}" <button string="Update" type="object" name="update_time_admin"/> -->
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="inherited_view_pending_attendance_approval_tree" model="ir.ui.view">
+            <field name="name">inherited.view.pending.attendance.approval.tree</field>
+            <field name="model">hr.attendance</field>
+            <field name="arch" type="xml">
+                <tree string="Pending Approvals" editable="top">
+                    <field name="employee_id" readonly="1" invisible="1"/>
+                    <field name="site_master_id" readonly="1" options="{'no_open': True}"/>
+                    <field name="attendance_date" readonly="1"/>
+                    <field name="in_time_updation" readonly="1" invisible="0"/>
+                    <field name="out_time_updation" readonly="1" invisible="0"/>
+                    <field name="in_time" readonly="1" invisible="1"/>
+                    <field name="out_time" readonly="1" invisible="1"/>
+                    <field name="worked_hours" type="measure" invisible="1"/>
+                    <field name="shift" readonly="1" options="{'no_open': True}"/>
+                    <field name="early_leaving" readonly="1"/>
+                    <field name="late_coming" readonly="1"/>
+                    <field name="employee_status" readonly="1"/>
+                    <field name="state" readonly="1" invisible="1"/>
+                    <field name="import_status" readonly="1" string="Last Updated From"/>
+                    <field name="approved_rejected_date" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="inherited_view_rejected_attendances_tree" model="ir.ui.view">
+            <field name="name">inherited.view.rejected.attendances.tree</field>
+            <field name="model">hr.attendance</field>
+            <field name="arch" type="xml">
+                <tree string="Rejected Attendance" editable="top">
+                    <field name="employee_id" readonly="1" invisible="1"/>
+                    <field name="site_master_id" readonly="1" options="{'no_open': True}"/>
+                    <field name="attendance_date" readonly="1"/>
+                    <field name="in_time_updation" readonly="1" invisible="0"/>
+                    <field name="out_time_updation" readonly="1" invisible="0"/>
+                    <field name="in_time" readonly="1" invisible="1"/>
+                    <field name="out_time" readonly="1" invisible="1"/>
+                    <field name="worked_hours" type="measure" invisible="1"/>
+                    <field name="shift" readonly="1" options="{'no_open': True}"/>
+                    <field name="early_leaving" readonly="1"/>
+                    <field name="late_coming" readonly="1"/>
+                    <field name="employee_status" readonly="1"/>
+                    <field name="state" readonly="1" invisible="1"/>
+                    <field name="import_status" readonly="1" string="Last Updated From"/>
+                    <field name="approved_rejected_date" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="hr_attendance_import_view_pivot" model="ir.ui.view">
+            <field name="name">hr.attendance.pivot</field>
+            <field name="model">hr.attendance</field>
+            <field name="arch" type="xml">
+                <pivot string="Attendance">
+                    <field name="employee_id" type="row"/>
+                    <field name="attendance_date" type="col" interval="month"/>
+                    <field name="worked_hours" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="inherited_hr_attendance_view_filter" model="ir.ui.view">
+            <field name="name">inherited_hr_attendance_view_filter</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hr_attendance.hr_attendance_view_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search/group" position="before">
+                    <field name="employee_code" string="Emp Code" filter_domain="[('employee_code','ilike',self)]"/>
+                    <field name="employee_id"/>
+                    <field name="department_id"/>
+
+                    <!-- domain="[(‘create_date’,'&lt;',(context_today()+relativedelta(months=1)).strftime('%%Y-%%m-01')), (‘create_date’,'&gt;=',time.strftime('%%Y-%%m-01'))]"
+
+                    domain="[('attendance_date', '&gt;=', datetime.datetime.now().strftime('%Y-%m-01')),('attendance_date','&lt;=',(datetime.datetime.now()+relativedelta(months=1)).strftime('%%Y-%%m-01'))]" -->
+
+                    <filter name="month" string="Current Month" domain="[('attendance_date','&lt;',(context_today()+relativedelta(months=1)).strftime('%%Y-%%m-01')), ('attendance_date','&gt;=',time.strftime('%%Y-%%m-01'))]" />
+
+                    <filter name="today" string="Today" domain="[('check_in', '&gt;=', datetime.datetime.now().replace(hour=0, minute=0, second=0)),('check_in', '&lt;=', datetime.datetime.now().replace(hour=23, minute=59, second=59))]" />
+
+                    <filter string="January" domain="[('attendance_date', '&gt;=', datetime.datetime.now().strftime('%Y-01-01')),('attendance_date','&lt;=',datetime.datetime.now().strftime('%Y-01-31'))]" />
+
+                    <filter string="February" domain="[('attendance_date', '&gt;=', datetime.datetime.now().strftime('%Y-02-01')),('attendance_date','&lt;=',datetime.datetime.now().strftime('%Y-02-28'))]" />
+
+                    <filter string="March" domain="[('attendance_date', '&gt;=', datetime.datetime.now().strftime('%Y-03-01')),('attendance_date','&lt;=',datetime.datetime.now().strftime('%Y-03-31'))]" />
+
+                    <filter string="April" domain="[('attendance_date', '&gt;=', datetime.datetime.now().strftime('%Y-04-01')),('attendance_date','&lt;=',datetime.datetime.now().strftime('%Y-04-30'))]" />
+
+                    <filter string="May" domain="[('attendance_date', '&gt;=', datetime.datetime.now().strftime('%Y-05-01')),('attendance_date','&lt;=',datetime.datetime.now().strftime('%Y-05-31'))]" />
+
+                    <filter string="June" domain="[('attendance_date', '&gt;=', datetime.datetime.now().strftime('%Y-06-01')),('attendance_date','&lt;=',datetime.datetime.now().strftime('%Y-06-30'))]" />
+
+                    <filter string="July" domain="[('attendance_date', '&gt;=', datetime.datetime.now().strftime('%Y-07-01')),('attendance_date','&lt;=',datetime.datetime.now().strftime('%Y-07-31'))]" />
+
+                    <filter string="August" domain="[('attendance_date', '&gt;=', datetime.datetime.now().strftime('%Y-08-01')),('attendance_date','&lt;=',datetime.datetime.now().strftime('%Y-08-31'))]" />
+
+                    <filter string="September" domain="[('attendance_date', '&gt;=', datetime.datetime.now().strftime('%Y-09-01')),('attendance_date','&lt;=',datetime.datetime.now().strftime('%Y-09-30'))]" />
+
+                    <filter string="October" domain="[('attendance_date', '&gt;=', datetime.datetime.now().strftime('%Y-10-01')),('attendance_date','&lt;=',datetime.datetime.now().strftime('%Y-10-31'))]" />
+
+                    <filter string="November" domain="[('attendance_date', '&gt;=', datetime.datetime.now().strftime('%Y-11-01')),('attendance_date','&lt;=',datetime.datetime.now().strftime('%Y-11-30'))]" />
+
+                    <filter string="December" domain="[('attendance_date', '&gt;=', datetime.datetime.now().strftime('%Y-12-01')),('attendance_date','&lt;=',datetime.datetime.now().strftime('%Y-12-31'))]" />
+
+                    <separator/>
+
+                    <group expand="0" string="Group By">
+                        <separator/>
+                        <filter name="group_date" string="Date" context="{'group_by':'attendance_date:day'}"/>
+                        <!-- <filter name="group_employee_code" string="Emp Code" domain="[('employee_code','ilike',self)]" context="{'group_by':'employee_code'}"/> -->
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="inherited_hr_attendance_view_form" model="ir.ui.view">
+            <field name="name">inherited.hr.attendance.form</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form"/>
+            <field name="arch" type="xml">
+                <field name="employee_id" position="after">
+                    <field name="employee_code" readonly="1"/>
+                    <field name="attendance_date" readonly="1"/>
+                    <field name="in_time" style="width:30%%"/>
+                    <field name="out_time" style="width:30%%"/>
+                    <field name="department_id_val" readonly="1"/>
+                    <field name="employee_status" readonly="1"/>
+                    <field name="early_leaving" readonly="1"/>
+                    <field name="late_coming" readonly="1"/>
+                    <field name="import_status" readonly="1" string="Last Updated From"/>
+                    <field name="approve_check" invisible="1"/>
+                </field>
+
+            </field>
+        </record>
+
+        <!-- Admin : Attendance wizard opens for approval process -->
+        <record id="hr_attendance_admin_wizard_view_form" model="ir.ui.view">
+            <field name="name">hr.attendance.admin.wizard.form</field>
+            <field name="model">hr.attendance</field>
+            <field name="arch" type="xml">
+                <form string="">
+                <!--     <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,approval,done"/>
+                    </header> -->
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="employee_id" readonly="1"/>
+                                <field name="department_id_val" readonly="1"/>
+                                <field name="attendance_date" readonly="1"/>
+                                <field name="in_time"/>
+                                <field name="out_time"/>
+                                <field name="remarks" required="0" string="Remarks"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <!-- Attendance wizard opens for approval process -->
+        <record id="hr_attendance_wizard_view_form" model="ir.ui.view">
+            <field name="name">hr.attendance.wizard.form</field>
+            <field name="model">hr.attendance</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,approval,done"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="employee_id" readonly="1"/>
+                                <field name="department_id_val" readonly="1"/>
+                                <field name="attendance_date" readonly="1"/>
+                                <field name="in_time_updation"  placeholder="09:30 (In 24 Hrs Format)"/><!--attrs="{'readonly':[('state','=','done')]}"-->
+                                <field name="out_time_updation" placeholder="18:30 (In 24 Hrs Format)"/><!--attrs="{'readonly':[('state','=','done')]}"-->
+                                <field name="reason" required="1"/><!--attrs="{'readonly':[('state','=','done')]}"-->
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer> 
+                        <button name="save_attendance" type="object" string="Save" class="btn-primary"/> 
+                        <button name="cancel" string="Close" special="cancel" class="oe_link"/> 
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- Attendance master for the manager for approval process -->
+        <record id="hr_attendance_approval_view_form" model="ir.ui.view">
+            <field name="name">hr.attendance.approval.form</field>
+            <field name="model">hr.attendance</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header>
+                        <button string="Approve" type="object" states='approval' name="approve_time" 
+                                style="background-color:lightgreen;"/>
+                        <button string="Reject" type="object" states='approval' name="reject_time" 
+                                style="background-color:coral;"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,approval,done,rejected"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="employee_id" readonly="1"/>
+                                <field name="department_id_val" readonly="1"/>
+                                <field name="attendance_date" readonly="1"/>
+                                <field name="in_time_updation" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field name="out_time_updation" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field name="reason" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field name="reject_check" invisible="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Attendance Approval Master for the manager to approve -->
+        <record id="hr_attendance_approval_view_tree" model="ir.ui.view">
+            <field name="name">hr.attendance.approval.form</field>
+            <field name="model">hr.attendance</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <tree string="Attendance Approval">
+                    <field name="employee_id"/>
+                    <field name="department_id_val"/>
+                    <field name="attendance_date"/>
+                    <field name="in_time_updation"/>
+                    <field name="out_time_updation"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="hr_attendance_approval_id">
+            <field name="name">Attendance Approval Request</field>
+            <field name="res_model">hr.attendance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <!-- <field name="context">{'create':0}</field> -->
+            <field name="domain">[('employee_id.parent_id.user_id','=',uid),('state', '=', 'approval')]</field>
+        </record>
+
+        <record id="hr_approval_tree" model="ir.actions.act_window.view">
+                <field name="view_mode">tree</field>
+                <field name="view_id" ref="hr_attendance_approval_view_tree"/>
+                <field name="act_window_id" ref="hr_attendance_approval_id"/>
+        </record>
+
+        <record id="hr_approval_form" model="ir.actions.act_window.view">
+               <field name="view_mode">form</field>
+               <field name="view_id" ref="hr_attendance_approval_view_form"/>
+               <field name="act_window_id" ref="hr_attendance_approval_id"/>
+        </record>  
+
+
+    <record id="hr_attendance_action1" model="ir.actions.act_window">
+            <field name="name">Attendance</field>
+            <field name="res_model">hr.attendance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,calendar</field>
+            <field name="context">{"search_default_month":1,'create':0,'search_default_group_date': 1}</field>
+            <field name="domain">[]</field>
+            <!--['|',('employee_id.user_id','=',uid),'|',('employee_id.parent_id.parent_id.user_id','=',uid),('employee_id.parent_id.user_id','=',uid)]-->
+            <field name="search_view_id" ref="hr_attendance.hr_attendance_view_filter" />
+            <field name="help" type="html">
+                <p>The attendance records of employees will be displayed here.</p>
+                <p>Please make sure you're using the correct filter if you expected to see any.</p>
+            </field>
+    </record>
+
+        <record id="hr_attendance_tree" model="ir.actions.act_window.view">
+                <field name="view_mode">tree</field>
+                <field name="view_id" ref="inherited_view_attendance_tree_new"/>
+                <field name="act_window_id" ref="hr_attendance_action1"/>
+        </record>
+
+        <record id="hr_attendance_form" model="ir.actions.act_window.view">
+               <field name="view_mode">form</field>
+               <field name="view_id" ref="hr_attendance.hr_attendance_view_form"/>
+               <field name="act_window_id" ref="hr_attendance_action1"/>
+        </record>
+
+
+    <record id="view_hr_attendance_own_id" model="ir.actions.act_window">
+            <field name="name">My Attendance</field>
+            <field name="res_model">hr.attendance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,calendar</field>
+            <field name="context">{"search_default_month":1,'create':0}</field>
+            <field name="domain">[('employee_id.user_id','=',uid)]</field>
+            <field name="search_view_id" ref="hr_attendance.hr_attendance_view_filter" />
+            <field name="help" type="html">
+                <p>The attendance records of employees will be displayed here.</p>
+                <p>Please make sure you're using the correct filter if you expected to see any.</p>
+            </field>
+    </record>
+
+        <record id="hr_attendance_own_tree" model="ir.actions.act_window.view">
+                <field name="view_mode">tree</field>
+                <field name="view_id" ref="inherited_view_attendance_tree1"/>
+                <field name="act_window_id" ref="view_hr_attendance_own_id"/>
+        </record>
+
+        <record id="hr_attendance_own_form" model="ir.actions.act_window.view">
+               <field name="view_mode">form</field>
+               <field name="view_id" ref="hr_attendance.hr_attendance_view_form"/>
+               <field name="act_window_id" ref="view_hr_attendance_own_id"/>
+        </record>
+
+        <record id="hr_attendance_own_calendar" model="ir.actions.act_window.view">
+               <field name="view_mode">calendar</field>
+               <field name="view_id" ref="view_attendance_event_calendar"/>
+               <field name="act_window_id" ref="view_hr_attendance_own_id"/>
+        </record>  
+
+
+
+
+    <record id="action_pending_attendance_approvals" model="ir.actions.act_window">
+            <field name="name">My pending approvals</field>
+            <field name="res_model">hr.attendance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'create':0}</field>
+            <field name="domain">[('employee_id.user_id','=',uid),('state','=','approval')]</field>
+            <field name="search_view_id" ref="hr_attendance.hr_attendance_view_filter"/>
+            <field name="help" type="html">
+                <p>Your pending attendance approvals will be displayed here if any.</p>
+            </field>
+    </record>
+
+        <record id="pending_attendance_approvals_tree" model="ir.actions.act_window.view">
+                <field name="view_mode">tree</field>
+                <field name="view_id" ref="inherited_view_pending_attendance_approval_tree"/>
+                <field name="act_window_id" ref="action_pending_attendance_approvals"/>
+        </record>
+
+        <record id="pending_attendance_approvals_form" model="ir.actions.act_window.view">
+               <field name="view_mode">form</field>
+               <field name="view_id" ref="hr_attendance.hr_attendance_view_form"/>
+               <field name="act_window_id" ref="action_pending_attendance_approvals"/>
+        </record>
+
+
+
+    <record id="action_rejected_attendances" model="ir.actions.act_window">
+            <field name="name">My rejected attendances</field>
+            <field name="res_model">hr.attendance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'create':0}</field>
+            <field name="domain">[('employee_id.user_id','=',uid),('state','=','rejected'),('reject_check','=',True)]</field>
+            <field name="search_view_id" ref="hr_attendance.hr_attendance_view_filter"/>
+            <field name="help" type="html">
+                <p>Your pending attendance approvals will be displayed here if any.</p>
+            </field>
+    </record>
+
+        <record id="rejected_attendance_tree" model="ir.actions.act_window.view">
+                <field name="view_mode">tree</field>
+                <field name="view_id" ref="inherited_view_pending_attendance_approval_tree"/>
+                <field name="act_window_id" ref="action_rejected_attendances"/>
+        </record>
+
+        <record id="rejected_attendance_form" model="ir.actions.act_window.view">
+               <field name="view_mode">form</field>
+               <field name="view_id" ref="hr_attendance.hr_attendance_view_form"/>
+               <field name="act_window_id" ref="action_rejected_attendances"/>
+        </record>
+
+        <record id="hr_attendance_action_employee1" model="ir.actions.act_window">
+            <field name="name">Attendances</field>
+            <field name="res_model">hr.attendance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="inherited_view_attendance_tree_new"/>
+            <field name="context">{'search_default_employee_id': active_id, 'default_employee_id': active_id,'search_default_month':1}</field>
+            <field name="search_view_id" ref="hr_attendance.hr_attendance_view_filter" />
+            <field name="help" type="html">
+                <p>No attendance records to display.</p>
+            </field>
+        </record>
+
+        <!-- File Path Configuration for Import Data -->
+        <record id="import_folder_path_tree" model="ir.ui.view">
+            <field name="name">import.config.tree</field>
+            <field name="model">import.config</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <tree string="Folder Path Configuration">
+                    <field name="source_path"/>
+                    <field name="destination_path"/>
+                    <field name="failed_path"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="import_folder_path_form" model="ir.ui.view">
+            <field name="name">import.config.form</field>
+            <field name="model">import.config</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="source_path"/>
+                                <field name="destination_path"/>
+                                <field name="failed_path"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="view_import_folder_path">
+            <field name="name">Import Folder Configuration</field>
+            <field name="res_model">import.config</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Import Folder Configuration
+                </p>
+            </field>
+        </record>
+
+    <!-- Updation of attendance manually -->
+    <!-- <record id="view_attendance_approved_form" model="ir.ui.view">
+        <field name="name">attendance.approval.form</field>
+        <field name="model">attendance.approval</field>
+        <field name="arch" type="xml">
+            <form string="Attendance Approval">
+                <header>
+                    <button string="Approve" name="attendance_approved" type="object" />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,approval,done" statusbar_colors='{"draft":"red","approval":"blue","done":"green"}' />
+                </header>
+                <sheet>
+                    <group>
+                        <field name="employee_id" />
+                        <field name="date" />
+                        <field name="in_time" widget="float_time"/>
+                        <field name="out_time" widget="float_time"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_attendance_approved_tree" model="ir.ui.view">
+        <field name="name">attendance.approved.tree</field>
+        <field name="model">attendance.approval</field>
+        <field name="arch" type="xml">
+            <tree string="Attendance Approval">
+                <field name="employee_id" />
+                <field name="date" />
+                <field name="in_time"/>
+                <field name="out_time"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_attendance_approved_form" model="ir.actions.act_window">
+        <field name="name">Attendance requests to be approved</field>
+        <field name="res_model">attendance.approval</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_attendance_approved_tree"/>
+        <field name="domain">[('state', '=', 'approval')]</field>
+        <field name="help" type="html">
+            <p></p>
+        </field> 
+    </record> -->
+
+<!-- Attendance Export -->
+
+        <record id="hr_attendance_export_form" model="ir.ui.view">
+            <field name="name">hr.attendance.export.form</field>
+            <field name="model">hr.attendance.export</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <form string="Attendance Export">
+                <!--     <header>
+                        <button string="Import" type="object" states='draft' name="import_data" class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                    </header> -->
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="from_date"/>
+                            </group>
+                            <group>
+                                <field name="to_date"/>
+                                <!-- <field name="db_datas" invisible="1"/> -->
+                            </group>
+                        </group>
+                        <button string="Export Attendance Data" type="object" name="generate_excel" class="btn-primary"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="view_hr_attendance_export">
+            <field name="name">Attendance Export</field>
+            <field name="res_model">hr.attendance.export</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Attendance Export Form
+                </p>
+            </field>
+        </record>
+
+<!-- Attendance reports -->
+
+
+        <record id="hr_attendance_reports_form" model="ir.ui.view">
+            <field name="name">attendance.reports.form</field>
+            <field name="model">attendance.reports</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <form string="Attendance Report">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="employee_id" options="{'no_open':True}"/>
+                                <field name="site_master_id"/>
+                                <field name="time_period"/>
+                                <field name="from_date" readonly="0"/>
+                            </group>
+                            <group>
+                                <field name="emp_code" readonly="1" force_save="True"/>
+                                <label string=""/>
+                                <field name="department_id"/>
+                                <field name="month_sel" attrs="{'required': [('time_period', '=', 'month')],'invisible':[('time_period', '!=', 'month')]}"/>
+                                <field name="year_sel" attrs="{'required': [('time_period', '=', 'month')],'invisible':[('time_period', '!=', 'month')]}"/>
+                                <field name="to_date" readonly="0"/>
+                            </group>
+                        </group>
+                        <group>
+                            <button string="Attendance Details" type="object" name="generate_excelreport" class="btn-primary"/>
+
+                            <button string="Attendance Summary" type="object" name="generate_attendance_summary" class="btn-primary"/>
+                        </group>
+                        <group>
+                            <button string="Working Days Data" type="object" name="generate_month_excelreport" class="btn-primary"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="view_hr_attendance_report">
+            <field name="name">Attendance Export</field>
+            <field name="res_model">attendance.reports</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Attendance Report Form
+                </p>
+            </field>
+        </record>
+
+
+<!-- Attendance calendar : AMS -->
+
+        <record id="view_attendance_view_form_popup" model="ir.ui.view">
+            <field name="name">hr.attendance.form</field>
+            <field name="model">hr.attendance</field>
+            <!-- <field name="priority" eval="2"/> -->
+            <field name="arch" type="xml">
+                <form string="Attendance Data" delete="false">
+                    <group>
+                        <group>
+                            <field name="attendance_date"/>
+                            <field name="employee_id" options="{'no_open':True}"/>
+                            <field name="site_master_id"/>
+                            <field name="department_id_val"/>
+                            <field name="in_time"/>
+                            <field name="out_time"/>
+                            <field name="remarks" required="0"/>
+                            <newline/>
+                            <button string="Muster" name="muster_calculation" type="object" class="btn-primary"/>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="pr" readonly="1"/>
+                                <field name="c_off" readonly="1"/>
+                                <field name="sl_cl" readonly="1"/>
+                                <field name="pa" readonly="1"/>
+                                <field name="ph" readonly="1"/>
+                                <field name="ab" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="pl" readonly="1"/>
+                                <field name="ml" readonly="1"/>
+                                <field name="ma" readonly="1"/>
+                                <field name="wo" readonly="1"/>
+                                <field name="od" readonly="1"/>
+                                <field name="lwp" readonly="1"/>
+                            </group>
+                            <label for="worked_days" string="Paid Days"/>
+                            <field name="worked_days" readonly="1"/>
+                        </group>
+
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_attendance_event_calendar" model="ir.ui.view">
+            <field name="name">hr.attendance1.calendar</field>
+            <field name="model">hr.attendance</field>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+                <calendar string="Attendance Data" mode="month" date_start="attendance_date"
+                    readonly_form_view_id="%(orient_hr_attendance_import.view_attendance_view_form_popup)s"
+                    event_open_popup="true" color="employee_status" event_limit="3" >
+                    <field name="in_time"/>
+                    <field name="out_time"/>
+                    <field name="employee_status"/>
+                </calendar>
+            </field>
+        </record>
+
+        <record id="action_attendance_calendar_event" model="ir.actions.act_window">
+            <field name="name">Attendance</field>
+            <field name="res_model">hr.attendance</field>
+            <field name="priority" eval="2"/>
+            <field name="view_mode">calendar</field>
+            <field name="view_id" ref="view_attendance_event_calendar"/>
+            <field name="context">{'delete':0}</field>
+            <field name="help" type="html">
+                <p>
+                    Attendance
+                </p>
+            </field>
+        </record>
+
+<!-- Hr Attendance Utility -->
+
+        <record id="view_attendanceutility_form" model="ir.ui.view">
+            <field name="name">Attendance Schedular</field>
+            <field name="model">hr.attendance.utility</field>
+            <field name="arch" type="xml">
+                <form string="Attendance Schedular">
+                    <sheet>
+                        <group>
+                            <field name="site_id" options="{'no_open': True}" style="width:30%%"/>
+                        </group>
+                        <group>
+                            <field name="employee_ids" widget="many2many_tags" style="width:70%%"/>
+                        </group>
+                        <group string="Schedular Creation Period">
+                            <group>
+                                <field name="from_date" style="width:50%%"/>
+                                <field name="to_date" style="width:50%%" />
+                            </group>
+                            <group>
+                                <button string="Create Schedule" type="object" name="create_attendance_schedule" class="btn-primary"/>
+                            </group>
+                        </group>
+
+                        <group string="Weekoffs Allocation">
+                            <newline/>
+                            <group>
+                                <field name="effective_from" style="width:50%%"/>
+                                <field name="effective_to" style="width:50%%" />
+                            </group>
+                            <group>
+                                <button string="Create Schedule" type="object" name="weekoff_leave_assignment" class="btn-primary"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_attendance_utility_form" model="ir.actions.act_window">
+            <field name="name">Attendance Schedular</field>
+            <field name="res_model">hr.attendance.utility</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_attendanceutility_form"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Attendance Schedular
+              </p>
+            </field>
+        </record>
+
+        <record id="view_bulk_attendance_form" model="ir.ui.view">
+            <field name="name">Attendance Approval</field>
+            <field name="model">bulk.attendance.approval</field>
+            <field name="arch" type="xml">
+                <form string="Attendance Approval">
+                    <sheet>
+                        <group string="Attendance Approval" colspan="8">
+                            <group>
+                                <field name="employee_id" domain="[('parent_id.user_id', '=', uid)]" widget="selection"/>
+                                <field name="emp_code"/>
+                            </group>
+                            <group>
+                                <field name="from_date" style="width:50%%"/>
+                                <field name="to_date" style="width:50%%" />
+                            </group>
+                            <field name="check_exists" invisible="1"/>
+                            <field name="done" invisible="1"/>
+                            <field name="reject" invisible="1"/>
+                            <group colspan="8">
+                                <button string="Search" type="object" name="search_attendance_records" class="btn-primary"/>
+                            </group>
+                            <group>
+                            <group>
+                                <button string="Approve" type="object" name="approve_attendance_records" class="btn-primary" attrs="{'invisible':[('check_exists','=',False)]}" colspan="2"/>
+                                <label string="" colspan="2"/>
+                                </group>
+                                <group>
+                                    <button string="Reject" type="object" name="reject_attendance_records" class="btn-primary" attrs="{'invisible':[('check_exists','=',False)]}" colspan="2"/>
+                                    <label string="" colspan="2"/>
+                                </group>
+                            </group>
+                            <label string="Select All Records" colspan="2" attrs="{'invisible':[('check_exists','=',False)]}"/>
+                            <field name="select_all" style="width:50%%" attrs="{'invisible':[('check_exists','=',False)]}" colspan="2"/>
+                            <group col="2" colspan="8" attrs="{'invisible':[('done','=',False)]}">
+                                <label string="" colspan="2"/>
+                                <html><h5 style="color:red">Selected Attendance Records has been Approved</h5></html>
+                                <label string="" colspan="2"/>
+                            </group>
+                            <group col="2" colspan="8" attrs="{'invisible':[('reject','=',False)]}">
+                                <label string="" colspan="2"/>
+                                <html><h5 style="color:red">Selected Attendance Records has been Rejected</h5></html>
+                                <label string="" colspan="2"/>
+                            </group>
+                            <field name="attendance_lines" attrs="{'invisible':[('check_exists','=',False)]}" mode="tree" nolable="1" colspan="8" create="false">
+                                    <tree string="Attendance Request" editable="bottom" create="false" delete="false">
+                                        <field name="select_record"/>
+                                        <field name="employee_code" readonly="1"/>
+                                        <field name="employee_id" readonly="1" options="{'no_open': True}"/>
+                                        <field name="site_master_id" readonly="1" options="{'no_open': True}"/>
+                                        <!-- <field name="department_id_val" readonly="1" options="{'no_open': True}"/> -->
+                                        <field name="attendance_date" readonly="1"/>
+                                        <field name="in_time_updation" readonly="1"/>
+                                        <field name="out_time_updation" readonly="1"/>
+                                        <field name="reason" readonly="1"/>
+                                    </tree>
+                                </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_bulk_attendance_approval" model="ir.actions.act_window">
+            <field name="name">Attendance Approval</field>
+            <field name="res_model">bulk.attendance.approval</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+            <field name="view_id" ref="view_bulk_attendance_form"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Attendance Schedular
+              </p>
+            </field>
+        </record>
+
+        <record id="attendance_summary_tree_view" model="ir.ui.view">
+            <field name="name">hr.attendance.approval.form</field>
+            <field name="model">hr.attendance</field>
+            <field name="priority" eval="9" />
+            <field name="arch" type="xml">
+                <tree string="Attendance Approval">
+                    <field name="employee_code"/>
+                    <field name="employee_id"/>
+                    <field name="site_master_id"/>
+                    <field name="attendance_date"/>
+                    <field name="in_time_updation"/>
+                    <field name="out_time_updation"/>
+                    <field name="state"/>
+                    <field name="approved_rejected_date"/>
+                    <button string="Reset" name="reset_state" type="object" class="btn-primary"/>
+                </tree>
+            </field>
+        </record>
+        
+
+        <record model="ir.actions.act_window" id="attendance_summary">
+            <field name="name">Attendance Approval Summary</field>
+            <field name="res_model">hr.attendance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+            <field name="context">{'create':0}</field>
+            <field name="domain">[('employee_id.parent_id.user_id','=',uid),('state', 'in', ('done','rejected'))]</field>
+        </record>
+
+        <record id="attendance_summary_tree" model="ir.actions.act_window.view">
+                <field name="view_mode">tree</field>
+                <field name="view_id" ref="attendance_summary_tree_view"/>
+                <field name="act_window_id" ref="attendance_summary"/>
+        </record>
+
+
+
+
+
+
+
+
+
+        <record id="hr_attendance_console_new_form_view" model="ir.ui.view">
+            <field name="name">hr.attendance.console.new.form.view</field>
+            <field name="model">hr.attendance</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header>
+                        <button string="Approve" type="object" states='approval' name="approve_time" 
+                                style="background-color:lightgreen;"/>
+                        <button string="Reject" type="object" states='approval' name="reject_time" 
+                                style="background-color:coral;"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,approval,done,rejected"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="employee_id" attrs="{'readonly':[('created','=',True)]}" 
+                                       options="{'no_create': True, 'no_open': True}"/>
+                                <field name="employee_code" readonly="1" force_save="1"/>
+                                <field name="department_id_val" readonly="1" force_save="1"/>
+                                <field name="site_master_id" readonly="1" force_save="1"/>
+                                <field name="shift" readonly="1" force_save="1"/>
+                                <field name="attendance_date" attrs="{'readonly':[('created','=',True)]}" 
+                                       required="1" force_save="1"/>
+                                <field name="in_time" force_save="1" placeholder="09:30 (In 24 Hrs Format)"
+                                       attrs="{'invisible':[('state','=','approval')],
+                                               'required':[('state','=','draft')]}"/>
+                                <field name="out_time" force_save="1" placeholder="18:30 (In 24 Hrs Format)"
+                                       attrs="{'invisible':[('state','=','approval')],
+                                               'required':[('state','=','draft')]}"/>
+                            </group>
+                            <group>
+                                <field name="in_time_updation" placeholder="09:30 (In 24 Hrs Format)"
+                                       attrs="{'invisible':[('state','!=','approval')],
+                                               'required':[('state','=','approval')]}"/>
+                                <field name="out_time_updation" placeholder="18:30 (In 24 Hrs Format)"
+                                       attrs="{'invisible':[('state','!=','approval')],
+                                               'required':[('state','=','approval')]}"/>
+                                <field name="worked_hours" readonly="0" force_save="1"/>
+                                <field name="early_leaving" readonly="0" force_save="1"/>
+                                <field name="late_coming" readonly="0" force_save="1"/>
+                                <field name="employee_status" readonly="0" force_save="1"/>
+                                <field name="import_status" readonly="1" force_save="1"/>
+                                <field name="reason" attrs="{'invisible':[('state','=','draft')]}" readonly="1" force_save="1"/>
+                                <field name="reject_check" invisible="1"/>
+                                <field name="created" invisible="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="attendance_console_new_search_view" model="ir.ui.view">
+            <field name="name">attendance.console.new.search.view</field>
+            <field name="model">hr.attendance</field>
+            <field name="arch" type="xml">
+                <search string="Search attendances">
+                    <field name="employee_code" string="Employee Code" filter_domain="[('employee_code','ilike',self)]"/>
+                    <field name="employee_id" string="Employee Name" filter_domain="[('employee_id.name','ilike',self)]"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_attendance_console_new" model="ir.actions.act_window">
+            <field name="name">Attendance Console New</field>
+            <field name="res_model">hr.attendance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{"search_default_month":1,"import":0}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    No results to display.
+                </p>
+            </field>
+            <field name="domain">[]</field>
+            <field name="view_id" ref="hr_attendance_console_new_form_view"/>
+            <field name="search_view_id" ref="inherited_hr_attendance_view_filter"/>
+        </record>
+
+
+        <record id="attendance_console_tree_view" model="ir.ui.view">
+            <field name="name">attendance.console.tree.view</field>
+            <field name="model">hr.attendance</field>
+            <field name="arch" type="xml">
+                <tree default_order='attendance_date,employee_code' import="false">
+                    <field name="employee_code"/>
+                    <field name="employee_id"/>
+                    <field name="site_master_id"/>
+                    <field name="attendance_date"/>
+                    <field name="in_time"/>
+                    <field name="out_time"/>
+                    <field name="worked_hours"/>
+                    <field name="shift"/>
+                    <field name="early_leaving"/>
+                    <field name="late_coming"/>
+                    <field name="employee_status"/>
+                    <field name="import_status"/>
+                    <field name="state" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_attendance_console_form_tree" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="attendance_console_tree_view"/>
+            <field name="act_window_id" ref="action_attendance_console_new"/>
+        </record>
+
+        <record id="action_attendance_console_form_form" model="ir.actions.act_window.view">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="hr_attendance_console_new_form_view"/>
+            <field name="act_window_id" ref="action_attendance_console_new"/>
+        </record>
+
+
+        <record id="shift_application_tree" model="ir.ui.view">
+            <field name="name">shift.application.tree</field>
+            <field name="model">shift.application</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <tree string="Shift Application Form">
+                    <field name="employee_id"/>
+                    <field name="employee_code"/>
+                    <field name="year"/>
+                    <field name="month"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="shift_application_form" model="ir.ui.view">
+            <field name="name">shift.application.form</field>
+            <field name="model">shift.application</field>
+            <field name="arch" type="xml">
+                <form string="Shift Application Form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="year"/>
+                                <field name="employee_id" required="1" domain="[('parent_id.user_id', '=', uid)]"/>
+                                <field name="employee_code" invisible="1"/>
+                                <field name="month"/>
+                                <field name="from_date"/>
+                                <field name="to_date"/>
+                            </group>
+                            <group>
+                                <group col="8">
+                                    <table border="1">
+                                    <tr>
+                                        <th>Shift</th>
+                                        <th></th>
+                                        <th>Shift Timings</th>
+                                    </tr>
+                                    <tr>
+                                        <td>G</td>
+                                        <td> </td>
+                                        <td>09:00 AM To 06:00 PM</td>
+                                    </tr>
+                                    <tr>
+                                        <td>G1</td>
+                                        <td> </td>
+                                        <td>07:00 AM To 04:00 PM</td>
+                                    </tr>
+                                    <tr>
+                                        <td>G2</td>
+                                        <td> </td>
+                                        <td>08:00 AM To 05:00 PM</td>
+                                    </tr>
+                                    <tr>
+                                        <td>G3</td>
+                                        <td> </td>
+                                        <td>09:00 AM To 06:00 PM</td>
+                                    </tr>
+                                    <tr>
+                                        <td>G4</td>
+                                        <td> </td>
+                                        <td>10:00 AM To 07:00 PM</td>
+                                    </tr>
+                                    <tr>
+                                        <td>G5</td>
+                                        <td> </td>
+                                        <td>03:00 PM To 11:59 PM</td>
+                                    </tr>
+                                    <tr>
+                                        <td>G6</td>
+                                        <td> </td>
+                                        <td>04:00 PM To 01:00 AM</td>
+                                    </tr>
+                                    <tr>
+                                        <td>G7</td>
+                                        <td> </td>
+                                        <td>06:00 PM To 03:00 AM</td>
+                                    </tr>
+                                    <tr>
+                                        <td>G8</td>
+                                        <td> </td>
+                                        <td>01:00 PM To 10:00 PM</td>
+                                    </tr>
+                                    <tr>
+                                        <td>G9</td>
+                                        <td> </td>
+                                        <td>12:30 AM To 09:30 PM</td>
+                                    </tr>
+                                    </table>
+                                </group>
+                                <group col="8">
+                                    <table border="1">
+                                    <tr>
+                                        <th>Shift</th>
+                                        <th></th>
+                                        <th>Shift Timings</th>
+                                    </tr>
+                                    <tr>
+                                        <td>G10</td>
+                                        <td> </td>
+                                        <td>11:00 PM To 08:00 AM</td>
+                                    </tr>
+                                    <tr>
+                                        <td>G11</td>
+                                        <td> </td>
+                                        <td>12:00 AM To 09:00 PM</td>
+                                    </tr>
+                                    <tr>
+                                        <td>G12</td>
+                                        <td> </td>
+                                        <td>02:00 PM To 11:00 PM</td>
+                                    </tr>
+                                    <tr>
+                                        <td>G13</td>
+                                        <td> </td>
+                                        <td>10:00 PM To 07:00 AM</td>
+                                    </tr>
+                                    <tr>
+                                        <td>G14</td>
+                                        <td> </td>
+                                        <td>10:00 AM To 07:00 PM</td>
+                                    </tr>
+                                    <tr>
+                                        <td>G15</td>
+                                        <td> </td>
+                                        <td>11:00 AM To 08:00 PM</td>
+                                    </tr>
+                                    <tr>
+                                        <td>G16</td>
+                                        <td> </td>
+                                        <td>08:00 AM To 04:00 PM</td>
+                                    </tr>
+                                    <tr>
+                                        <td>G17</td>
+                                        <td> </td>
+                                        <td>09:30 AM To 06:30 PM</td>
+                                    </tr>
+                                    <tr>
+                                        <td>G18</td>
+                                        <td> </td>
+                                        <td>10:00 AM To 05:00 PM</td>
+                                    </tr>
+                                    </table>
+                                </group>
+                                <field name="line_visible" invisible="1"/>
+                            </group>
+                             <group>
+                                <button string="Search" type="object" name="search_list" class="btn-primary"/><!--attrs="{'invisible':[('line_visible','=',True)]}"-->
+                            </group>                           
+                            <field name="attendance_line" mode="tree" nolabel="1" attrs="{'invisible':[('line_visible','=',False)]}" >
+                                    <form>
+                                        <group>
+                                            <field name="attendance_date"/>
+                                            <field name="shift"/>
+                                            <field name="in_time"/>
+                                            <field name="out_time"/>
+                                            <field name="line_id1" invisible="1"/>
+                                            <field name="employee_id"/>
+                                            <field name="employee_code"/>
+                                            <field name="hide_assign" invisible="1"/>
+                                        </group>
+                                    </form>
+                                    <tree editable="bottom" create="false">
+                                        <field name="attendance_date" readonly="1"/>
+                                        <field name="shift"/>
+                                        <field name="in_time" readonly="1"/>
+                                        <field name="out_time" readonly="1"/>
+                                        <field name="line_id1" invisible="1"/>
+                                        <field name="hide_assign" invisible="1"/>
+                                        <button name="assign" string="Assign" type="object" attrs="{'invisible':[('hide_assign','=',True)]}"/>
+                                    </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="view_shift_application">
+            <field name="name">Shift Application</field>
+            <field name="res_model">shift.application</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Shift Application Form
+                </p>
+            </field>
+        </record>
+
+
+<!-- menus -->
+        <menuitem id="own_attendance_id" string="My Attendance" action="view_hr_attendance_own_id" sequence="22" parent="hr_attendance.menu_hr_attendance_manage_attendances" groups="hr.group_hr_manager,orient_hr_resignation.group_reporting_manager,hr_attendance.group_hr_attendance"/>
+
+        <menuitem id="pending_attendance_approval_id" 
+                  string="My pending approvals" 
+                  action="action_pending_attendance_approvals" 
+                  sequence="23" 
+                  parent="hr_attendance.menu_hr_attendance_manage_attendances" 
+                  groups="hr.group_hr_manager,orient_hr_resignation.group_reporting_manager,hr_attendance.group_hr_attendance"/>
+
+        <menuitem id="rejected_attendances_id" 
+                  string="My rejected attendances" 
+                  action="action_rejected_attendances" 
+                  sequence="24" 
+                  parent="hr_attendance.menu_hr_attendance_manage_attendances" 
+                  groups="hr.group_hr_manager,orient_hr_resignation.group_reporting_manager,hr_attendance.group_hr_attendance"/>
+
+        <menuitem id="attendance_summary_id" 
+                  name="Attendance Approval Summary" 
+                  action="attendance_summary" 
+                  sequence="27" 
+                  parent="hr_attendance.menu_hr_attendance_manage_attendances" 
+                  groups="orient_hr_resignation.group_reporting_manager"/>
+
+
+        <!-- <menuitem id="attendance_approved_id" string="Attendance Approval Request" action="hr_attendance_approval_id" sequence="25" parent="hr_attendance.menu_hr_attendance_manage_attendances" groups="hr.group_hr_manager,orient_hr_resignation.group_reporting_manager"/> -->
+        
+
+        <menuitem id="bulk_attendance_approval_id" name="Attendance Approvals" action="action_bulk_attendance_approval" sequence="26" parent="hr_attendance.menu_hr_attendance_manage_attendances" groups="orient_hr_resignation.group_reporting_manager"/>
+
+        <menuitem id="menu_import_config" name="Import Folder Configuration" parent="hr_attendance.menu_hr_attendance_manage_attendances" sequence="32" action="view_import_folder_path" groups="hr.group_hr_manager"/>
+
+        <menuitem id="menu_hr_attendance_import" name="Import Attendance" parent="hr_attendance.menu_hr_attendance_manage_attendances" sequence="29" action="view_hr_attendance_import" groups="hr.group_hr_manager,orient_hr_resignation.group_reporting_manager,hr.group_hr_user"/>
+
+        <menuitem id="menu_hr_attendance_export" name="Export Attendance" parent="hr_attendance.menu_hr_attendance_manage_attendances" sequence="31" action="view_hr_attendance_export" groups="hr.group_hr_manager,hr.group_hr_user"/>
+
+        <menuitem id="shift_application_menu" parent="hr_attendance.menu_hr_attendance_manage_attendances" name="Change Shift Application" action="view_shift_application" sequence="28" groups="hr.group_hr_manager,orient_hr_resignation.group_reporting_manager,hr.group_hr_user"/>
+
+        <menuitem id="hr_attendance.menu_hr_attendance_view_attendances" name="All Attendance" parent="hr_attendance.menu_hr_attendance_manage_attendances" sequence="10" groups="hr_attendance.group_hr_attendance_admin,hr.group_hr_manager,orient_hr_resignation.group_reporting_manager,hr.group_hr_user" action="hr_attendance_action1"/>
+
+    <!-- Reporting -->
+
+        <menuitem id="hr_import_attendance_rep" name="Reporting" parent="hr_attendance.menu_hr_attendance_root" sequence="30" groups="hr.group_hr_manager,hr.group_hr_user,orient_hr_resignation.group_reporting_manager"/>
+
+        <menuitem id="hr_attendance_reporting_menu" name="Attendance Report" parent="hr_import_attendance_rep" sequence="1" action="view_hr_attendance_report" groups="hr.group_hr_manager,hr.group_hr_user"/>
+
+    <!-- Console -->
+
+        <menuitem id="attendance_console_master_menu" 
+                  name="Consoles" 
+                  parent="hr_attendance.menu_hr_attendance_root" 
+                  sequence="35"  
+                  groups="hr_attendance.group_hr_attendance_admin"/>
+
+        <menuitem id="attendance_calendar_menu" 
+                  name="Attendance Console(Calendar)" 
+                  action="action_attendance_calendar_event" 
+                  parent="attendance_console_master_menu" 
+                  sequence="1"  
+                  groups="hr_attendance.group_hr_attendance_admin"/>
+
+        <menuitem id="attendance_console_new" 
+                  name="Attendance Console(Form)" 
+                  action="action_attendance_console_new" 
+                  parent="attendance_console_master_menu" 
+                  sequence="2"  
+                  groups="hr_attendance.group_hr_attendance_admin"/>
+
+    <!-- Schedular -->
+
+        <menuitem id="hr_attendance_utility_menu" name="Attendance Schedular" parent="hr_attendance.menu_hr_attendance_root" sequence="33" action="action_attendance_utility_form" groups="hr.group_hr_manager,hr.group_hr_user"/>
+
+<!-- <button string="Update" type="object" name="update_time_admin"/> -->
+    </data>
+</odoo>
+
+

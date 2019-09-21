@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+
+        <!-- Application Stages -->
+
+        <record id="telephonic_interview_stage_new" model="hr.recruitment.stage">
+            <field name="name">Telephonic Interview</field>
+            <field name="sequence">1</field>
+            <field name="initial_qualification">True</field>
+        </record>
+
+        <record id="client_interview_stage_new" model="hr.recruitment.stage">
+            <field name="name">Client Interview</field>
+            <field name="sequence">2</field>
+            <field name="interview">False</field>
+        </record>
+
+        <record id="technical_interview_stage_new" model="hr.recruitment.stage">
+            <field name="name">TL Interview</field>
+            <field name="sequence">3</field>
+            <field name="interview">False</field>
+        </record>
+
+        <record id="director_interview_stage_new" model="hr.recruitment.stage">
+            <field name="name">Director Interview</field>
+            <field name="sequence">4</field>
+            <field name="interview">False</field>
+        </record>
+
+        <record id="hr_interview_stage_new" model="hr.recruitment.stage">
+            <field name="name">HR Interview</field>
+            <field name="sequence">5</field>
+            <field name="interview">True</field>
+        </record>
+
+        <record id="candidate_selection_stage_new" model="hr.recruitment.stage">
+            <field name="name">Selected</field>
+            <field name="sequence">6</field>
+            <field name="selection">True</field>
+        </record>
+
+        <record id="form_verification_stage_new" model="hr.recruitment.stage">
+            <field name="name">Verified</field>
+            <field name="sequence">7</field>
+            <field name="verification">True</field>
+        </record>
+
+        <record id="employee_creation_stage_new" model="hr.recruitment.stage">
+            <field name="name">Employee Created</field>
+            <field name="sequence">8</field>
+            <field name="employee_created">True</field>
+        </record>
+
+        <record id="on_hold_stage_new" model="hr.recruitment.stage">
+            <field name="name">On-Hold</field>
+            <field name="sequence">9</field>
+            <field name="verification">True</field>
+        </record>
+
+        <record id="rejected_stage_new" model="hr.recruitment.stage">
+            <field name="name">Rejected</field>
+            <field name="sequence">10</field>
+        </record>
+
+    </data>
+</odoo>

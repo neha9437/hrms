@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sandwich_leaves_form_view" model="ir.ui.view">
+        <field name="name">sandwich.leaves.view.form.view</field>
+        <field name="model">sandwich.leaves</field>
+        <field name="arch" type="xml">
+            <form string="Warning">
+                <separator string="The leaves applied fall under sandwich leave policy. Please note that the leave deduction will be made accordingly. Please select appropriate leaves if balanced. Else, please apply for leaves without pay (LWP)." colspan="5"/>
+                <group>
+                    <label for="total_days" string="Duration"/>
+                    <div>
+                        <div>
+                            <field name="date_from_new" class="oe_inline" force_save="1"/>
+                            <label string="-" class="oe_inline"/>
+                            <field name="date_to_new" class="oe_inline" force_save="1"/>
+                        </div>
+                        <div>
+                            <field name="total_days" class="oe_inline" force_save="1"/> days
+                        </div>
+                    </div>
+                </group>
+                <group>
+                    <field name="holiday_sandwich_ids" mode="tree" colspan="4">
+                        <tree editable="bottom">
+                            <field name="sandwich_id" invisible="1" force_save="1"/>
+                            <field name="hr_holiday_status_id" options="{'no_open': True}"/>
+                            <field name="code" force_save="1"/>
+                            <field name="comp_off_date" string="Select comp off date(if applicable)" 
+                                   attrs="{'readonly':[('code', '!=', 'CO')],'required':[('code', '=', 'CO')]}" force_save="1"/>
+                            <field name="no_of_days" sum="Allocation" attrs="{'readonly':[('code', '=', 'CO')]}" force_save="1"/>
+                        </tree>
+                    </field>
+                </group>
+                <group>
+                <!-- <field name="comp_off_date" placeholder="select comp off date if applicable"/> -->
+                <field name="employee_id" invisible="1"/>
+                <field name="manager_id" invisible="1"/>
+                <field name="hr_manager_id" invisible="1"/>
+                </group>
+                <footer>
+                    <button string="Proceed" name="action_proceed_sandwich_leaves" type="object" class="btn btn-sm btn-primary"/>
+                    <button string="Discard" special="cancel" class="btn btn-sm btn-default"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

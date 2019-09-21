@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="crm_case_form_view_job_portal_inherit" model="ir.ui.view">
+            <field name="name">crm.case.form.view.job.portal.inherit</field>
+            <field name="model">hr.applicant</field>
+            <!-- <field name="priority" eval="70"/> -->
+            <field name="inherit_id" ref="hr_recruitment.crm_case_form_view_job"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/header/field[@name='stage_id']" position="replace">
+                    <!-- <field name="stage_id" widget="statusbar" clickable="False" options="{'fold_field': 'fold'}" attrs="{'invisible': [('active', '=', False),('emp_id', '=', False)]}" readonly="1"/> -->
+                    <field name="state" widget="statusbar" 
+                           statusbar_visible="telephonic,client,technical,director,hr,selected,verified,employee_created"/>
+                </xpath>
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="last_state" invisible="1"/>
+                    <field name="offer_letter_sent" invisible="1"/>
+                    <field name="interview" invisible="1"/>
+                    <field name="verified" invisible="1"/>
+                    <field name="employee_created" invisible="1"/>                   
+                </xpath>
+                <xpath expr="//field[@name='name']" position="replace">
+                    <field name="name" string="Job Title" attrs="{'readonly':[('offer_letter_sent','=',True)]}"  placeholder="Enter the job title here..."/>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="replace">
+                    <field name="partner_id" attrs="{'readonly':[('offer_letter_sent','=',True)]}" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_name']" position="replace">
+                    <field name="partner_name" required="1" attrs="{'readonly':[('offer_letter_sent','=',True)]}" placeholder="Enter applicant's name here..."/>
+                </xpath>
+                <xpath expr="//field[@name='salary_expected']" position="replace">
+                    <field name="salary_expected" required="1" attrs="{'readonly':[('offer_letter_sent','=',True)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='salary_proposed']" position="replace">
+                    <field name="salary_proposed" required="1" attrs="{'readonly':[('offer_letter_sent','=',True)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='salary_expected_extra']" position="replace">
+                    <field name="salary_expected_extra" class="oe_inline" placeholder="Extra advantages..." 
+                           attrs="{'readonly':[('verified','=',True)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='salary_proposed_extra']" position="replace">
+                    <field name="salary_proposed_extra" class="oe_inline" placeholder="Extra advantages..."
+                           attrs="{'readonly':[('verified','=',True)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='department_id']" position="replace">
+                    <field name="department_id" required="1" attrs="{'readonly':[('offer_letter_sent','=',True)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="replace">
+                    <field name="user_id" string="User" attrs="{'readonly':[('offer_letter_sent','=',True)]}" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='email_from']" position="replace">
+                    <field name="email_from" widget="email" required="1" attrs="{'readonly':[('offer_letter_sent','=',True)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_phone']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>                
+                <xpath expr="//field[@name='description']" position="replace">
+                    <field name="description" placeholder="Enter comments here(if any)..." 
+                           attrs="{'readonly':[('state','=','employee_created')]}"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_mobile']" position="replace">
+                    <field name="partner_mobile" required="1" attrs="{'readonly':[('offer_letter_sent','=',True)]}"/>
+                    <field name="partner_phone" string="Alternate Number" attrs="{'readonly':[('verified','=',True)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='availability']" position="replace">
+                    <field name="availability" string="Date of Joining" required="1"
+                           attrs="{'readonly':[('state','=','employee_created')]}"/>
+                </xpath>
+                <xpath expr="//field[@name='job_id']" position="replace">
+                    <field name="job_id" required="1" attrs="{'readonly':[('offer_letter_sent','=',True)]}" 
+                           string="Designation" options="{'no_create': True, 'no_open': True}"/>
+                </xpath>
+                <xpath expr="//field[@name='type_id']" position="after">
+                    <field name="professional_certifications" attrs="{'readonly':[('verified','=',True)]}"/>
+                    <field name="portal_id" options='{"always_reload": True,"no_create_edit": True}'
+                           attrs="{'readonly':[('verified','=',True)]}"/>
+                    <field name="resend_offer_link" states='selected'/>      
+                </xpath>
+                <xpath expr="//field[@name='type_id']" position="replace">
+                    <field name="type_id" placeholder="Degree" 
+                           options="{'no_create': True, 'no_open': True}"
+                           attrs="{'readonly':[('verified','=',True)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='medium_id']" position="replace">
+                     <field name="medium_id" attrs="{'readonly':[('verified','=',True)]}" 
+                            options="{'no_create': True, 'no_open': True}"/>
+                </xpath>
+                <xpath expr="//field[@name='source_id']" position="replace">
+                     <field name="source_id" attrs="{'readonly':[('verified','=',True)]}"
+                            options="{'no_create': True, 'no_open': True}"/>
+                </xpath>
+                <xpath expr="//field[@name='reference']" position="after">
+                    <field name="reference" attrs="{'readonly':[('verified','=',True)]}"
+                           options="{'no_create': True}"/>
+                </xpath>
+                <xpath expr="//field[@name='reference']" position="replace">
+                    <field name="years_of_exp" attrs="{'readonly':[('verified','=',True)]}"/>
+                    <field name="location" attrs="{'readonly':[('verified','=',True)]}" 
+                           options="{'no_create': True}" required="1"/>
+                    <field name="hr_spoc" attrs="{'readonly':[('verified','=',True)]}"
+                           options="{'no_create': True}"/>
+                </xpath>
+                <xpath expr="//label[@for='categ_ids']" position="attributes"> 
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='categ_ids']" position="attributes"> 
+                    <attribute name="invisible">1</attribute>
+                    <!--position="replace"
+                    <field name="categ_ids" widget="many2many_tags" options="{'color_field': 'color','no_create_edit': True}"
+                           attrs="{'readonly':[('offer_letter_sent','=',True)]}"/> -->
+                </xpath>       
+                <xpath expr="/form/header/button[@name='create_employee_from_applicant']" position="replace">
+                    <button string="Create Employee" name="create_employee_from_applicant" type="object" 
+                            style="background-color:lightgreen;" states='verified'/>
+                            <!-- attrs="{'invisible': ['|',('emp_id', '!=', False),'|',('active', '=', False),'|',('verified', '=', False),('employee_created', '=', True)]}" -->
+                </xpath>
+                <xpath expr="/form/header/button[@name='archive_applicant']" position="replace">
+                            <!-- attrs="{'invisible': ['|',('active', '=', False),'|',('offer_letter_sent','=',False),('employee_created','=',True)]}" -->
+                    <button string="Next Round" name="action_clear_interview" type="object"
+                            states='telephonic,client,technical,director' style="background-color:lightgreen;"/>
+                    <button string="On-Hold" name="hold_applicant" type="object" style="background-color:lightgrey;"
+                            states='telephonic,client,technical,director,hr,selected,verified'/>
+                    <button string="Revoke" name="revoke_applicant" type="object" style="background-color:lightgreen;"
+                            states='on_hold'/>
+                    <button string="Reject" name="archive_applicant" type="object" style="background-color:coral;"
+                            states='telephonic,client,technical,director,hr,selected,verified,on_hold'/>
+                </xpath>
+                <xpath expr="/form/header/button[@name='archive_applicant']" position="after">
+                    <button string="Offer Letter" name="action_portal_selection_send" type="object"
+                            states='hr' style="background-color:lightblue;"/>
+                    <button string="Verify" name="action_verify_candidate" type="object" style="background-color:lightblue;"
+                            states='selected'/>
+                            <!-- attrs="{'invisible': ['|',('active', '=', False),'|',('offer_letter_sent', '=', False),('verified', '=', True)]}" -->
+                </xpath>
+            </field>
+        </record>
+
+    <record model="ir.ui.view" id="hr_recruitment.crm_case_tree_view_job">
+        <field name="name">Applicants</field>
+        <field name="model">hr.applicant</field>
+        <field name="arch" type="xml">
+            <tree string="Applicants" decoration-bf="message_needaction==True">
+                <field name="message_needaction" invisible="1"/>
+                <field name="last_stage_id" invisible="1"/>
+                <field name="create_date" invisible="1"/>
+                <field name="date_last_stage_update" invisible="1"/>
+                <field name="partner_name"/>
+                <field name="name" invisible="1"/>
+                <field name="job_id"/>
+                <field name="portal_id"/>
+                <field name="location"/>                
+                <field name="email_from"/>
+                <field name="partner_phone"/>
+                <!-- <field name="stage_id"/>    -->
+                <field name="state"/>                 
+                <field name="hr_spoc"/>
+                <!-- <field name="medium_id"/> -->
+                <!-- <field name="source_id"/> -->
+                <!-- <field name="priority"/> -->
+                <field name="type_id" invisible="1"/>
+                <field name="availability" invisible="1"/>
+                <field name="department_id" invisible="context.get('invisible_department', True)"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_recruitment_stage_form_portal_inherit" model="ir.ui.view">
+        <field name="name">hr.recruitment.stage.form.portal.inherit</field>
+        <field name="model">hr.recruitment.stage</field>
+        <field name="inherit_id" ref="hr_recruitment.hr_recruitment_stage_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='requirements']" position="after">
+                <group>
+                    <field name="initial_qualification" invisible="1"/>
+                    <field name="interview" invisible="1"/>
+                    <field name="selection" invisible="1"/>
+                    <field name="verification" invisible="1"/>
+                    <field name="employee_created" invisible="1"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+
+    </data>
+</odoo>

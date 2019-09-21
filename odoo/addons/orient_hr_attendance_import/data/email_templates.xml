@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<odoo>
+<data>
+
+
+    <record id="email_template_employeeattendance_approval" model="mail.template">
+        <field name="name">Employee Attendance: Approval</field>
+        <field name="subject">Attendance approval for employee: ${object.employee_id.name | safe}</field>
+        <field name="email_from">${object.employee_id.work_email | safe}</field>
+        <field name="email_to">${object.employee_id.parent_id.work_email | safe}</field>
+        <!-- <field name="partner_to">${object.partner_id.id or ''}</field> -->
+        <!-- <field name="email_cc">${object.hr_manager_id.work_email | safe}</field> -->
+        <field name="lang">${object.employee_id.user_id.partner_id.lang or ''}</field>
+        <field name="model_id" ref="orient_hr_attendance_import.model_hr_attendance"/>
+        <field name="user_signature" eval="False"/>
+<!--         <field name="body_html"><![CDATA[
+<p>Hi,</p>
+<p>Attendance approval of Employee Name <strong> ${object.employee_id.name} </strong> for date ${object.date} as check in time as  ${object.in_time_updation} from ${object.in_time} and check out time as ${object.out_time_updation} from ${object.out_time} for reason "${object.reason}" to be approved</p>]]></field> -->
+        <field name="body_html"><![CDATA[
+<p>Hi,</p>
+<p>Attendance approval of Employee Name <strong> ${object.employee_id.name} </strong> for date ${object.attendance_date} with check in time as  ${object.in_time_updation} and check out time as ${object.out_time_updation} for reason "${object.reason}" is to be approved</p>
+<p><a href="http://quikhr.orientindia.net/web#id=${object.id}&view_type=form&model=hr.attendance&menu_id=251&action=310">Click here to take action</a></p>]]></field>
+    </record>
+
+
+    <record id="email_template_employeeattendance_approvalsuccess" model="mail.template">
+        <field name="name">Attendance Approval : Success</field>
+        <field name="subject">Attendance approved for date: ${object.attendance_date | safe}</field>
+        <field name="email_from">${object.employee_id.parent_id.work_email | safe}</field>
+        <field name="email_to">${object.employee_id.work_email | safe}</field>
+        <!-- <field name="partner_to">${object.partner_id.id or ''}</field> -->
+        <!-- <field name="email_cc">${object.hr_manager_id.work_email | safe}</field> -->
+        <field name="lang">${object.employee_id.user_id.partner_id.lang or ''}</field>
+        <field name="model_id" ref="orient_hr_attendance_import.model_hr_attendance"/>
+        <field name="user_signature" eval="False"/>
+        <field name="body_html"><![CDATA[
+            <p>Hi,</p>
+            <p>Attendance approved by <strong> ${object.employee_id.parent_id.name} </strong> for date ${object.attendance_date} as requested.</p>]]></field>
+    </record>
+
+
+    <record id="email_template_employeeattendance_reject" model="mail.template">
+        <field name="name">Attendance Rejected</field>
+        <field name="subject">Attendance rejected for date: ${object.attendance_date | safe}</field>
+        <field name="email_from">${object.employee_id.parent_id.work_email | safe}</field>
+        <field name="email_to">${object.employee_id.work_email | safe}</field>
+        <!-- <field name="partner_to">${object.partner_id.id or ''}</field> -->
+        <!-- <field name="email_cc">${object.hr_manager_id.work_email | safe}</field> -->
+        <field name="lang">${object.employee_id.user_id.partner_id.lang or ''}</field>
+        <field name="model_id" ref="orient_hr_attendance_import.model_hr_attendance"/>
+        <field name="user_signature" eval="False"/>
+        <field name="body_html"><![CDATA[
+            <p>Hi,</p>
+            <p>Attendance rejected by <strong> ${object.employee_id.parent_id.name} </strong> for date ${object.attendance_date}.</p>]]>
+        </field>
+    </record>
+
+
+</data>
+</odoo>

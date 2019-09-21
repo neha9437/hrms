@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Email template for selection and portal login quik recruitments-->
+        <record id="selection_portal_login_email_template_quik_recruitments" model="mail.template">
+            <field name="name">Selection Mail &amp; Portal Login Email Template Quik Recruitments</field>
+            <field name="model_id" ref="hr_recruitment.model_hr_applicant"/>
+            <field name="email_from"><![CDATA["${object.company_id.name|safe}" <${(object.company_id.email or user.email)|safe}>]]></field>
+            <field name="email_to">${object.email_from|safe}</field>
+            <field name="email_cc">ashishchutke@orientindia.net,sheetalkalamkar@orientindia.net,alistairalmeida@orientindia.net</field>
+            <field name="subject">Selection mail from ${object.company_id.name} !!</field>
+            <field name="auto_delete" eval="False"/>
+            <!-- <field name="report_template" ref="action_report_offerletter"/> -->
+            <!-- <field name="report_name">Offer Letter</field> -->
+            <field name="body_html"><![CDATA[
+<header></header>
+<div style="padding:0px;width:600px;margin:auto;background: #FFFFFF repeat top /100%;color:#777777">
+    <p>Dear ${object.partner_name},</p>
+    <p>We are pleased to inform you that you have been selected as ${object.name} in our esteemed organization on the mutually acceptable terms. Kindly send an acknowledgement on the receipt of the same and confirm your date of joining which is ${object.availability}.</p>
+    <p>Please click on the below link if you accept the offer. Also, you need to submit your profile details using our self service portal with regards to the offer acceptance. Please set a password to login. This link will remain active for 24 hours.</p>
+    <div style="text-align: center; margin-top: 16px;">
+        <a href="${object.user_id.signup_url}" style="padding: 5px 10px; font-size: 12px; line-height: 18px; color: #FFFFFF; border-color:#0099ff; text-decoration: none; display: inline-block; margin-bottom: 0px; font-weight: 400; text-align: center; vertical-align: middle; cursor: pointer; white-space: nowrap; background-image: none; background-color: #0099ff; border: 1px solid #0099ff; border-radius:3px">I ACCEPT</a>
+    </div>
+    <br/>
+    <p>If you do not want to accept this, you can safely ignore this email.</p>
+    <p>Best regards,</p>
+    <p>${object.company_id.name}</p>
+</div>
+]]></field>
+        </record>   
+
+
+
+        <!-- Email template for resend selection login quik recruitments-->
+        <record id="resend_selection_login_email_template_quik_recruitments" model="mail.template">
+            <field name="name">Resend Selection Mail Login Email Template Quik Recruitments</field>
+            <field name="model_id" ref="hr_recruitment.model_hr_applicant"/>
+            <field name="email_from"><![CDATA["${object.company_id.name|safe}" <${(object.company_id.email or user.email)|safe}>]]></field>
+            <field name="email_to">${object.email_from|safe}</field>
+            <field name="email_cc">ashishchutke@orientindia.net,sheetalkalamkar@orientindia.net,alistairalmeida@orientindia.net</field>
+            <field name="subject">Employee code generation from ${object.company_id.name} !!</field>
+            <field name="auto_delete" eval="False"/>
+            <!-- <field name="report_template" ref="action_report_offerletter"/> -->
+            <!-- <field name="report_name">Offer Letter</field> -->
+            <field name="body_html"><![CDATA[
+<header></header>
+<div style="padding:0px;width:600px;margin:auto;background: #FFFFFF repeat top /100%;color:#777777">
+    <p>Dear ${object.partner_name},</p>
+    <p>Due to some technical issues, you were not able to open our self service portal link. Hence kindly open our portal and enter all your details.</p>
+    <br/>
+    <p>Portal: http://quikhr.orientindia.net/web/login </p>
+    <p>Login: Your Email ID </p>
+    <p>Password: otpl@123 </p>
+    <br/>
+    <p>Best regards,</p>
+    <p>${object.company_id.name}</p>
+</div>
+]]></field>
+        </record>  
+
+
+
+        <!-- Email template for employee code generation-->
+        <record id="employee_code_generation_email_template" model="mail.template">
+            <field name="name">Employee Code Generation</field>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="email_from"><![CDATA["${object.company_id.name|safe}" <${(object.company_id.email or user.email)|safe}>]]></field>
+            <field name="email_to">${object.personal_email|safe}</field>
+            <field name="email_cc">ashishchutke@orientindia.net,sheetalkalamkar@orientindia.net,alistairalmeida@orientindia.net</field>
+            <field name="subject">Your employee code is generated successfully !!</field>
+            <field name="auto_delete" eval="False"/>
+            <!-- <field name="report_template" ref="action_report_offerletter"/> -->
+            <!-- <field name="report_name">Offer Letter</field> -->
+            <field name="body_html"><![CDATA[
+<header></header>
+<div style="padding:0px;width:600px;margin:auto;background: #FFFFFF repeat top /100%;color:#777777">
+    <p>Dear ${object.name},</p>
+    <p>Your employee code is generated successfully. Please log in to QuikHR portal with below credentials.</p>
+    <p>Portal: http://quikhr.orientindia.net/web/login </p>
+    <p>Login: ${object.emp_code}</p>
+    <p>Password: otpl@123 </p>
+    <p>It will prompt to change your password after once you log in. kindly change your default password and fill up all mandatory fields like your personal  info. Work info etc.</p>
+    <p>Post login you can be able to view HR policies, Mediclaim information, PF transfer processes, attendance, salary slip, form 16 (if applicable)  etc.</p>
+    <br/>
+    <p>Best regards,</p>
+    <p>${object.company_id.name}</p>
+</div>
+]]></field>
+        </record> 
+
+
+
+        <!-- Email template for resend selection login quik recruitments-->
+        <record id="know_your_emp_code_quik_recruitments" model="mail.template">
+            <field name="name">Know your employee code mailer</field>
+            <field name="model_id" ref="hr_recruitment.model_hr_applicant"/>
+            <field name="email_from"><![CDATA["${object.company_id.name|safe}" <${(object.company_id.email or user.email)|safe}>]]></field>
+            <field name="email_to">${object.email_from|safe}</field>
+            <field name="email_cc">ashishchutke@orientindia.net,sheetalkalamkar@orientindia.net,alistairalmeida@orientindia.net</field>
+            <field name="subject">Know your employee code</field>
+            <field name="auto_delete" eval="False"/>
+            <!-- <field name="report_template" ref="action_report_offerletter"/> -->
+            <!-- <field name="report_name">Offer Letter</field> -->
+            <field name="body_html"><![CDATA[
+<header></header>
+<div style="padding:0px;width:600px;margin:auto;background: #FFFFFF repeat top /100%;color:#777777">
+    <p>Dear ${object.partner_name},</p>
+    <p>Your employee code is ${object.emp_id.emp_code} and default password is otpl@123. If you have already logged in and changed default password then you can log in with the newly changed password. Kindly update your ICICI bank account and other details in QuikHR.</p>
+    <br/>
+    <p>Best regards,</p>
+    <p>${object.company_id.name}</p>
+</div>
+]]></field>
+        </record>  
+
+
+    </data>
+</odoo>

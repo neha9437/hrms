@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<template id="report_offerreport_document">
+    <t t-call="orient_employee_self_service_portal.external_layout_offer_letter">
+        <t t-set="doc" t-value="doc.with_context({'lang':doc.user_id.partner_id.lang})" />
+        <br/>
+        <div class="page">
+            <head>
+                <style>
+                    table {
+                            font-family: arial, sans-serif;
+                            border-collapse: collapse;
+                            width: 100%;
+                            padding-left:1cm;
+                        }
+
+                        td, th {
+                            border: 1px solid #262525;
+                            text-align: left;
+                            padding: 8px;
+                        }
+                        .make_center{
+                            text-align: center;
+                        }
+                    .padding {
+                        padding-left: 2cm;
+                        padding-right: 2cm;
+                        font-size: 18px;
+                    }
+                    }
+                
+                </style>
+            </head>
+            <div class="oe_structure"/>
+            <div class="row">
+                <div>
+                     <h1 align="center"><b>OFFER LETTER</b></h1><br/><br/>
+
+                    <p style="padding-left:1cm; font-size:22px"><b><span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d %B %Y')"/></b></p>
+
+                    <p style="padding-top:0.5cm; padding-left:1cm; font-size:20px"> <b>Dear <strong t-field="doc.partner_name"/></b>,</p>
+                    <p style="padding-left:1cm; font-size:20px"><b>Congratulations!</b></p>
+
+
+                    <p style="padding-left:1cm; font-size:18px">
+                        With reference to your application and subsequent interview with us, we are pleased to offer you the position of <strong t-field="doc.name" /> in our esteemed organization. You are requested to join us on <b><span t-esc="datetime.datetime.strptime(doc.availability, '%Y-%m-%d').strftime('%d %B %Y')"/></b> at a compensation mutually agreed upon.
+
+                        <br/><br/>
+                        You will be working with <strong t-field="doc.company_id.name"/>. However, you will be required to work where directed by the Company anywhere in India and/or abroad and shall change your place of work as and when directed by the Company. You will report to the site as per the site requirement.
+                        <br/><br/>
+                        Your employment is subject to background clearance and other terms and conditions mentioned in your Appointment letter, which will be issued to you upon joining.
+                        <br/><br/>
+                        You are required to submit the following documents at the time of joining:
+                        <ul style="padding-left:2cm; font-size:18px">
+                            <li>Education certificates</li>
+                            <li>Relieving Letter from your previous employer</li>
+                            <li>Photo ID proof – Driving License / Passport / PAN Card / ADHAR Card</li>
+                            <li>Address Proof –  Ration Card / Latest Electricity Bill / Rental Agreement / Telephone Bill</li>
+                            <li>Address Proof</li>
+                            <li>2 Passport size Photographs</li>
+                        </ul>
+                        <!-- <br/> -->
+                    </p>
+                    <p style="padding-left:1cm; font-size:18px">
+                        As discussed and agreed, you will be entitled to compensation as detailed in Annexure - I.
+                        <br/>
+                        We welcome you to Orient Family and hope it would be the beginning of a long and mutually beneficial association. You are required to inform us prior to your joining if there are any agreements that you have entered into, whether oral or written, which relate to obligations which conflict with the provisions of this agreement of the policies.
+                        <br/><br/>
+                        Kindly acknowledge the duplicate copy of this letter as an acceptance of this offer.
+                    </p>                    
+
+                </div>
+            </div>
+            <div>
+                <br/>
+                <table>
+                    <tr>
+                        <th> </th>
+                        <th class="make_center">SALARY - HEAD</th>
+                        <th>MONTHLY (Rs.)</th>
+                        <th>YEARLY (Rs.)</th>
+                    </tr>
+                    <tr>
+                        <td><b>A</b></td>
+                        <td><b>FIXED COMPONENT:</b></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><b>1</b></td>
+                        <td>BASIC+DA</td>   
+                        <td></td> 
+                        <td></td>                      
+                    </tr>
+                    <tr>
+                        <td><b>2</b></td>
+                        <td>HRA</td>   
+                        <td></td> 
+                        <td></td>                      
+                    </tr>
+                    <tr>
+                        <td><b>3</b></td>
+                        <td>TRANSPORTATION ALLOWANCE FROM HOME TO OFFICE</td>   
+                        <td></td> 
+                        <td></td>                      
+                    </tr>
+                    <tr>
+                        <td><b>4</b></td>
+                        <td>PROF. DEVELOPMENT REIMBURSEMENT (TRAINING and CERTIFCATION, UNIFORM ALLOWANCE)</td>   
+                        <td></td> 
+                        <td></td>                      
+                    </tr>
+                    <tr>
+                        <td><b>5</b></td>
+                        <td>ADVANCE BONUS PAYOUT</td>   
+                        <td></td> 
+                        <td></td>                      
+                    </tr>
+                    <tr>
+                        <td><b>6</b></td>
+                        <td>OTHER ALLOWANCES</td>   
+                        <td></td> 
+                        <td></td>                      
+                    </tr>
+                    <tr>
+                        <td><b>7</b></td>
+                        <td>MEDICAL ALLOWANCES</td>   
+                        <td></td> 
+                        <td></td>                      
+                    </tr>
+                    <tr>
+                        <td><b>8</b></td>
+                        <td>EDUCATION ALLOWANCES FOR CHILDREN</td>   
+                        <td></td> 
+                        <td></td>                      
+                    </tr>  
+                    <tr>
+                        <td><b>9</b></td>
+                        <td>CONTRIBUTION TOWARDS NPS U/S 80CCD(2)</td>   
+                        <td></td> 
+                        <td></td>                      
+                    </tr>  
+                    <tr>
+                        <td><b>10</b></td>
+                        <td>NEWS PAPER / JOURNAL ALLOWANCE</td>   
+                        <td></td> 
+                        <td></td>                      
+                    </tr>                                                                               
+                    <tr>
+                        <td><b>11</b></td>
+                        <td>GADGET FOR PROFESSIONAL USE</td>   
+                        <td></td> 
+                        <td></td>                      
+                    </tr> 
+                    <tr>
+                        <td></td>
+                        <td><b>GROSS SALARY</b></td>   
+                        <td></td> 
+                        <td></td>                      
+                    </tr> 
+                    <tr>
+                        <td><b>B</b></td>
+                        <td><b>REIMBURSED COMPONENT:</b></td>   
+                        <td></td> 
+                        <td></td>                      
+                    </tr> 
+                    <tr>
+                        <td><b>1</b></td>
+                        <td>CONVEYANCE ALLOWANCE</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><b>2</b></td>
+                        <td>MOBILE ALLOWANCE</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><b>3</b></td>
+                        <td>LTA</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><b>C</b></td>
+                        <td><b>OTHER BENEFITS:</b></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><b>1</b></td>
+                        <td>MEDICAL INSURANCE</td>   
+                        <td></td> 
+                        <td></td>                      
+                    </tr> 
+                    <tr>
+                        <td><b>2</b></td>
+                        <td>GRATUITY</td>   
+                        <td></td> 
+                        <td></td>                      
+                    </tr> 
+                    <tr>
+                        <td><b>3</b></td>
+                        <td>PROVIDENT FUND (EMPLOYER'S CONTRIBUTIONS)</td>   
+                        <td></td> 
+                        <td></td>                      
+                    </tr> 
+                    <tr>
+                        <td><b>4</b></td>
+                        <td>ESI (EMPLOYER'S CONTRIBUTIONS)</td>   
+                        <td></td> 
+                        <td></td>                      
+                    </tr> 
+                    <tr>
+                        <td><b>5</b></td>
+                        <td>SODEXO</td>   
+                        <td></td> 
+                        <td></td>                      
+                    </tr> 
+                    <tr>
+                        <td></td>
+                        <td><b>CTC ( COST TO THE COMPANY )</b></td>   
+                        <td></td> 
+                        <td></td>                      
+                    </tr> 
+                </table>
+                <p style="font-size=16px">
+                    Yours Sincerely, <br/>
+                    For <strong t-field="doc.company_id.name"/> <br/><br/>
+                    <b>Authorized Signatory</b>
+                </p>
+            </div>
+            <div style="font-size:18px">
+                I agree to accept employment on the terms and conditions mentioned in the above letter.
+                <br/>
+                Name:
+                <br/>
+                Place:
+                <br/>
+                Signature: __________________
+                <br/>
+            </div>
+        </div>
+    </t>
+</template>
+
+
+<template id="report_offerreport">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="doc">
+            <t t-call="orient_employee_self_service_portal.report_offerreport_document" />
+        </t>
+    </t>
+</template>
+</odoo>

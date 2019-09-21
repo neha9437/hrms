@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Email template for selection and portal login -->
+        <record id="selection_portal_login_email_template" model="mail.template">
+            <field name="name">Selection Mail &amp; Portal Login Email Template</field>
+            <field name="model_id" ref="hr_recruitment.model_hr_applicant"/>
+            <field name="email_from"><![CDATA["${object.company_id.name|safe}" <${(object.company_id.email or user.email)|safe}>]]></field>
+            <field name="email_to">${object.email_from|safe}</field>
+            <field name="subject">Selection mail from ${object.company_id.name} !!</field>
+            <field name="auto_delete" eval="False"/>
+            <!-- <field name="report_template" ref="action_report_offerletter"/> -->
+            <!-- <field name="report_name">Offer Letter</field> -->
+            <field name="body_html"><![CDATA[
+<header></header>
+<div style="padding:0px;width:600px;margin:auto;background: #FFFFFF repeat top /100%;color:#777777">
+    <p>Dear ${object.partner_name},</p>
+    <p>We are pleased to inform you that you have been selected as ${object.name} in our esteemed organization on the mutually acceptable terms. Kindly send an acknowledgement on the receipt of the same and confirm your date of joining which is ${object.availability}.</p>
+    <p>Please click on the below link if you accept the offer. Also, you need to submit your profile details using our self service portal with regards to the offer acceptance. Please set a password to login. This link will remain active for 24 hours.</p>
+    <div style="text-align: center; margin-top: 16px;">
+        <a href="${object.user_id.signup_url}" style="padding: 5px 10px; font-size: 12px; line-height: 18px; color: #FFFFFF; border-color:#0099ff; text-decoration: none; display: inline-block; margin-bottom: 0px; font-weight: 400; text-align: center; vertical-align: middle; cursor: pointer; white-space: nowrap; background-image: none; background-color: #0099ff; border: 1px solid #0099ff; border-radius:3px">I ACCEPT</a>
+    </div>
+    <br/>
+    <p>If you do not want to accept this, you can safely ignore this email.</p>
+    <p>Best regards,</p>
+    <p>${object.company_id.name}</p>
+</div>
+]]></field>
+        </record>
+
+
+    <record model="ir.cron" id="employee_bday_Reminder">
+        <field name="name">Birthday Reminder</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="model_id" ref="model_hr_employee"/>
+        <field name="state">code</field>
+        <field name="code">model.birthday_reminder()</field>
+    </record>
+
+    <record id="email_template_for_birthday_reminder" model="mail.template">
+        <field name="name">Employee Birthday Reminder</field>
+        <field name="subject">Happy Birthday ${object.first_name | safe} ${object.last_name | safe} (${object.site_master_id.name | safe}) !!!</field>
+        <field name="email_from">${object.company_id.admin_user_email | safe}</field>
+        <field name="email_to">${object.work_email | safe}</field>
+        <field name="email_bcc">${object.company_id.all_employee_email | safe}</field>
+        <field name="model_id" ref="orient_employee_self_service_portal.model_hr_employee"/>
+        <field name="user_signature" eval="False"/>
+        <field name="body_html"><![CDATA[
+<p>Dear <b>${object.first_name}</b>,</p>
+<p><img alt="" src="/orient_employee_self_service_portal/static/src/img/birthday.jpg" /></p>
+<p>From,</p>
+<p><b>Orient Family</b><p>
+]]></field>
+    </record>
+
+
+    <record id="email_template_for_bday_reminder_FMS" model="mail.template">
+        <field name="name">Employee Birthday Reminder For FMS</field>
+        <field name="subject">Happy Birthday ${object.first_name | safe} ${object.last_name | safe} (${object.site_master_id.name | safe}) !!!</field>
+        <field name="email_from">${object.company_id.admin_user_email | safe}</field>
+        <field name="email_to">${object.work_email | safe}</field>
+        <field name="email_bcc"><![CDATA[${object.company_id.hr_group_email | safe}, ${object.company_id.sdm_group_email | safe}]]></field>
+        <field name="model_id" ref="orient_employee_self_service_portal.model_hr_employee"/>
+        <field name="user_signature" eval="False"/>
+        <field name="body_html"><![CDATA[
+<p>Dear <b>${object.first_name}</b>,</p>
+<p><img alt="" src="/orient_employee_self_service_portal/static/src/img/birthday.jpg" /></p>
+<p>From,</p>
+<p><b>Orient Family</b><p>
+]]></field>
+    </record>
+
+
+    <record model="ir.cron" id="employee_confirmation_Reminder">
+        <field name="name">Confirmation Reminder</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="model_id" ref="model_hr_employee"/>
+        <field name="state">code</field>
+        <field name="code">model.confirmation_reminder()</field>
+    </record>
+
+    <record id="email_template_for_confirmation_reminder" model="mail.template">
+        <field name="name">Employee Confirmation Reminder</field>
+        <field name="subject">Regarding Confirmation of ${object.employee_id.first_name | safe} ${object.employee_id.last_name | safe}!</field>
+        <field name="email_from"><![CDATA["${object.company_id.name|safe}" <${(object.company_id.email or user.email)|safe}>]]></field>
+        <field name="email_to">${object.reporting_manager.work_email | safe}</field>
+        <field name="email_cc">mansisawant@orientindia.net,ashishchutke@orientindia.net</field>
+        <field name="model_id" ref="orient_employee_self_service_portal.model_employee_confirmation"/>
+        <field name="user_signature" eval="False"/>
+        <field name="body_html"><![CDATA[
+<p>Dear <b>${object.reporting_manager.first_name}</b>,</p>
+<p>You are requested to Confirm Employee ${object.employee_id.first_name | safe} ${object.employee_id.last_name | safe} in QuikHR based on his/her Performance in the probation period</p>
+<p><a href="http://quikhr.orientindia.net/web#id=${object.id}&view_type=form&model=employee.confirmation&menu_id=328&action=389">Click here to take action</a></p>
+<p>From,</p>
+<p><b>QuikHR</b><p>
+]]></field>
+    </record>
+
+    <record id="email_template_for_employee_confirmation" model="mail.template">
+        <field name="name">Employee Confirmation</field>
+        <field name="subject">Regarding your confirmation in ${object.company_id.name|safe}</field>
+        <field name="email_from"><![CDATA["${object.company_id.name|safe}" <${(object.company_id.email or user.email)|safe}>]]></field>
+        <field name="email_to">${object.employee_id.work_email | safe}</field>
+        <field name="email_cc">mansisawant@orientindia.net,ashishchutke@orientindia.net</field>
+        <field name="model_id" ref="orient_employee_self_service_portal.model_employee_confirmation"/>
+        <field name="user_signature" eval="False"/>
+        <field name="body_html"><![CDATA[
+<p>Dear <b>${object.employee_id.first_name}</b>,</p>
+<p>You have been confirmed in the ${object.company_id.name|safe} with the Effect from <b>${'-'.join(object.confirmation_date.split('-')[::-1])}</b> as <b>${object.employee_id.job_id.name|safe}</b> </a></p>
+<p>From,</p>
+<p><b>QuikHR</b><p>
+]]></field>
+    </record>
+
+
+    </data>
+</odoo>

@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<odoo noupdate="1">
+    <data noupdate="1">
+
+<!--         <record forcecreate="True" id="check_early_leaving_late_coming" model="ir.cron">
+            <field name="name">Early Leaving - Late Coming</field>
+            <field eval="True" name="active" />
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="model_id" ref="orient_hr_attendance_import.model_hr_attendance"/>
+            <field name="state">code</field>
+            <field name="code">model.check_early_leaving_late_coming()</field>
+        </record> -->
+
+        <record forcecreate="True" id="monthly_leave_allocation_cron_id" model="ir.cron">
+            <field name="name">Monthly Leave Allocation</field>
+            <field eval="True" name="active"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">months</field>
+            <field name="numbercall">-1</field>
+            <field name="model_id" ref="model_hr_holidays"/>
+            <field name="state">code</field>
+            <field name="code">model.allocate_monthly_leaves()</field>
+        </record>
+
+        <record forcecreate="True" id="comp_off_allocation_cron_id" model="ir.cron">
+            <field name="name">Compensatory Offs Allocation</field>
+            <field eval="True" name="active"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="model_id" ref="model_hr_holidays"/>
+            <field name="state">code</field>
+            <field name="code">model.compensatory_off_allocation()</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,1286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_users_form_portal_inherit" model="ir.ui.view">
+            <field name="name">view.users.form.portal.inherit</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="attributes">
+                    <attribute name="delete">false</attribute>
+                    <attribute name="duplicate">false</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_users_tree_portal_inherit" model="ir.ui.view">
+            <field name="name">view.users.tree.portal.inherit</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="delete">false</attribute>
+                    <attribute name="duplicate">false</attribute>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="view_employee_form_portal_inherit" model="ir.ui.view">
+            <field name="name">view.employee.form.form.portal.inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="attributes">
+                    <attribute name="delete">false</attribute>
+                    <attribute name="duplicate">false</attribute>
+                </xpath>
+                <xpath expr="//field[@name='image']" position="replace">
+                    <field name="image" widget='image' class="oe_avatar" options='{"preview_image":"image_medium"}' required="1" help="Only JPG or PNG format supported"/>
+                    <label string="" colspan="2"/>
+                </xpath>
+                <xpath expr="//field[@name='image']" position="after">
+                    <label for="name" string=" "/>
+                            <label string="" colspan="2"/>
+                            <h2>
+                                <field name="can_edit_name" invisible="1" force_save="1"/>
+                                <label string="" colspan="2"/>
+                                <label string="" colspan="2"/>
+                                <label string="" colspan="2"/>
+                                <field name="title" required="0" attrs="{'readonly':[('can_edit_name','=',True)]}" style="width:5%%"/><font color="#ffffff"></font>
+                                <field name="name" attrs="{'readonly':[('can_edit_name','=',True)]}" 
+                                       placeholder="Enter Employee Name" required="True" style="width:70%%" nolabel="1" force_save="1" readonly="1"/>
+                            </h2>
+                </xpath>
+                <xpath expr="//div[@class='oe_title']" position="replace">
+                    <div class="oe_title">
+                        <button string="Confirm Employee" name="confirm_employee" type="object" class="oe_highlight" groups="hr.group_hr_manager,hr_holidays.group_hr_holidays_user" attrs="{'invisible': [('position_type', '=', 'confirm')],'readonly':[('can_edit_name','=',True)]}" invisible="1"/>
+                        <button string="Notice Period" name="assign_notice" type="object" class="oe_highlight" invisible="1"/>
+                        <button string="Reminder" name="confirmation_reminder" type="object" class="oe_highlight" invisible="1"/>
+                        <!-- <label for="name" string=" "/>
+                            <h1>
+                                <field name="can_edit_name" invisible="1" force_save="1"/>
+                                <field name="title" required="0" attrs="{'readonly':[('can_edit_name','=',True)]}" style="width:12%%"/><font color="#ffffff"></font>
+                                <field name="name" attrs="{'readonly':[('can_edit_name','=',True)]}" 
+                                       placeholder="Enter Employee Name" required="True" style="width:70%%" nolabel="1"/>
+                            </h1> -->
+                    </div>
+                    <group>
+                        <group>
+                            <field name="first_name" required="1" 
+                                   attrs="{'readonly':[('can_edit_name','=',True)]}" string="First Name*"/>
+                            <field name="middle_name"
+                                   attrs="{'readonly':[('can_edit_name','=',True)]}" string="Middle Name"/>
+                            <field name="last_name" required="1" 
+                                   attrs="{'readonly':[('can_edit_name','=',True)]}" string="Last Name*"/>
+                        </group>
+                        <group>
+                            <field name="emp_code" placeholder="Employee Code" string="Employee Code*" required="0" attrs="{'readonly':[('can_edit_name','=',True)]}" readonly="1"
+                              force_save="1"/>
+                            <field name="position_type" string="Employee Status*" required="1" invisible="0"
+                                   attrs="{'readonly':[('can_edit_name','=',True)]}"/>
+                            <field name="joining_date" string="Date of joining*" required="1" readonly="0" attrs="{'readonly':[('can_edit_name','=',True)]}"/>
+                            <field name="confirmation_date" string="Confirmation Date" attrs="{'readonly':[('can_edit_name','=',True)]}"/>
+                            <field name="esic_location" string="ESIC Location*" attrs="{'readonly':[('can_edit_name','=',True)]}" required="1" widget="selection"/>
+                        </group>
+                    </group>
+                    <group>
+                        <!-- colspan="4" -->
+                        <group>
+                            <field name="site_master_id" options="{'no_open': True}"
+                                   attrs="{'readonly':[('can_edit_name','=',True)]}" required="1" string="Site*"/>
+                            <field name="department_id" string="Department*" required="1" 
+                                   attrs="{'readonly':[('can_edit_name','=',True)]}" 
+                                   options='{"no_open": True, "no_create": True}'/>
+                            <field name="job_id" string="Designation*" required="1"
+                                   attrs="{'readonly':[('can_edit_name','=',True)]}"
+                                   options='{"no_open": True, "no_create": True}'/>
+                        </group>
+                        <group>
+                            <field name="hr_executive_id" string="HR SPOC" required="0"
+                                   attrs="{'readonly':[('can_edit_name','=',True)]}"
+                                   options='{"no_open": True, "no_create": True}'/>
+                            <field name="parent_id" string="Reporting to*" required="1"
+                                   attrs="{'readonly':[('can_edit_name','=',True)]}"
+                                   options='{"no_open": True, "no_create": True}'/>
+                            <field name="grade_id" options="{'no_open': True}"
+                                   attrs="{'readonly':[('can_edit_name','=',True)]}" required="1" string="Grade*"/>
+                            <field name="notice_period"
+                                   attrs="{'readonly':[('can_edit_name','=',True)]}" required="1" string="Notice Period"/>
+                        </group>
+                    </group>
+                </xpath>
+                <xpath expr="//field[@name='category_ids']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+<!--                 <xpath expr="//field[@name='grade_id']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('can_edit_name', '=', True)]}</attribute>
+                </xpath> -->
+               
+
+
+
+                <!-- Work Information -->
+                <!--<xpath expr="//field[@name='hr_executive_id']" position="attributes">
+                    <attribute name="required">1</attribute>
+                    <attribute name="attrs">{'readonly': [('can_edit_name', '=', True)]}</attribute>
+                </xpath> -->
+                <!--<xpath expr="//field[@name='parent_id']" position="attributes">
+                        <attribute name="required">0</attribute>
+                        <attribute name="attrs">{'readonly': [('can_edit_name', '=', True)]}</attribute>
+                    </xpath> -->
+                <!--<xpath expr="//field[@name='department_id']" position="after">
+                        <field name="cost_center_id" attrs="{'readonly':[('can_edit_name','=',True)]}"/>
+                    </xpath> -->
+                <!--<xpath expr="//field[@name='department_id']" position="attributes">
+                        <attribute name="required">0</attribute>
+                        <attribute name="attrs">{'readonly': [('can_edit_name', '=', True)]}</attribute>
+                    </xpath> -->
+                <!--<xpath expr="//field[@name='job_id']" position="attributes">
+                       <attribute name="string">Designation</attribute>
+                       <attribute name="required">0</attribute>
+                       <attribute name="attrs">{'readonly': [('can_edit_name', '=', True)]}</attribute>
+                    </xpath> -->
+                <!--<xpath expr="//field[@name='parent_id']" position="attributes">
+                        <attribute name="string">Reporting to</attribute>
+                    </xpath> -->
+                <!--<xpath expr="//field[@name='joining_date']" position="after">
+                        <field name="group_join_date"/>
+                    </xpath> -->
+                <!--<xpath expr="//field[@name='joining_date']" position="attributes">
+                    <attribute name="required">0</attribute>
+                    <attribute name="attrs">{'readonly': [('can_edit_name', '=', True)]}</attribute>
+                </xpath> -->
+                <!--<xpath expr="//field[@name='grade_id']" position="after">
+                    <field name="emp_category" attrs="{'readonly':[('can_edit_name','=',True)]}"/>
+                </xpath> -->
+                <xpath expr="//page[@name='public']/group/group[1]" position="attributes">
+                    <attribute name="string"> </attribute>
+                </xpath>
+                <xpath expr="//page[@name='public']/group/group[2]" position="attributes">
+                    <attribute name="string"> </attribute>
+                </xpath>
+
+                <xpath expr="//page[@name='public']/group[1]" position="after">
+
+                    <group>
+                        <group string="Previous Company Details">
+                            <field name="previous_company" string="Company Name"/>
+                            <field name="previous_designation" string="Designation"/>
+                        </group>
+                        <group string="CTC" invisible="1">
+                            <field name="current_ctc" invisible="1"/>
+                            <field name="gross_salary" invisible="1"/>
+                        </group>
+                    </group>
+
+                        <separator string="Do you hold a PF/ESIC account?" colspan="5"/>
+                        <group><field name="pf_esic_holder" help="Check if yes" string="PF/ESIC holder"/></group>
+                        <notebook  attrs="{'invisible': [('pf_esic_holder', '=', False)]}">
+                            <page string="PF Details">
+                                <group>
+                                    <group>
+                                        <field name="pf_uan_no" placeholder="Enter existing UAN number..." 
+                                               string="Existing UAN Number" style="width:50%%"/>
+                                    </group>
+                                </group>
+                                <separator string="Select PF nominees(not more than 4). Enter percentage and other details against the selected nominees" colspan="5"/>
+<!--                                 <group>
+                                    <div class="o_address_format">
+                                      <font color="#000000" style="width:50%%" attrs="{'invisible': [('pf_esic_holder', '=', False)]}">Name</font>
+                                      <font color="#000000" style="width:50%%" attrs="{'invisible': [('pf_esic_holder', '=', False)]}">DOB</font>
+                                      <font color="#000000" style="width:50%%" attrs="{'invisible': [('pf_esic_holder', '=', False)]}">Percent</font>
+                                      <font color="#000000" style="width:50%%" attrs="{'invisible': [('pf_esic_holder', '=', False)]}">Gender</font>
+                                    </div>
+                                </group> -->
+                                <group>
+                                    <label for="pf_nominee_father" string="Father"/>
+                                    <div class="o_address_format">
+                                        <field name="pf_nominee_father" style="width:10%%"/>
+                                        <field name="pf_father_name" string=" "  style="width:20%%" 
+                                               placeholder="Enter father's name..." 
+                                               attrs="{'required': [('pf_nominee_father', '=', True)],
+                                                       'invisible': [('pf_nominee_father', '=', False)],
+                                                       }"/>
+                                        <font color="#ffffff">--</font>
+                                        <field name="pf_dob_father"  string=" " style="width:11%%" placeholder="date of birth"
+                                               attrs="{'required': [('pf_nominee_father', '=', True)],
+                                                       'invisible': [('pf_nominee_father', '=', False)],
+                                                       }"/>
+                                        <font color="#ffffff">--</font>
+                                        <field name="pf_percent_father" string=" " style="width:4%%"
+                                               attrs="{'required': [('pf_nominee_father', '=', True)],
+                                                       'invisible': [('pf_nominee_father', '=', False)],
+                                                       }"/>
+                                        <font color="#000000" attrs="{'invisible': [('pf_nominee_father', '=', False)]}">%</font>
+                                    </div>
+                                </group>
+                                <group>
+                                    <label for="pf_nominee_mother" string="Mother"/>
+                                    <div class="o_address_format">
+                                        <field name="pf_nominee_mother"  style="width:10%%"/>
+                                        <field name="pf_mother_name" string=" "  style="width:20%%" 
+                                               placeholder="Enter mother's name..."
+                                               attrs="{'required': [('pf_nominee_mother', '=', True)],
+                                                       'invisible': [('pf_nominee_mother', '=', False)],
+                                                      }"/>
+                                        <font color="#ffffff">--</font>
+                                        <field name="pf_dob_mother"  string=" " style="width:11%%"  placeholder="date of birth"
+                                               attrs="{'required': [('pf_nominee_mother', '=', True)],
+                                                       'invisible': [('pf_nominee_mother', '=', False)],
+                                                       }"/>
+                                        <font color="#ffffff">--</font>
+                                        <field name="pf_percent_mother" string=" " style="width:4%%"
+                                               attrs="{'required': [('pf_nominee_mother', '=', True)],
+                                                       'invisible': [('pf_nominee_mother', '=', False)],
+                                                       }"/>
+                                        <font color="#000000" attrs="{'invisible':[('pf_nominee_mother', '=', False)]}">%</font>
+                                    </div>
+                                </group>
+                                <group>
+                                    <label for="pf_nominee_spouse" string="Spouse"/>
+                                    <div class="o_address_format">
+                                        <field name="pf_nominee_spouse"  style="width:10%%"/>
+                                        <field name="pf_spouse_name" string=" "  style="width:20%%" 
+                                               placeholder="Enter spouse's name..."
+                                               attrs="{'required': [('pf_nominee_spouse', '=', True)],
+                                                       'invisible': [('pf_nominee_spouse', '=', False)],
+                                                       }"/>
+                                        <font color="#ffffff">--</font>
+                                        <field name="pf_dob_spouse"  string=" " style="width:11%%"  placeholder="date of birth"
+                                               attrs="{'required': [('pf_nominee_spouse', '=', True)],
+                                                       'invisible': [('pf_nominee_spouse', '=', False)],
+                                                       }"/>
+                                        <font color="#ffffff">--</font>
+                                        <field name="pf_percent_spouse" string=" " style="width:4%%"
+                                               attrs="{'required': [('pf_nominee_spouse', '=', True)],
+                                                       'invisible': [('pf_nominee_spouse', '=', False)],
+                                                       }"/>
+                                        <font color="#000000" attrs="{'invisible': [('pf_nominee_spouse', '=', False)]}">%</font>
+                                        <font color="#ffffff">--</font>
+                                        <field name="pf_gender_spouse" string=" " style="width:13%%" 
+                                               placeholder="select gender"
+                                               attrs="{'required': [('pf_nominee_spouse', '=', True)],
+                                                       'invisible': [('pf_nominee_spouse', '=', False)],
+                                                       }"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <label for="pf_nominee_child1" string="First Child"/>
+                                    <div class="o_address_format">
+                                        <field name="pf_nominee_child1"  style="width:10%%"/>
+                                        <field name="pf_first_child" string=" "  style="width:20%%" 
+                                               placeholder="Enter first child's name..."
+                                               attrs="{'required': [('pf_nominee_child1', '=', True)],
+                                                       'invisible': [('pf_nominee_child1', '=', False)],
+                                                       }"/>
+                                        <font color="#ffffff">--</font>
+                                        <field name="pf_dob_child1"  string=" " style="width:11%%"  placeholder="date of birth"
+                                               attrs="{'required': [('pf_nominee_child1', '=', True)],
+                                                       'invisible': [('pf_nominee_child1', '=', False)],
+                                                       }"/>
+                                        <font color="#ffffff">--</font>
+                                        <field name="pf_percent_child1" string=" " style="width:4%%"
+                                               attrs="{'required': [('pf_nominee_child1', '=', True)],
+                                                       'invisible': [('pf_nominee_child1', '=', False)],
+                                                       }"/>
+                                        <font color="#000000" attrs="{'invisible': [('pf_nominee_child1', '=', False)]}">%</font>
+                                        <font color="#ffffff">--</font>
+                                        <field name="pf_gender_child1" string=" " style="width:13%%" placeholder="select gender"
+                                               attrs="{'required': [('pf_nominee_child1', '=', True)],
+                                                       'invisible': [('pf_nominee_child1', '=', False)],
+                                                       }"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <label for="pf_nominee_child2" string="Second Child"/>
+                                    <div class="o_address_format">
+                                        <field name="pf_nominee_child2"  style="width:10%%"/>
+                                        <field name="pf_second_child" string=" "  style="width:20%%" 
+                                               placeholder="Enter second child's name..."
+                                               attrs="{'required': [('pf_nominee_child2', '=', True)],
+                                                       'invisible': [('pf_nominee_child2', '=', False)],
+                                                       }"/>
+                                        <font color="#ffffff">--</font>
+                                        <field name="pf_dob_child2"  string=" " style="width:11%%"  placeholder="date of birth"
+                                               attrs="{'required': [('pf_nominee_child2', '=', True)],
+                                                       'invisible': [('pf_nominee_child2', '=', False)],
+                                                       }"/>
+                                        <font color="#ffffff">--</font>
+                                        <field name="pf_percent_child2" string=" " style="width:4%%"
+                                               attrs="{'required': [('pf_nominee_child2', '=', True)],
+                                                       'invisible': [('pf_nominee_child2', '=', False)],
+                                                      }"/>
+                                        <font color="#000000" attrs="{'invisible': [('pf_nominee_child2', '=', False)]}">%</font>
+                                        <font color="#ffffff">--</font>
+                                        <field name="pf_gender_child2" string=" " style="width:13%%" placeholder="select gender"
+                                               attrs="{'required': [('pf_nominee_child2', '=', True)],
+                                                       'invisible': [('pf_nominee_child2', '=', False)],
+                                                       }"/>
+                                    </div>
+                                </group>
+                                <group class="oe_subtotal_footer oe_right" colspan="2">
+                                    <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                        <group>
+                                          <group><field name="pf_percent_total" no_label="1" readonly="1" force_save="1" string="Percent %"/></group>
+                                        </group>
+                                    </div>
+                                </group>
+                            </page>
+
+                            <page string="ESIC Details">
+                                <group>
+                                    <group>
+                                        <field name="esic_uan_no" placeholder="Enter existing ESIC number..." 
+                                               style="width:50%%" string="Existing ESIC Number"/>
+                                    </group>
+                                </group>
+                                <separator string="Select ESIC nominees(not more than 4). Enter percentage and other details against the selected nominees" colspan="5"/>
+                                <group>
+                                    <group>
+                                        <field name="same_as_pf"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <label for="esic_nominee_father" string="Father"/>
+                                    <div class="o_address_format">
+                                        <field name="esic_nominee_father"  style="width:10%%"/>
+                                        <field name="esic_father_name" string=" "  style="width:20%%" 
+                                               placeholder="Enter father's name..." 
+                                               attrs="{'required': [('esic_nominee_father', '=', True)],
+                                                       'invisible': [('esic_nominee_father', '=', False)],
+                                                       }"/>
+                                        <font color="#ffffff">--</font>
+                                        <field name="esic_dob_father"  string=" " style="width:11%%" placeholder="date of birth"
+                                               attrs="{'required': [('esic_nominee_father', '=', True)],
+                                                       'invisible': [('esic_nominee_father', '=', False)],
+                                                      }"/>
+                                        <font color="#ffffff">--</font>
+                                        <field name="esic_percent_father" string=" " style="width:4%%"
+                                               attrs="{'required': [('esic_nominee_father', '=', True)],
+                                                       'invisible': [('esic_nominee_father', '=', False)],
+                                                       }"/>
+                                        <font color="#000000" attrs="{'invisible': [('esic_nominee_father', '=', False)]}">%</font>
+                                    </div>
+                                </group>
+                                <group>
+                                    <label for="esic_nominee_mother" string="Mother"/>
+                                    <div class="o_address_format">
+                                        <field name="esic_nominee_mother"  style="width:10%%"/>
+                                        <field name="esic_mother_name" string=" "  style="width:20%%" 
+                                               placeholder="Enter mother's name..."
+                                               attrs="{'required': [('esic_nominee_mother', '=', True)],
+                                                       'invisible': [('esic_nominee_mother', '=', False)],
+                                                      }"/>
+                                        <font color="#ffffff">--</font>
+                                        <field name="esic_dob_mother"  string=" " style="width:11%%"  placeholder="date of birth"
+                                               attrs="{'required': [('esic_nominee_mother', '=', True)],
+                                                       'invisible': [('esic_nominee_mother', '=', False)],
+                                                       }"/>
+                                        <font color="#ffffff">--</font>
+                                        <field name="esic_percent_mother" string=" " style="width:4%%"
+                                               attrs="{'required': [('esic_nominee_mother', '=', True)],
+                                                       'invisible': [('esic_nominee_mother', '=', False)],
+                                                      }"/>
+                                        <font color="#000000" attrs="{'invisible': [('esic_nominee_mother', '=', False)]}">%</font>
+                                    </div>
+                                </group>
+                                <group>
+                                    <label for="esic_nominee_spouse" string="Spouse"/>
+                                    <div class="o_address_format">
+                                        <field name="esic_nominee_spouse"  style="width:10%%"/>
+                                        <field name="esic_spouse_name" string=" "  style="width:20%%" 
+                                               placeholder="Enter spouse's name..."
+                                               attrs="{'required': [('esic_nominee_spouse', '=', True)],
+                                                       'invisible': [('esic_nominee_spouse', '=', False)],
+                                                       }"/>
+                                        <font color="#ffffff">--</font>
+                                        <field name="esic_dob_spouse"  string=" " style="width:11%%"  placeholder="date of birth"
+                                               attrs="{'required': [('esic_nominee_spouse', '=', True)],
+                                                       'invisible': [('esic_nominee_spouse', '=', False)],
+                                                       }"/>
+                                        <font color="#ffffff">--</font>
+                                        <field name="esic_percent_spouse" string=" " style="width:4%%"
+                                               attrs="{'required': [('esic_nominee_spouse', '=', True)],
+                                                       'invisible': [('esic_nominee_spouse', '=', False)],
+                                                       }"/>
+                                        <font color="#000000" attrs="{'invisible': [('esic_nominee_spouse', '=', False)]}">%</font>
+                                        <font color="#ffffff">--</font>
+                                        <field name="esic_gender_spouse" string=" " style="width:13%%" 
+                                               placeholder="select gender"
+                                               attrs="{'required': [('esic_nominee_spouse', '=', True)],
+                                                       'invisible': [('esic_nominee_spouse', '=', False)],
+                                                       }"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <label for="esic_nominee_child1" string="First Child"/>
+                                    <div class="o_address_format">
+                                        <field name="esic_nominee_child1"  style="width:10%%"/>
+                                        <field name="esic_first_child" string=" "  style="width:20%%" 
+                                               placeholder="Enter first child's name..."
+                                               attrs="{'required': [('esic_nominee_child1', '=', True)],
+                                                       'invisible': [('esic_nominee_child1', '=', False)],
+                                                       }"/>
+                                        <font color="#ffffff">--</font>
+                                        <field name="esic_dob_child1"  string=" " style="width:11%%"  placeholder="date of birth"
+                                               attrs="{'required': [('esic_nominee_child1', '=', True)],
+                                                       'invisible': [('esic_nominee_child1', '=', False)],
+                                                       }"/>
+                                        <font color="#ffffff">--</font>
+                                        <field name="esic_percent_child1" string=" " style="width:4%%"
+                                               attrs="{'required': [('esic_nominee_child1', '=', True)],
+                                                       'invisible': [('esic_nominee_child1', '=', False)],
+                                                       }"/>
+                                        <font color="#000000" attrs="{'invisible': [('esic_nominee_child1', '=', False)]}">%</font>
+                                        <font color="#ffffff">--</font>
+                                        <field name="esic_gender_child1" string=" " style="width:13%%" 
+                                               placeholder="select gender"
+                                               attrs="{'required': [('esic_nominee_child1', '=', True)],
+                                                       'invisible': [('esic_nominee_child1', '=', False)],
+                                                       }"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <label for="esic_nominee_child2" string="Second Child"/>
+                                    <div class="o_address_format">
+                                        <field name="esic_nominee_child2" style="width:10%%"/>
+                                        <field name="esic_second_child" string=" "  style="width:20%%" 
+                                               placeholder="Enter second child's name..."
+                                               attrs="{'required': [('esic_nominee_child2', '=', True)],
+                                                       'invisible': [('esic_nominee_child2', '=', False)],
+                                                       }"/>
+                                        <font color="#ffffff">--</font>
+                                        <field name="esic_dob_child2"  string=" " style="width:11%%"  placeholder="date of birth"
+                                               attrs="{'required': [('esic_nominee_child2', '=', True)],
+                                                       'invisible': [('esic_nominee_child2', '=', False)],
+                                                       }"/>
+                                        <font color="#ffffff">--</font>
+                                        <field name="esic_percent_child2" string=" " style="width:4%%"
+                                               attrs="{'required': [('esic_nominee_child2', '=', True)],
+                                                       'invisible': [('esic_nominee_child2', '=', False)],
+                                                       }"/>
+                                        <font color="#000000" attrs="{'invisible': [('esic_nominee_child2', '=', False)]}">%</font>
+                                        <font color="#ffffff">--</font>
+                                        <field name="esic_gender_child2" string=" " style="width:13%%" placeholder="select gender"
+                                               attrs="{'required': [('esic_nominee_child2', '=', True)],
+                                                       'invisible': [('esic_nominee_child2', '=', False)],
+                                                       }"/>
+                                    </div>
+                                </group>
+                                <group class="oe_subtotal_footer oe_right" colspan="2">
+                                    <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                        <group>
+                                          <group><field name="esic_percent_total" no_label="1" readonly="1" force_save="1" string="Percent %"/></group>
+                                        </group>
+                                    </div>
+                                </group>
+
+                            </page>
+                        </notebook>
+
+                </xpath>
+                <xpath expr="//field[@name='resource_calendar_id']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('can_edit_name', '=', True)]}</attribute>
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='resource_calendar_id']" position="after">
+                    <field name="union_member" attrs="{'readonly':[('can_edit_name', '=', True)]}" invisible="1"/>
+                    <field name="experiance_id" required="1" 
+                           options="{'no_open': True}" string="Total Experience*"/>
+                    <field name="highest_qualification" required="1" string="Highest Qualification*"/>
+                    <field name="rate_code" attrs="{'readonly':[('can_edit_name','=',True)]}" invisible="1"/>
+                    <field name="weekly_off" attrs="{'readonly':[('can_edit_name','=',True)]}"/>
+                    <field name="appraisal_cycle" required="0" attrs="{'readonly':[('can_edit_name','=',True)]}"/>
+                    <field name="pms_form_applicable" required="0" attrs="{'readonly':[('can_edit_name','=',True)]}" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='shift_id']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('can_edit_name', '=', True)]}</attribute>
+                </xpath>
+                <!-- <xpath expr="//field[@name='work_location']" position="attributes">
+                    <attribute name="string">Location</attribute>
+                    <attribute name="required">0</attribute>
+                    <attribute name="attrs">{'readonly': [('can_edit_name', '=', True)]}</attribute>
+                </xpath> -->
+                <xpath expr="//field[@name='work_location']" position="replace">
+                   <field name="site_location_id" string="Site Location" 
+                          attrs="{'readonly':[('can_edit_name','=',True)]}" 
+                          widget="selection"/>
+                </xpath>
+                <xpath expr="//field[@name='address_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='work_phone']" position="after">
+                    <field name="cost_center_id" attrs="{'readonly':[('can_edit_name','=',True)],'required':[('can_edit_name','!=',True)]}" required="0" string="Cost Center Name"/>
+                    <field name="emp_category" attrs="{'readonly':[('can_edit_name','=',True)]}"/>
+                    <field name="group_join_date" attrs="{'readonly':[('can_edit_name','=',True)]}" invisible="1"/>
+                </xpath> 
+
+
+                <!-- Documents -->
+                <xpath expr="//page[@name='public']" position="after">
+                    <page name="attachments" string="Documents">
+
+<!--                         <group>
+                            <group>
+                               <field name="cv_file"/>
+                               <field name="residence_proof" string="Residence Proof"/>
+                               <field name="pan_doc"/>
+                               <field name="aadhar_doc"/>
+                            </group>
+                            <group>
+                               <field name="appraisal_doc"/>
+                               <field name="appointment_doc"/>
+                               <field name="qualification_cert" string="Highest Qualification Certificate"/>
+                               <field name="relieving_cert"/>
+                               <field name="skill_cert" string="Technical Certificate(If any)"/>
+                            </group>
+                        </group> -->
+
+                        <br/>
+                        <separator string="Please upload your documents here"/>
+                        <br/>
+
+                            <label for="passport_photo" string="Passportsize Photo" style="width:50%%"/>
+                            <field name="passport_photo" nolabel="1"/>
+                            <br/>
+
+                            <label for="cv_file" string="CV" style="width:50%%"/>
+                            <field name="cv_file" nolabel="1"/>
+                            <br/>
+
+                            <label for="residence_proof" string="Residence Proof" style="width:50%%"/>
+                            <field name="residence_proof" nolabel="1"/>
+                            <br/>
+
+                            <label for="pan_doc" string="PAN" style="width:50%%"/>
+                            <field name="pan_doc" nolabel="1"/>
+                            <br/>
+
+                            <label for="aadhar_doc" string="Aadhaar" style="width:50%%"/>
+                            <field name="aadhar_doc" nolabel="1"/>
+                            <br/>
+
+                            <label for="appraisal_doc" string="Appraisal Letter" style="width:50%%"/>
+                            <field name="appraisal_doc" nolabel="1"/>
+                            <br/>
+
+                            <label for="appointment_doc" string="Appointment Letter" style="width:50%%"/>
+                            <field name="appointment_doc" nolabel="1"/>
+                            <br/>
+
+                            <label for="qualification_cert" string="Qualification Certificate" style="width:50%%"/>
+                            <field name="qualification_cert" nolabel="1"/>
+                            <br/>
+
+                            <label for="relieving_cert" string="Relieving Letter" style="width:50%%"/>
+                            <field name="relieving_cert" nolabel="1"/>
+                            <br/>
+
+                            <label for="skill_cert" string="Technical Certificate(If Any)" style="width:50%%"/>
+                            <field name="skill_cert" nolabel="1"/>
+                            <br/>
+
+
+                        <group string="Appraisal Letter">
+                            <group colspan="8">
+                                <field name="freeze_records" invisible="1"/>
+                                <field name="year" style="width:20%%" invisible="1"/>
+                                <field name="accept" attrs="{'invisible':[('year','=',False)],'readonly':[('freeze_records','=',True)]}" style="width:30%%"/>
+                                <field name="reject" attrs="{'invisible':[('year','=',False)],'readonly':[('freeze_records','=',True)]}" style="width:30%%"/>
+                                <field name="reason_for_rejection" attrs="{'invisible':[('reject','=',False)],'required':[('reject','=',True)],'readonly':[('freeze_records','=',True)]}" style="width:30%%"/>
+                            </group>
+                            <group>
+                                <button string="Download Appraisal Letter" name="print_employee_report" type="object" attrs="{'invisible':[('accept','=',False)]}" colspan="2"/>
+                                <button string="Acknowledge" name="reject_appraisal" type="object" attrs="{'invisible':[('reject','=',False)]}" colspan="2"/>
+                            </group>
+                        </group>
+
+                    </page>
+                </xpath>
+
+                <!-- Settings -->
+                <xpath expr="//page[@name='hr_settings']" position="replace">
+                    <page name="hr_settings" string="HR Settings" groups="hr.group_hr_user">
+                        <group>
+                            <group string='' name="settings">
+                                <field name="company_id" options="{'no_open': True}" groups="base.group_multi_company"/>
+                                <field name="user_id" string="Related User"/>
+                                <field name="address_id" context="{'show_address': 1}"
+                                       options='{"always_reload": True, "highlight_first_line": True}'/>
+                                <field name="address_home_id" string="Partner" context="{'show_address':1}"
+                                       options='{"always_reload": True, "highlight_first_line": True}'/>
+                                <field name="barcode"/>
+                                <field name="pin" groups="hr_attendance.group_hr_attendance_use_pin"/>
+                                <field name="manual_attendance" attrs="{'invisible': [('user_id', '=', False)]}"/>
+                            </group>
+                            <group>
+                                <field name="employee_billing_status"/>
+                                <field name="po_received"/>
+                                <field name="po_number" attrs="{'invisible': [('po_received', '=','no')],'required': [('po_received', '=','yes')]}"/>
+                                <field name="po_start_date" attrs="{'invisible': [('po_received', '=','no')],'required': [('po_received', '=','yes')]}"/>
+                                <field name="po_end_date" attrs="{'invisible': [('po_received', '=','no')],'required': [('po_received', '=','yes')]}"/>
+                                <field name="po_attachement" attrs="{'invisible': [('po_received', '=','no')],'required': [('po_received', '=','yes')]}"/>
+                                <field name="last_working_date"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+
+                <!-- Personal Information -->
+                <!--<xpath expr="//page[@name='public']" position="before">
+                    <page name="basic" string="Personal Information">
+                      <group>
+                        <group string="Father/Husband Name">
+                            <label for="guardian_first_name" string="First Name"/>
+                            <div class="o_address_format">
+                                <field name="guardian_title" class="o_address_city" style="width:25%%" required="1"/>
+                                <field name="guardian_first_name" required="1"
+                                       class="o_address_zip"  style="width:50%%"/>
+                            </div>
+                            <field name="guardian_middle_name" style="width:76%%" required="1"/>
+                            <field name="guardian_last_name" style="width:76%%" required="1"/>
+                        </group>
+                        <group string="Origin Details">
+                            <field name="applicant_id" style="width:70%%" 
+                                   options='{"always_reload": True,"no_create_edit": True}' attrs="{'readonly':[('can_edit_name','=',True)]}"/>
+                            <field name="portal_id" style="width:70%%" options='{"always_reload": True,"no_create_edit": True}' attrs="{'readonly':[('can_edit_name','=',True)]}"/>
+                        </group>
+                      </group>
+                    </page>
+                </xpath> -->
+<!--                 <xpath expr="//page[@name='personal_information']" position="attributes">
+                  <attribute name="groups"></attribute>
+                </xpath>
+                <xpath expr="//field[@name='personal_mobile']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='marital']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//group[@name='work_permit']" position="after">
+                    <group string="Work Period Details" name="work_period_details">
+                        <field name="probation_period" attrs="{'readonly':[('can_edit_name','=',True)]}"/>
+                        <field name="probation_date" attrs="{'readonly':[('can_edit_name','=',True)]}"/>
+                        <field name="notice_period" attrs="{'readonly':[('can_edit_name','=',True)]}"/>
+                        <field name="confirmation_date" attrs="{'readonly':[('can_edit_name','=',True)]}"/>
+                        <field name="salary_disbursement_date" attrs="{'readonly':[('can_edit_name','=',True)]}"/>
+                        <field name="retirement_date" attrs="{'readonly':[('can_edit_name','=',True)]}"/>
+                    </group>
+                </xpath>
+                <xpath expr="//field[@name='birthday']" position="after">
+                    <field name="age" required="1"/>
+                </xpath>
+                <xpath expr="//field[@name='birthday']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='identification_id']" position="after">
+                    <field name="pan" required="1"/>
+                    <field name="aadhar" required="1"/>
+                    <field name="blood_group" required="1"/>
+                </xpath>
+                <xpath expr="//field[@name='address_home_id']" position="after">
+                    <field name="address" required="1"/>
+                    <field name="personal_email" required="1"/>
+                </xpath>
+                <xpath expr="//field[@name='address_home_id']" position="attributes">
+                    <attribute name="string">Partner</attribute>
+                </xpath> 
+                <xpath expr="//field[@name='address_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='emergency_contact']" position="replace">
+                  <group>
+                    <field name="emergency_contact_number"/>
+                  </group>
+                  <group>
+                    <field name="emergency_contact_relation"/>
+                  </group>
+                </xpath>
+                <xpath expr="//field[@name='bank_account_id']" position="before">
+                    <field name="bank_id"/>
+                    <field name="branch_name"/>
+                </xpath>
+                <xpath expr="//field[@name='bank_account_id']" position="after">
+                    <field name="gl_code"/>
+                    <field name="medical_policy_number" string="Medical Policy No"/>  
+                </xpath>
+                <xpath expr="//field[@name='bank_account_id']" position="attributes">
+                    <attribute name="string">Account Number</attribute>
+                </xpath>
+                <xpath expr="//page[@name='personal_information']/group/group[1]" position="attributes">
+                    <attribute name="string">Account Details</attribute>
+                </xpath>
+                <xpath expr="//field[@name='passport_id']" position="after">
+                    <field name="passport_expire_date" string="Passport Expire Date"/>
+                </xpath>-->
+                <xpath expr="//page[@name='personal_information']" position="attributes">
+                  <attribute name="groups"></attribute>
+                </xpath>
+                <xpath expr="//page[@name='personal_information']" position="replace">
+                    <page name="personal_information_new" string="Personal Information">
+                    <group>
+                        <group string="Basic">
+                            <field name="father_name" required="1" string="Father's Name*"/>
+                            <field name="mother_name" required="1" string="Mother's Name*"/>
+                            <field name="spouse_name" string="Spouse Name"/>
+                            <field name="gender" required="1" string="Gender*"/>
+                            <field name="marital" required="1" string="Marital Status*"/>
+                            <field name="blood_group"/>
+                            <field name="birthday" string="Date of Birth*" required="1"/>
+                            <field name="physically_disabled" widget="radio"/>
+                            <field name="age" required="0" invisible="1"/>
+                            <field name="medical_policy_number" required="0" invisible="1"/>
+                        </group>
+
+
+                        <group string="Contact Details">
+                            <field name="address" required="1" string="Current Address*" placeholder="Enter current address..."/>
+                                <label for="same_as_current" string="Permanent Address*"/>
+                                <div class="o_address_format">
+                                    <field name="same_as_current" class="o_address_city" placeholder="Same as current address?"/>Same as current address?
+                                    <br/>
+                                    <field name="per_address" required="1" class="o_address_zip"
+                                           placeholder="Enter permanent address..."/>
+                                </div>
+                            <field name="personal_email" required="1" string="Personal Email*"/>
+                            <field name="personal_mobile" required="1" string="Mobile*"/>
+                            <field name="emergency_contact_name" colspan="2" string="Emergency Contact Person" placeholder="Person to reach out in case of emergency"/>
+                            <field name="emergency_contact_number" string="Emergency Contact No.*" placeholder="contact number in case of emergency" required="1"/>
+                            <field name="emergency_contact_relation" string="Relation" placeholder="Relation with the provided emergency contact"/>
+<!--                             <field name="address_home_id" string="Partner" context="{'show_address':1}"
+                                   options='{"always_reload": True, "highlight_first_line": True}' groups="hr.group_hr_user"/> -->
+                            <field name="is_address_home_a_company" invisible="1"/>
+                            <!--<div class="text-warning" groups="hr.group_hr_user"
+                                 attrs="{'invisible': [('is_address_home_a_company','=', False)]}">
+                                Use here the home address of the employee.
+                                This private address is used in the expense report reimbursement document.
+                                It should be different from the work address.
+                            </div> -->
+                        </group>
+
+                        <group string="Identification">
+                            <field name="country_id" options='{"no_open": True, "no_create": True}' string="Nationality (Country)*" required="1"/>
+                            <field name="identification_id" invisible="1"/>
+                            <field name="pan" required="1" string="PAN*"/>
+                            <field name="aadhar" required="1" string="Aadhaar*" />
+                        </group>
+                        
+                        <group string="Account Details">
+                            <field name="bank_id" options='{"no_open": True, "no_create": True}'/>
+                            <field name="bank_account_number" string="Account Number"/>
+<!--                             <field name="bank_account_id" context="{'default_partner_id': address_home_id}" 
+                                   string="Account Number"/> -->
+                            <field name="branch_name"/>
+                            <field name="gl_code" invisible="1"/>
+                        </group>
+
+                        <group string="Passport Details" name="passport">
+                            <field name="passport_id"/>
+                            <field name="passport_expire_date" string="Passport Expire Date"/>
+                            <field name="visa_no"/>
+                            <field name="visa_expire"/>
+                        </group>   
+
+                        <group string="Work Permit" name="work_permit" invisible="1">
+                            <field name="visa_no"/>
+                            <field name="permit_no"/>
+                            <field name="visa_expire"/>
+                        </group>
+
+                    </group>
+                </page>
+                </xpath>
+                <xpath expr="//field[@name='passport_id']" position="attributes">
+                    <attribute name="groups"></attribute>
+                </xpath>
+<!--                 <xpath expr="//field[@name='gender']" position="attributes">
+                    <attribute name="groups"></attribute>
+                </xpath> -->
+            </field>
+        </record>
+
+
+
+        <record id="hr_kanban_view_employees_portal_inherit" model="ir.ui.view">
+            <field name="name">hr.kanban.view.employee.portal.inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.hr_kanban_view_employees"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='work_location']" position="replace">
+                    <li t-if="record.emp_code.raw_value">
+                      <i class="fa fa-fw fa-star"></i>
+                      <b><field name="emp_code"/></b>
+                    </li>
+                    <i class="fa fa-lg fa-building-o"></i><field name="work_location"/>
+                </xpath>
+            </field>
+        </record>
+
+
+
+        <record id="view_employee_tree_service_inherit" model="ir.ui.view">
+            <field name="name">hr.employee.tree.service.inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="delete">false</attribute>
+                </xpath>
+               <xpath expr="//field[@name='name']" position="before">
+                    <field name="emp_code"/>
+                    <!-- <field name="position_type"/>
+                    <field name="personal_mobile"/> -->
+                </xpath>
+               <xpath expr="//field[@name='name']" position="after">
+                    <field name="site_master_id"/>
+                    <field name="job_id" string="Designation"/>
+                    <field name="department_id"/>
+                    <field name="joining_date"/>
+                    <field name="parent_id"/>
+                    <field name="work_email"/>
+                    <!-- <field name="position_type"/>
+                    <field name="personal_mobile"/> -->
+                </xpath>
+            </field>
+        </record>
+
+        <record id="inherit_view_employee_filter" model="ir.ui.view">
+            <field name="name">hr.employee.search</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search/field[@name='name']" position="before">
+                    <field name="emp_code" string="Employee Code" filter_domain="[('emp_code','ilike',self)]"/>
+                    <!-- <field name="name" string="Employees" filter_domain="['|',('work_email','ilike',self),('name','ilike',self),'|',('emp_code','ilike',self)]"/>
+                    <field name="department_id"/>
+                    <field name="category_ids" groups="hr.group_hr_user"/>
+                    <field name="job_id" />
+                    <filter string="Unread Messages" name="message_needaction" domain="[('message_needaction','=',True)]"/>
+                    <filter string="Archived" name="inactive" domain="[('active','=',False)]"/> -->
+                    <group expand="0" string="Group By">
+                        <filter name="group_emp_code" string="Employee Code" domain="[('emp_code','ilike',self)]" context="{'group_by':'emp_code'}"/>
+                        <!-- <filter name="group_manager" string="Manager" domain="[]" context="{'group_by':'parent_id'}"/>
+                        <filter name="group_coach" string="Coach" domain="[]" context="{'group_by':'coach_id'}"/>
+                        <filter name="group_department" string="Department" domain="[]" context="{'group_by':'department_id'}"/>
+                        <filter name="group_job" string="Job" domain="[]" context="{'group_by':'job_id'}"/>
+                        <filter name="group_company" string="Company" domain="[]" context="{'group_by':'company_id'}" groups="base.group_multi_company"/> -->
+                    </group>
+                </xpath>
+                <xpath expr="//filter[@name='message_needaction']" position="before">
+                  <filter string="Inactive Employees" name="inactive_employees" domain="[('active','=',False)]"/>
+                </xpath>
+             </field>
+         </record>
+
+<!--         <record id="view_users_form_portal_inherit" model="ir.ui.view">
+            <field name="name">view.users.form.portal.inherit</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='email']" position="after">
+                  <field name="password_reset" invisible="0" string="Password Reset?"/>
+                </xpath>
+            </field>
+        </record>
+ -->
+
+        <!-- <record id="view_subordinate_hierarchy" model="ir.ui.view">
+            <field name="name">hr.employee.tree1</field>
+            <field name="model">hr.employee</field>
+            <field name="arch" type="xml">
+                <tree string="Subordinate Hierarchy">
+                    <field name="name"/>
+                    <field name="emp_code"/>
+                    <field name="site_master_id" string="Location"/>
+                    <field name="job_id" string="Designation"/>
+                    <field name="kra" />
+                </tree>
+            </field>
+        </record> -->
+
+        <record id="action_subordinate_hierarchy" model="ir.actions.act_window">
+            <field name="name">Subordinate Hierarchy</field>
+            <field name="res_model">hr.employee</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_employee_tree_service_inherit"/>
+            <field name="domain">['|',('group_id.users','in',uid),'|',('parent_id.parent_id.user_id','=',uid),'|',('parent_id.user_id','=',uid),('user_id','=',uid)]</field>
+            <field name="target">inline</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                No Subordinate
+              </p>
+            </field>
+        </record>
+
+        <record id="hr.open_view_employee_tree" model="ir.actions.act_window">
+            <field name="name">Employees Structure</field>
+            <field name="res_model">hr.employee</field>
+            <field name="view_type">tree</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="hr.view_employee_tree"/>
+            <field name="domain">[('parent_id','=',False)]</field>
+            <field name="search_view_id" ref="inherit_view_employee_filter"/>
+        </record>
+
+        <record id="hr.open_view_employee_list" model="ir.actions.act_window">
+            <field name="name">Employees</field>
+            <field name="res_model">hr.employee</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+            <field name="view_id" eval="False"/>
+            <field name="search_view_id" ref="inherit_view_employee_filter"/>
+        </record>
+
+        <record id="open_view_employee_list_my_subordinate" model="ir.actions.act_window">
+            <field name="name">Employee Profile</field>
+            <field name="res_model">hr.employee</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <!-- <field name="domain">[]</field> -->
+            <!-- <field name="domain">['|',('group_id.users','in',uid),'|',('parent_id.parent_id.user_id','=',uid),'|',('parent_id.user_id','=',uid),('user_id','=',uid)]</field> -->
+            <field name="domain">['|',('parent_id.user_id','=',uid),('user_id','=',uid)]</field>
+            <field name="context">{}</field>
+            <field name="view_id" eval="False"/>
+            <field name="search_view_id" ref="inherit_view_employee_filter"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add a new employee.
+              </p><p>
+                With just a quick glance on the QuikHR employee screen, you
+                can easily find all the information you need for each person;
+                contact data, job position, availability, etc.
+              </p>
+            </field>
+        </record>
+
+        <record id="hr.act_employee_from_department" model="ir.actions.act_window">
+            <field name="name">Employees</field>
+            <field name="res_model">hr.employee</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,form,tree</field>
+            <field name="search_view_id" ref="inherit_view_employee_filter"/>
+            <field name="context">{
+                "search_default_emp_code":1,
+                "search_default_department_id": [active_id],
+                "default_department_id": active_id,
+                }
+            </field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add a new employee.
+              </p><p>
+                With just a quick glance on the QuikHR employee screen, you
+                can easily find all the information you need for each person;
+                contact data, job position, availability, etc.
+              </p>
+            </field>
+        </record>
+
+
+        <record id="view_birthday_report" model="ir.ui.view">
+            <field name="name">birthday.report</field>
+            <field name="model">birthday.report.new</field>
+            <field name="arch" type="xml">
+                <tree string="Upcoming Birthdays">
+                    <field name="emp_id" invisible="1"/>
+                    <field name="emp_name" string="Employee Name"/>
+                    <field name="emp_code"/>
+                    <field name="job_id"/>
+                    <field name="location"/>
+                    <field name="birthday" invisible="1"/>
+                    <field name="dob"/>
+                    <field name="diff" invisible="1"/>
+                    <field name="total_days" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="birthday_report_hierarchy" model="ir.actions.act_window">
+            <field name="name">Upcoming Birthdays</field>
+            <field name="res_model">birthday.report.new</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_birthday_report"/>
+            <field name="target">inline</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Birthdays
+              </p>
+            </field>
+        </record>
+
+
+        <record id="view_public_holidays" model="ir.ui.view">
+            <field name="name">birthday.report</field>
+            <field name="model">public.holidays</field>
+            <field name="arch" type="xml">
+                <tree string="Holidays">
+                    <field name="name" invisible="0"/>
+                    <field name="holiday_date"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="action_public_holidays" model="ir.actions.act_window">
+            <field name="name">Public Holidays</field>
+            <field name="res_model">public.holidays</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_public_holidays"/>
+            <field name="target">inline</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Birthdays
+              </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_subordinate_hierarchy_id" parent="hr.menu_hr_root" sequence="8" action="open_view_employee_list_my_subordinate" name="Subordinate Hierarchy" groups="orient_hr_resignation.group_reporting_manager"/>
+
+        <menuitem id="menu_birthday_report_id" parent="hr.menu_hr_root" sequence="9" action="birthday_report_hierarchy" groups="base.group_user"/>
+
+        <menuitem id="menu_public_holiday_id_new" parent="hr.menu_hr_root" action="action_public_holidays" groups="base.group_user" sequence="13"/>
+
+
+
+        <record id="update_utility_form" model="ir.ui.view">
+            <field name="name">Update Utility</field>
+            <field name="model">utility.utility</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Update Utility">
+                    <sheet>
+                        <group>
+                            <group>
+                                <button string="Create unlinked users" type="object" name="create_unlinked_users" class="oe_highlight"/>
+                                <button string="Update user emails" type="object" name="update_user_emails" class="oe_highlight"/>
+                            </group>
+<!--                             <group>
+                                <button string="Lower Email IDs" type="object" name="lower_user_emails" class="oe_highlight"/>
+                                <button string="Update Padwa PH" type="object" name="update_padwa_ph" class="oe_highlight"/>
+                            </group> -->
+                            <group>
+                                <button string="Update Attendance Records" type="object" 
+                                        name="update_attendance_records" class="oe_highlight"/>
+                                <button string="Delete duplicate attendance records" type="object" 
+                                        name="delete_redundant_attendance_records" class="oe_highlight"/>
+                            </group>
+                            <group>
+                                <button string="Early-leaving Late-coming(April)" type="object" 
+                                        name="resolve_early_leaving_late_coming_issue" class="oe_highlight"/>
+                                <button string="Update RM in leaves" type="object" 
+                                        name="update_manager_user_id_leaves" class="oe_highlight"/>
+                            </group>
+                            <group>
+                                <button string="Correct leave count" type="object" 
+                                        name="correct_leave_count" class="oe_highlight"/>
+                                <button string="Calculate Worked Hours" type="object" 
+                                        name="calculate_worked_hours" class="oe_highlight"/>
+                            </group>
+                            <group>
+                                <button string="Resend selection mail" type="object" 
+                                        name="resend_selection_mail" class="oe_highlight"/>
+                                <button string="Send code generation mail" type="object" 
+                                        name="send_code_generation_mail" class="oe_highlight"/>
+                                <button string="Know your emp code mailer" type="object" 
+                                        name="know_your_emp_code_mailer" class="oe_highlight"/>
+                            </group>
+                            <group>
+                                <button string="Correct direct recruited users" type="object" 
+                                        name="correct_direct_recruited_users" class="oe_highlight"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="action_utility_utility">
+            <field name="name">Update Utilities</field>
+            <field name="res_model">utility.utility</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Updated Utilites
+                </p>
+            </field>
+            <field name="context">{'create':0,'delete': 0}</field>
+        </record>
+
+
+        <menuitem id="menu_utility_utility_id"
+                  name="Update Utility"
+                  action="action_utility_utility"
+                  parent="base.menu_custom"
+                  sequence="40"/>
+
+        <record id="employee_confirmation_report_form" model="ir.ui.view">
+            <field name="name">Employee Confirmation Due Report</field>
+            <field name="model">employee.confirmation.report</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Update Utility">
+                    <sheet>
+                        <group>
+                            <group string="Employee Confirmation Due Report"></group>
+                            <group>
+                                <field name="name" invisible="1"/>
+                                <button string="Get Report" type="object" name="get_confirmation_due_report" class="btn-primary"/>
+                            </group>
+                            <field name="due_report_lines" readonly="1">
+                              <tree string="Confirmation Due Employee List">
+                                <field name="emp_id" invisible="0"/>
+                                <field name="emp_code"/>
+                                <field name="reporting_manager"/>
+                                <field name="location"/>
+                                <field name="department"/>
+                                <field name="joining_date"/>
+                                <field name="confirmation_date"/>
+                              </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="action_employee_confirmation_report">
+            <field name="name">Employee Confirmation Due Report</field>
+            <field name="res_model">employee.confirmation.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Employee Confirmation Due Report
+                </p>
+            </field>
+            <field name="context">{'create':0,'delete': 0}</field>
+        </record>
+
+
+        <record id="view_city_form" model="ir.ui.view">
+            <field name="name">Site Location</field>
+            <field name="model">res.city</field>
+            <field name="arch" type="xml">
+                <form string="Site Location">
+                    <sheet>
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="active"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_city_tree" model="ir.ui.view">
+            <field name="name">Site Locations</field>
+            <field name="model">res.city</field>
+            <field name="arch" type="xml">
+                <tree string="Site Locations">
+                    <field name="name" string="Site Location"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_city_master_form">
+            <field name="name">Site Locations</field>
+            <field name="res_model">res.city</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_city_tree"/>
+        </record>
+
+
+        <record id="employee_confirmation_form" model="ir.ui.view">
+            <field name="name">Employee Confirmation</field>
+            <field name="model">employee.confirmation</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Employee Confirmation">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="probation,confirm"/>
+                        <button string="Confirm Employee" class="btn-primary" type="object" states='probation,on_hold' name="employee_confirmation" style="background-color:lightgreen;"/>
+                        <button string="Confirmation On Hold" class="btn-primary" type="object" states='probation' name="employee_confirmation_on_hold" style="background-color:lightgreen;"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group string="Employee Confirmation"></group>
+                            <newline/>
+                            <group>
+                                <field name="employee_id" readonly="1"/>
+                                <field name="employee_code" readonly="1"/>
+                                <field name="joining_date" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="reporting_manager" readonly="1"/>
+                                <field name="designation" readonly="1"/>
+                                <field name="department" readonly="1"/>
+                                <field name="confirmation_date" attrs="{'readonly':[('state','=','confirm')]}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="employee_confirmation_tree" model="ir.ui.view">
+            <field name="name">Employee Confirmation</field>
+            <field name="model">employee.confirmation</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Site Locations">
+                    <field name="employee_id" readonly="1"/>
+                    <field name="employee_code"/>
+                    <field name="joining_date"/>
+                    <field name="reporting_manager"/>
+                    <field name="designation"/>
+                    <field name="department"/>
+                    <field name="confirmation_date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_employee_confirmation">
+            <field name="name">Employee Confirmation</field>
+            <field name="res_model">employee.confirmation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="employee_confirmation_tree"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Employee Confirmation
+                </p>
+            </field>
+            <field name="context">{'create':0,'delete': 0}</field>
+        </record>
+
+
+        <menuitem id="menu_employee_confirmation_report"
+                  name="Employee Confirmation Due"
+                  action="action_employee_confirmation_report"
+                  parent="hr.menu_hr_root"
+                  sequence="14" groups="hr.group_hr_manager,hr.group_hr_user"/>
+
+        <menuitem id="menu_employee_confirmation"
+                  name="Employee Confirmation"
+                  action="action_employee_confirmation"
+                  parent="hr.menu_hr_root"
+                  sequence="16" groups="hr.group_hr_manager,hr.group_hr_user,orient_hr_resignation.group_reporting_manager"/>
+
+        <menuitem id="menu_city_master"
+                  name="Site Location Master"
+                  action="action_city_master_form"
+                  parent="hr.menu_human_resources_configuration"
+                  groups="hr.group_hr_manager,hr.group_hr_user"
+                  sequence="36"/>
+
+    </data>
+</odoo>

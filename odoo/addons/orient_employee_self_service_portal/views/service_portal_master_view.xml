@@ -1,0 +1,607 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+       <record id="service_portal_master_form_view" model="ir.ui.view">
+            <field name="name">service.portal.master.form.view</field>
+            <field name="model">service.portal.master</field>
+            <field name="arch" type="xml">
+                <form string="Candidate Profile">
+
+                    <separator string="Fields in Blue are mandatory" attrs="{'invisible': [('submitted', '=', True)]}"/>
+                    <br/>
+
+                    <separator string="Personal Info"/>
+                        <field name="full_name" string="Full Name" invisible="1"/>
+                        <group>
+                            <group>
+                                <field name="first_name" placeholder="Enter your first name" attrs="{'readonly': [('submitted','=',True)]}"/>
+                                <field name="middle_name" placeholder="Enter your middle name" attrs="{'readonly': [('submitted','=',True)]}"/>
+                                <field name="last_name" placeholder="Enter your last name" attrs="{'readonly':[('submitted','=',True)]}"/>
+                                <field name="father_name" placeholder="Enter your father's name" required="1" attrs="{'readonly':[('submitted','=',True)]}"/>
+                                <field name="mother_name" placeholder="Enter your mother's name" required="1" attrs="{'readonly':[('submitted','=',True)]}"/>
+                            </group>
+                            <group>
+                                <field name="gender" attrs="{'readonly': [('submitted', '=', True)]}"/>
+                                <field name="dob" placeholder="Enter your date of birth" attrs="{'readonly': [('submitted', '=', True)]}"/>
+                                <field name="age" required="1" readonly="0" attrs="{'readonly': [('submitted', '=', True)]}"/>
+                                <field name="passport_number" placeholder="Enter your passport number(if any)" attrs="{'readonly': [('submitted', '=', True)]}"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <label for="street" string="Address"/>
+                                <div class="o_address_format">
+                                    <field name="street" placeholder="Flat no, Building name, Society...." class="o_address_street" attrs="{'readonly': [('submitted', '=', True)]}" required="1"/>
+                                    <field name="street2" placeholder="Street, Area..." class="o_address_street" attrs="{'readonly': [('submitted', '=', True)]}" required="1"/>
+                                    <field name="city" placeholder="City" class="o_address_city" attrs="{'readonly': [('submitted', '=', True)]}" required="1"/>
+                                    <field name="state_id" class="o_address_state" placeholder="State" options='{"no_open": True, "no_create": True}' attrs="{'readonly': [('submitted', '=', True)]}" required="0"/>
+                                    <field name="zip" placeholder="ZIP" class="o_address_zip" attrs="{'readonly': [('submitted', '=', True)]}" required="1"/>
+                                    <field name="country_id" placeholder="Country" class="o_address_country" options='{"no_open": True, "no_create": True}' attrs="{'readonly': [('submitted', '=', True)]}" required="1"/>
+                                </div>
+                                <field name="marital_status" attrs="{'readonly': [('submitted', '=', True)]}"/>
+                            </group>
+                            <group>
+                                <label for="phone_number" string="Mobile"/>
+                                <div class="o_address_format">
+                                    <field name="primary_country_code" class="o_address_city" attrs="{'readonly': [('submitted', '=', True)]}" required="0"  style="width:14%%" placeholder="Code" readonly="0" />
+                                    <field name="phone_number" placeholder="Enter your mobile number" class="o_address_zip" attrs="{'readonly': [('submitted', '=', True)]}" required="1"  style="width:84%%"/>
+                                </div>
+                                <label for="emergency_contact_number" string="Emergency cnt. no"/>
+                                <div class="o_address_format">
+                                    <field name="secondary_country_code" class="o_address_city" attrs="{'readonly': [('submitted', '=', True)]}" required="0" style="width:14%%" placeholder="Code" readonly="0" />
+                                    <field name="emergency_contact_number" placeholder="Enter an emergency contact number" class="o_address_zip" attrs="{'readonly': [('submitted', '=', True)]}" required="1"  style="width:84%%"/>
+                                </div>
+                                    <field name="pan" placeholder="Enter PAN number" attrs="{'readonly': [('submitted', '=', True)]}" string="PAN"/>
+                                    <field name="aadhar" placeholder="Enter aadhar number" attrs="{'readonly': [('submitted', '=', True)]}" string="Aadhar"/>
+                                    <field name="blood_group" attrs="{'readonly': [('submitted', '=', True)]}"/>
+                            </group>
+                    </group>
+
+
+                    <separator string="Professional Reference"/>
+                        <group>
+                            <group>
+                                <field name="reference_name" placeholder="Enter the name of the person referring you if any" attrs="{'readonly': [('submitted', '=', True)]}"/>
+                                <field name="reference_contact_number" placeholder="Enter the contact number" attrs="{'readonly': [('submitted', '=', True)]}"/>
+                            </group>
+                            <group>
+                                <field name="reference_email_id" placeholder="Enter the email id" attrs="{'readonly': [('submitted', '=', True)]}"/>
+                                <field name="reference_designation" placeholder="Enter the designation" attrs="{'readonly': [('submitted', '=', True)]}"/>
+                            </group>
+                        </group>
+
+
+
+                    <separator string="Professional Info"/>
+                        <group>
+                            <group>
+                                <field name="candidate_type" attrs="{'readonly': [('submitted', '=', True)]}"/>
+                                <field name="experiance_id" placeholder="Select the experience category" attrs="{'readonly': [('submitted', '=', True)],'required': [('candidate_type', '=', 'experianced')],'invisible': [('candidate_type', '=', 'fresher')]}" options="{'no_create_edit': True,'no_open': True}"/>
+                                <field name="previous_company" placeholder="Enter the name of your previous company" attrs="{'readonly': [('submitted', '=', True)],'required': [('candidate_type', '=', 'experianced')],'invisible': [('candidate_type', '=', 'fresher')]}"/>
+<!--                                 <field name="current_ctc" placeholder="What is your current CTC?" attrs="{'readonly': [('submitted', '=', True)],'required': [('candidate_type', '=', 'experianced')],'invisible': [('candidate_type', '=', 'fresher')]}"/>
+                                <field name="expected_ctc" placeholder="What is your expected CTC?" attrs="{'readonly': [('submitted', '=', True)]}"/> -->
+                            </group>
+                            <group>
+                                <field name="highest_qualification" placeholder="What is your highest qualification?...eg.BE(IT)" attrs="{'readonly': [('submitted', '=', True)]}"/>
+                                <field name="domain_id" options="{'no_create_edit': True,'no_open': True}" placeholder="Enter your industry domain(workarea)" attrs="{'readonly': [('submitted', '=', True)],'required': [('candidate_type', '=', 'experianced')],'invisible': [('candidate_type', '=', 'fresher')]}"/>
+                                <field name="designation" placeholder="What was your designation in previous company?" attrs="{'readonly': [('submitted', '=', True)],'required': [('candidate_type', '=', 'experianced')],'invisible': [('candidate_type', '=', 'fresher')]}"/>
+                            </group>
+                        </group>
+
+
+
+
+
+
+
+                        <separator string="Do you hold a PF &amp; ESIC account?" colspan="5" 
+                                   attrs="{'invisible':[('submitted','=',True)]}"/>
+                        <separator string="PF &amp; ESIC Details" colspan="5" 
+                                   attrs="{'invisible':[('submitted','=',False)]}"/>
+                            <group><field name="pf_esic_holder" help="Check if yes" string="PF &amp; ESIC holder" attrs="{'readonly': [('submitted','=',True)]}"/></group>
+
+                        <notebook  attrs="{'invisible': [('pf_esic_holder', '=', False)]}">
+                            <page string="PF Details">
+                                <group>
+                                    <group>
+                                        <field name="pf_uan_no" placeholder="Enter existing UAN number..." attrs="{'readonly': [('submitted','=',True)]}" string="Existing UAN Number"/>
+                                        <!-- 'required': [('pf_esic_holder', '=', True)], -->
+                                    </group>
+<!--                                     <group>
+                                        <field name="esic_uan_no" placeholder="Enter ESIC UAN number..." attrs="{'required': [('pf_esic_holder', '=', True)],'readonly': [('submitted','=',True)]}"/>
+                                    </group> -->
+                                </group>
+                                <separator string="Select PF nominees(not more than 4). Enter percentage and other details against the selected nominees" colspan="5"  attrs="{'invisible':[('submitted','=',True)]}"/>
+                                <group>
+                                    <label for="pf_nominee_father" string="Father"/>
+                                    <div class="o_address_format">
+                                        <field name="pf_nominee_father" style="width:10%%" attrs="{'readonly': [('submitted','=',True)]}"/>
+                                        <field name="pf_father_name" string=" "  style="width:20%%" 
+                                               placeholder="Enter father's name..." 
+                                               attrs="{'required': [('pf_nominee_father', '=', True)],
+                                                       'invisible': [('pf_nominee_father', '=', False)],
+                                                       'readonly': [('submitted','=',True)]}"/>
+                                        <font color="#ffffff">--</font>
+                                        <field name="pf_dob_father"  string=" " style="width:11%%" placeholder="date of birth"
+                                               attrs="{'required': [('pf_nominee_father', '=', True)],
+                                                       'invisible': [('pf_nominee_father', '=', False)],
+                                                       'readonly': [('submitted','=',True)]}"/>
+                                        <font color="#ffffff">--</font>
+                                        <field name="pf_percent_father" string=" " style="width:4%%"
+                                               attrs="{'required': [('pf_nominee_father', '=', True)],
+                                                       'invisible': [('pf_nominee_father', '=', False)],
+                                                       'readonly': [('submitted','=',True)]}"/>
+                                        <font color="#000000" attrs="{'invisible': [('pf_nominee_father', '=', False)]}">%</font>
+                                    </div>
+                                </group>
+                                <group>
+                                    <label for="pf_nominee_mother" string="Mother"/>
+                                    <div class="o_address_format">
+                                        <field name="pf_nominee_mother"  style="width:10%%" attrs="{'readonly': [('submitted','=',True)]}"/>
+                                        <field name="pf_mother_name" string=" "  style="width:20%%" 
+                                               placeholder="Enter mother's name..."
+                                               attrs="{'required': [('pf_nominee_mother', '=', True)],
+                                                       'invisible': [('pf_nominee_mother', '=', False)],
+                                                       'readonly': [('submitted','=',True)]}"/>
+                                        <font color="#ffffff">--</font>
+                                        <field name="pf_dob_mother"  string=" " style="width:11%%"  placeholder="date of birth"
+                                               attrs="{'required': [('pf_nominee_mother', '=', True)],
+                                                       'invisible': [('pf_nominee_mother', '=', False)],
+                                                       'readonly': [('submitted','=',True)]}"/>
+                                        <font color="#ffffff">--</font>
+                                        <field name="pf_percent_mother" string=" " style="width:4%%"
+                                               attrs="{'required': [('pf_nominee_mother', '=', True)],
+                                                       'invisible': [('pf_nominee_mother', '=', False)],
+                                                       'readonly': [('submitted','=',True)]}"/>
+                                        <font color="#000000" attrs="{'invisible': [('pf_nominee_mother', '=', False)]}">%</font>
+                                    </div>
+                                </group>
+                                <group>
+                                    <label for="pf_nominee_spouse" string="Spouse"/>
+                                    <div class="o_address_format">
+                                        <field name="pf_nominee_spouse"  style="width:10%%" attrs="{'readonly': [('submitted','=',True)]}"/>
+                                        <field name="pf_spouse_name" string=" "  style="width:20%%" 
+                                               placeholder="Enter spouse's name..."
+                                               attrs="{'required': [('pf_nominee_spouse', '=', True)],
+                                                       'invisible': [('pf_nominee_spouse', '=', False)],
+                                                       'readonly': [('submitted','=',True)]}"/>
+                                        <font color="#ffffff">--</font>
+                                        <field name="pf_dob_spouse"  string=" " style="width:11%%"  placeholder="date of birth"
+                                               attrs="{'required': [('pf_nominee_spouse', '=', True)],
+                                                       'invisible': [('pf_nominee_spouse', '=', False)],
+                                                       'readonly': [('submitted','=',True)]}"/>
+                                        <font color="#ffffff">--</font>
+                                        <field name="pf_percent_spouse" string=" " style="width:4%%"
+                                               attrs="{'required': [('pf_nominee_spouse', '=', True)],
+                                                       'invisible': [('pf_nominee_spouse', '=', False)],
+                                                       'readonly': [('submitted','=',True)]}"/>
+                                        <font color="#000000" attrs="{'invisible': [('pf_nominee_spouse', '=', False)]}">%</font>
+                                        <font color="#ffffff">--</font>
+                                        <field name="pf_gender_spouse" string=" " style="width:13%%" 
+                                               placeholder="select gender"
+                                               attrs="{'required': [('pf_nominee_spouse', '=', True)],
+                                                       'invisible': [('pf_nominee_spouse', '=', False)],
+                                                       'readonly': [('submitted','=',True)]}"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <label for="pf_nominee_child1" string="First Child"/>
+                                    <div class="o_address_format">
+                                        <field name="pf_nominee_child1"  style="width:10%%" attrs="{'readonly': [('submitted','=',True)]}"/>
+                                        <field name="pf_first_child" string=" "  style="width:20%%" 
+                                               placeholder="Enter first child's name..."
+                                               attrs="{'required': [('pf_nominee_child1', '=', True)],
+                                                       'invisible': [('pf_nominee_child1', '=', False)],
+                                                       'readonly': [('submitted','=',True)]}"/>
+                                        <font color="#ffffff">--</font>
+                                        <field name="pf_dob_child1"  string=" " style="width:11%%"  placeholder="date of birth"
+                                               attrs="{'required': [('pf_nominee_child1', '=', True)],
+                                                       'invisible': [('pf_nominee_child1', '=', False)],
+                                                       'readonly': [('submitted','=',True)]}"/>
+                                        <font color="#ffffff">--</font>
+                                        <field name="pf_percent_child1" string=" " style="width:4%%"
+                                               attrs="{'required': [('pf_nominee_child1', '=', True)],
+                                                       'invisible': [('pf_nominee_child1', '=', False)],
+                                                       'readonly': [('submitted','=',True)]}"/>
+                                        <font color="#000000" attrs="{'invisible': [('pf_nominee_child1', '=', False)]}">%</font>
+                                        <font color="#ffffff">--</font>
+                                        <field name="pf_gender_child1" string=" " style="width:13%%" placeholder="select gender"
+                                               attrs="{'required': [('pf_nominee_child1', '=', True)],
+                                                       'invisible': [('pf_nominee_child1', '=', False)],
+                                                       'readonly': [('submitted','=',True)]}"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <label for="pf_nominee_child2" string="Second Child"/>
+                                    <div class="o_address_format">
+                                        <field name="pf_nominee_child2"  style="width:10%%" attrs="{'readonly': [('submitted','=',True)]}"/>
+                                        <field name="pf_second_child" string=" "  style="width:20%%" 
+                                               placeholder="Enter second child's name..."
+                                               attrs="{'required': [('pf_nominee_child2', '=', True)],
+                                                       'invisible': [('pf_nominee_child2', '=', False)],
+                                                       'readonly': [('submitted','=',True)]}"/>
+                                        <font color="#ffffff">--</font>
+                                        <field name="pf_dob_child2"  string=" " style="width:11%%"  placeholder="date of birth"
+                                               attrs="{'required': [('pf_nominee_child2', '=', True)],
+                                                       'invisible': [('pf_nominee_child2', '=', False)],
+                                                       'readonly': [('submitted','=',True)]}"/>
+                                        <font color="#ffffff">--</font>
+                                        <field name="pf_percent_child2" string=" " style="width:4%%"
+                                               attrs="{'required': [('pf_nominee_child2', '=', True)],
+                                                       'invisible': [('pf_nominee_child2', '=', False)],
+                                                       'readonly': [('submitted','=',True)]}"/>
+                                        <font color="#000000" attrs="{'invisible': [('pf_nominee_child2', '=', False)]}">%</font>
+                                        <font color="#ffffff">--</font>
+                                        <field name="pf_gender_child2" string=" " style="width:13%%" placeholder="select gender"
+                                               attrs="{'required': [('pf_nominee_child2', '=', True)],
+                                                       'invisible': [('pf_nominee_child2', '=', False)],
+                                                       'readonly': [('submitted','=',True)]}"/>
+                                    </div>
+                                </group>
+                                <group class="oe_subtotal_footer oe_right" colspan="2">
+                                    <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                        <group>
+                                          <group><field name="pf_percent_total" no_label="1" readonly="1" force_save="1" string="Percent %"/></group>
+                                        </group>
+                                    </div>
+                                </group>
+                            </page>
+
+                            <page string="ESIC Details">
+                              
+                                <group>
+                                    <group>
+                                        <field name="esic_uan_no" placeholder="Enter existing ESIC number..." attrs="{'readonly': [('submitted','=',True)]}" string="Existing ESIC Number"/>
+                                        <!-- 'required': [('pf_esic_holder', '=', True)], -->
+                                    </group>
+                                </group>
+                                <separator string="Select ESIC nominees(not more than 4). Enter percentage and other details against the selected nominees" colspan="5"  attrs="{'invisible':[('submitted','=',True)]}"/>
+                                <group>
+                                    <group>
+                                        <field name="same_as_pf" attrs="{'invisible':[('submitted','=',True)]}"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <label for="esic_nominee_father" string="Father"/>
+                                    <div class="o_address_format">
+                                        <field name="esic_nominee_father"  style="width:10%%" attrs="{'readonly': [('submitted','=',True)]}"/>
+                                        <field name="esic_father_name" string=" "  style="width:20%%" 
+                                               placeholder="Enter father's name..." 
+                                               attrs="{'required': [('esic_nominee_father', '=', True)],
+                                                       'invisible': [('esic_nominee_father', '=', False)],
+                                                       'readonly': [('submitted','=',True)]}"/>
+                                        <font color="#ffffff">--</font>
+                                        <field name="esic_dob_father"  string=" " style="width:11%%" placeholder="date of birth"
+                                               attrs="{'required': [('esic_nominee_father', '=', True)],
+                                                       'invisible': [('esic_nominee_father', '=', False)],
+                                                       'readonly': [('submitted','=',True)]}"/>
+                                        <font color="#ffffff">--</font>
+                                        <field name="esic_percent_father" string=" " style="width:4%%"
+                                               attrs="{'required': [('esic_nominee_father', '=', True)],
+                                                       'invisible': [('esic_nominee_father', '=', False)],
+                                                       'readonly': [('submitted','=',True)]}"/>
+                                        <font color="#000000" attrs="{'invisible': [('esic_nominee_father', '=', False)]}">%</font>
+                                    </div>
+                                </group>
+                                <group>
+                                    <label for="esic_nominee_mother" string="Mother"/>
+                                    <div class="o_address_format">
+                                        <field name="esic_nominee_mother"  style="width:10%%" attrs="{'readonly': [('submitted','=',True)]}"/>
+                                        <field name="esic_mother_name" string=" "  style="width:20%%" 
+                                               placeholder="Enter mother's name..."
+                                               attrs="{'required': [('esic_nominee_mother', '=', True)],
+                                                       'invisible': [('esic_nominee_mother', '=', False)],
+                                                       'readonly': [('submitted','=',True)]}"/>
+                                        <font color="#ffffff">--</font>
+                                        <field name="esic_dob_mother"  string=" " style="width:11%%"  placeholder="date of birth"
+                                               attrs="{'required': [('esic_nominee_mother', '=', True)],
+                                                       'invisible': [('esic_nominee_mother', '=', False)],
+                                                       'readonly': [('submitted','=',True)]}"/>
+                                        <font color="#ffffff">--</font>
+                                        <field name="esic_percent_mother" string=" " style="width:4%%"
+                                               attrs="{'required': [('esic_nominee_mother', '=', True)],
+                                                       'invisible': [('esic_nominee_mother', '=', False)],
+                                                       'readonly': [('submitted','=',True)]}"/>
+                                        <font color="#000000" attrs="{'invisible': [('esic_nominee_mother', '=', False)]}">%</font>
+                                    </div>
+                                </group>
+                                <group>
+                                    <label for="esic_nominee_spouse" string="Spouse"/>
+                                    <div class="o_address_format">
+                                        <field name="esic_nominee_spouse"  style="width:10%%" attrs="{'readonly': [('submitted','=',True)]}"/>
+                                        <field name="esic_spouse_name" string=" "  style="width:20%%" 
+                                               placeholder="Enter spouse's name..."
+                                               attrs="{'required': [('esic_nominee_spouse', '=', True)],
+                                                       'invisible': [('esic_nominee_spouse', '=', False)],
+                                                       'readonly': [('submitted','=',True)]}"/>
+                                        <font color="#ffffff">--</font>
+                                        <field name="esic_dob_spouse"  string=" " style="width:11%%"  placeholder="date of birth"
+                                               attrs="{'required': [('esic_nominee_spouse', '=', True)],
+                                                       'invisible': [('esic_nominee_spouse', '=', False)],
+                                                       'readonly': [('submitted','=',True)]}"/>
+                                        <font color="#ffffff">--</font>
+                                        <field name="esic_percent_spouse" string=" " style="width:4%%"
+                                               attrs="{'required': [('esic_nominee_spouse', '=', True)],
+                                                       'invisible': [('esic_nominee_spouse', '=', False)],
+                                                       'readonly': [('submitted','=',True)]}"/>
+                                        <font color="#000000" attrs="{'invisible': [('esic_nominee_spouse', '=', False)]}">%</font>
+                                        <font color="#ffffff">--</font>
+                                        <field name="esic_gender_spouse" string=" " style="width:13%%" 
+                                               placeholder="select gender"
+                                               attrs="{'required': [('esic_nominee_spouse', '=', True)],
+                                                       'invisible': [('esic_nominee_spouse', '=', False)],
+                                                       'readonly': [('submitted','=',True)]}"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <label for="esic_nominee_child1" string="First Child"/>
+                                    <div class="o_address_format">
+                                        <field name="esic_nominee_child1"  style="width:10%%" attrs="{'readonly': [('submitted','=',True)]}"/>
+                                        <field name="esic_first_child" string=" "  style="width:20%%" 
+                                               placeholder="Enter first child's name..."
+                                               attrs="{'required': [('esic_nominee_child1', '=', True)],
+                                                       'invisible': [('esic_nominee_child1', '=', False)],
+                                                       'readonly': [('submitted','=',True)]}"/>
+                                        <font color="#ffffff">--</font>
+                                        <field name="esic_dob_child1"  string=" " style="width:11%%"  placeholder="date of birth"
+                                               attrs="{'required': [('esic_nominee_child1', '=', True)],
+                                                       'invisible': [('esic_nominee_child1', '=', False)],
+                                                       'readonly': [('submitted','=',True)]}"/>
+                                        <font color="#ffffff">--</font>
+                                        <field name="esic_percent_child1" string=" " style="width:4%%"
+                                               attrs="{'required': [('esic_nominee_child1', '=', True)],
+                                                       'invisible': [('esic_nominee_child1', '=', False)],
+                                                       'readonly': [('submitted','=',True)]}"/>
+                                        <font color="#000000" attrs="{'invisible': [('esic_nominee_child1', '=', False)]}">%</font>
+                                        <font color="#ffffff">--</font>
+                                        <field name="esic_gender_child1" string=" " style="width:13%%" 
+                                               placeholder="select gender"
+                                               attrs="{'required': [('esic_nominee_child1', '=', True)],
+                                                       'invisible': [('esic_nominee_child1', '=', False)],
+                                                       'readonly': [('submitted','=',True)]}"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <label for="esic_nominee_child2" string="Second Child"/>
+                                    <div class="o_address_format">
+                                        <field name="esic_nominee_child2" style="width:10%%" attrs="{'readonly': [('submitted','=',True)]}"/>
+                                        <field name="esic_second_child" string=" "  style="width:20%%" 
+                                               placeholder="Enter second child's name..."
+                                               attrs="{'required': [('esic_nominee_child2', '=', True)],
+                                                       'invisible': [('esic_nominee_child2', '=', False)],
+                                                       'readonly': [('submitted','=',True)]}"/>
+                                        <font color="#ffffff">--</font>
+                                        <field name="esic_dob_child2"  string=" " style="width:11%%"  placeholder="date of birth"
+                                               attrs="{'required': [('esic_nominee_child2', '=', True)],
+                                                       'invisible': [('esic_nominee_child2', '=', False)],
+                                                       'readonly': [('submitted','=',True)]}"/>
+                                        <font color="#ffffff">--</font>
+                                        <field name="esic_percent_child2" string=" " style="width:4%%"
+                                               attrs="{'required': [('esic_nominee_child2', '=', True)],
+                                                       'invisible': [('esic_nominee_child2', '=', False)],
+                                                       'readonly': [('submitted','=',True)]}"/>
+                                        <font color="#000000" attrs="{'invisible': [('esic_nominee_child2', '=', False)]}">%</font>
+                                        <font color="#ffffff">--</font>
+                                        <field name="esic_gender_child2" string=" " style="width:13%%" placeholder="select gender"
+                                               attrs="{'required': [('esic_nominee_child2', '=', True)],
+                                                       'invisible': [('esic_nominee_child2', '=', False)],
+                                                       'readonly': [('submitted','=',True)]}"/>
+                                    </div>
+                                </group>
+                                <group class="oe_subtotal_footer oe_right" colspan="2">
+                                    <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                        <group>
+                                          <group><field name="esic_percent_total" no_label="1" readonly="1" force_save="1" string="Percent %"/></group>
+                                        </group>
+                                    </div>
+                                </group>
+                            </page>
+                        </notebook>
+
+                    <separator string="Please enter your skills(atleast three)" attrs="{'invisible': [('submitted', '=', True)]}"/>
+                    <separator string="Skills" attrs="{'invisible': [('submitted', '=', False)]}"/>
+                        <group>
+                            <group>
+                                <field name="skill_ids" widget="many2many_tags" options="{'color_field': 'color','no_create_edit': True,'no_open': True}" required="1" attrs="{'readonly': [('submitted', '=', True)]}" string=""/>
+<!--                                 <field name="skill1" required="1" placeholder="Skill 1..." attrs="{'readonly': [('submitted', '=', True)]}" string=""/>
+                                 <field name="skill2" required="1" placeholder="Skill 2..." attrs="{'readonly': [('submitted', '=', True)]}" string=""/>
+                                <field name="skill3" required="1" placeholder="Skill 3..." attrs="{'readonly': [('submitted', '=', True)]}" string=""/>
+                                <field name="skill4" required="1" placeholder="Skill 4..." attrs="{'readonly': [('submitted', '=', True)]}" string=""/> 
+                                <field name="skill5" required="1" placeholder="Skill 5..." attrs="{'readonly': [('submitted', '=', True)]}" string=""/>
+                                <field name="skill6" placeholder="Skill 6..." attrs="{'readonly': [('submitted', '=', True)]}" string=""/>
+                                <field name="skill7" placeholder="Skill 7..." attrs="{'readonly': [('submitted', '=', True)]}" string=""/> 
+                                <field name="skill8" placeholder="Skill 8..." attrs="{'readonly': [('submitted', '=', True)]}" string=""/> -->
+                            </group>
+                        </group>
+
+                    <separator string="Please attach the required documents" attrs="{'invisible': [('submitted', '=', True)]}"/>
+                    <separator string="Documents Attached" attrs="{'invisible': [('submitted', '=', False)]}"/>
+<!--                         <group colspan="5">
+                          <field name="service_doc_ids" nolabel="1" attrs="{'readonly': [('submitted', '=', True)]}" style="width:70%%">
+                              <tree editable="bottom" string="" create="1" 
+                                    options="{'no_create_edit': True,'no_open': True}" delete="0">
+                                  <field name="sub_document_id" options='{"no_open": True, "no_create": True}' required="1" string="Document Name"/>
+                                  <field name="portal_master_id" invisible="1"/>
+                                  <field name="datas" required="1" style="width:20%%" string="Attachment"/>
+                              </tree>
+                          </field>
+                        </group> -->
+
+                            <label for="cv_file" string="CV" style="width:50%%"/>
+                            <field name="cv_file" nolabel="1" required="1" attrs="{'readonly': [('submitted', '=', True)]}"/>
+                            <br/>
+ 
+
+                            <label for="pan_doc" string="Identity proof(PAN)" style="width:50%%"/>
+                            <field name="pan_doc" nolabel="1" required="1" attrs="{'readonly': [('submitted', '=', True)]}"/>
+                            <br/>
+
+
+                            <label for="aadhar_doc" string="Identity proof(AADHAR)" style="width:50%%"/>
+                            <field name="aadhar_doc" nolabel="1" required="1" attrs="{'readonly': [('submitted', '=', True)]}"/>
+                            <br/>
+
+
+                            <label for="passport_photo" string="Passport size photograph" style="width:50%%"/>
+                            <field name="passport_photo" nolabel="1" required="1" attrs="{'readonly': [('submitted', '=', True)]}"/>
+                            <br/>
+
+
+                            <label for="qualification_cert" string="Highest qualification certificate(Academic marksheet)" 
+                                   style="width:50%%"/>
+                            <field name="qualification_cert" nolabel="1" required="1" attrs="{'readonly': [('submitted', '=', True)]}"/>
+                            <br/>
+
+
+                            <label for="residence_proof" string="Residence proof(Passport/Electricity Bill/Rental Agreement/Mobile bill)" style="width:50%%"/>
+                            <field name="residence_proof" nolabel="1"  attrs="{'readonly': [('submitted', '=', True)]}"/>
+                            <!-- required="1" -->
+                            <br/>
+
+
+<!--                             <label for="birth_cert" string="Birth certificate" style="width:50%%"/>
+                            <field name="birth_cert" nolabel="1" required="1" attrs="{'readonly': [('submitted', '=', True)]}"/>
+                            <br/> -->
+
+
+
+                            <label for="relieving_doc" string="Relieving Letter" style="width:50%%" 
+                                   attrs="{'invisible':[('candidate_type','=','fresher')]}"/>
+                            <field name="relieving_doc" nolabel="1" 
+                                   attrs="{'invisible': [('candidate_type', '=', 'fresher')],
+                                           'readonly': [('submitted', '=', True)]}"/>
+                                  <!-- 'required':[('candidate_type','=','experianced')], -->
+                            <br attrs="{'invisible':[('candidate_type','=','fresher')]}"/>
+
+
+                            <label for="appraisal_doc" string="Latest appraisal letter" style="width:50%%" 
+                                   attrs="{'invisible':[('candidate_type','=','fresher')]}"/>
+                            <field name="appraisal_doc" nolabel="1" 
+                                   attrs="{'invisible': [('candidate_type', '=', 'fresher')],
+                                           'readonly': [('submitted', '=', True)]}"/>
+                                           <!-- 'required':[('candidate_type','=','experianced')], -->
+                            <br attrs="{'invisible':[('candidate_type','=','fresher')]}"/>
+
+
+                            <label for="appointment_doc" string="Latest appointment letter" style="width:50%%" 
+                                   attrs="{'invisible':[('candidate_type','=','fresher')]}"/>
+                            <field name="appointment_doc" nolabel="1"
+                                   attrs="{'invisible':[('candidate_type','=','fresher')],
+                                           'readonly': [('submitted', '=', True)]}"/>
+                                           <!-- 'required':[('candidate_type','=','experianced')], -->
+                            <br attrs="{'invisible':[('candidate_type','=','fresher')]}"/>
+
+
+                            <label for="payslip" string="Latest payslip" style="width:50%%" 
+                                   attrs="{'invisible':[('candidate_type','=','fresher')]}"/>
+                            <field name="payslip" nolabel="1" 
+                                   attrs="{'invisible':[('candidate_type','=','fresher')],
+                                           'required':[('candidate_type','=','experianced')],
+                                           'readonly': [('submitted', '=', True)]}"/>
+                            <br attrs="{'invisible':[('candidate_type','=','fresher')]}"/>
+
+
+                            <label for="leaving_cert" string="Leaving certificate" style="width:50%%" 
+                                   attrs="{'invisible':[('candidate_type','=','experianced')]}"/>
+                            <field name="leaving_cert" nolabel="1"
+                                   attrs="{'invisible':[('candidate_type','=','experianced')],
+                                           'required':[('candidate_type','=','fresher')],
+                                           'readonly': [('submitted', '=', True)]}"/>
+                            <br attrs="{'invisible':[('candidate_type','=','experianced')]}"/>
+
+                            <label for="skill_cert" string="Technical Certificate(if any)" style="width:50%%"/>
+                            <field name="skill_cert" nolabel="1" attrs="{'readonly': [('submitted', '=', True)]}"/>
+                            <br/>
+
+
+                    <separator string="Notes"/>
+                    <field name="notes" nolabel="1" placeholder="Please enter notes or comments over here if any..." attrs="{'readonly': [('submitted', '=', True)]}" style="width:50%%"/>
+                    <group>
+                        <field name="submitted" invisible="1"/>
+                        <button string="Submit" name="submit_portal_form" 
+                                type="object" class="oe_highlight"
+                                attrs="{'invisible': [('submitted', '=', True)]}"
+                                confirm="Check your details before submitting as once submitted it cannot be changed. Proceed?"/>
+                    </group>
+
+                    <group>
+                      <field name="cv_flag" invisible="1"/>
+                      <field name="residence_flag" invisible="1"/>
+                      <field name="pan_flag" invisible="1"/>
+                      <field name="aadhar_flag" invisible="1"/>
+                      <field name="passport_flag" invisible="1"/>
+                      <field name="birth_flag" invisible="1"/>
+                      <field name="appraisal_flag" invisible="1"/>
+                      <field name="appointment_flag" invisible="1"/>
+                      <field name="payslip_flag" invisible="1"/>
+                      <field name="qualification_flag" invisible="1"/>
+                      <field name="lc_flag" invisible="1"/>
+                      <field name="skill_flag" invisible="1"/>
+                    </group>
+
+                    <separator string="Your form has been submitted. You can now log out from the system. Click on your username on top right and then click on logout. Thank you." 
+                               attrs="{'invisible': [('submitted', '=', False)]}" 
+                               groups="orient_employee_self_service_portal.group_service_portal_user"/>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="service_portal_master_list_view" model="ir.ui.view">
+            <field name="name">service.portal.master.list.view</field>
+            <field name="model">service.portal.master</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string='Candidate'>
+                    <field name="full_name"/>
+                    <field name="phone_number" string="Mobile"/>
+                    <field name="aadhar"/>
+                    <field name="candidate_type"/>
+                    <field name="experiance_id"/>
+                    <field name="domain_id"/>
+                    <!-- <field name="expected_ctc"/> -->
+                </tree>
+            </field>
+        </record>
+
+        <record id="service_portal_master_action" model="ir.actions.act_window">
+            <field name="name">Candidate Profile</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">service.portal.master</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="service_portal_master_list_view"/>
+            <field name="context">{'create':0,'delete': 0,'attachment':0}</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Candidate Profile
+              </p>
+            </field>
+        </record>
+
+        <menuitem
+            name="Self Service Portal"
+            id="menu_self_service_portal_main"
+            sequence="1" 
+            groups="orient_employee_self_service_portal.group_service_portal_user"
+            />
+            <!-- groups="hr_recruitment.group_hr_recruitment_user" -->
+            <!-- web_icon="hr_recruitment,static/description/icon.png" -->
+
+        <menuitem
+            id="menu_service_portal_master_id_submenu"
+            parent="menu_self_service_portal_main"
+            name=" "
+            sequence="1"
+        />
+
+        <menuitem
+            id="menu_service_portal_master_id"
+            action="service_portal_master_action"
+            parent="menu_service_portal_master_id_submenu"
+            sequence="1"
+        />
+
+    </data>
+</odoo>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <report 
+            id="action_generate_pay_slip"
+            string="Pay Slip"
+            model="pay.slip" 
+            report_type="qweb-pdf"
+            file="orient_tds.report_pay_slip" 
+            name="orient_tds.report_pay_slip"
+            print_report_name="str(object.employee_id.emp_code)+ '-'+str(object.month_sel) + str(object.year_sel.name)"
+        />
+
+    </data>
+</odoo>

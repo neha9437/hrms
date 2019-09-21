@@ -1,0 +1,732 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <data>
+
+<!-- Trainer Name -->
+    	<record id="view_training_form" model="ir.ui.view">
+            <field name="name">training.name.form</field>
+            <field name="model">training.name</field>
+            <field name="arch" type="xml">
+
+            	<form string="Training Name">
+            		<sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object" groups="hr.group_hr_user"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                    options='{"terminology": "active"}'/>
+                            </button>
+                        </div>
+            			<group>
+		    				<group>
+                                <field name="name" options="{'no_open': True}"/>
+                                <field name="highest_qualification" />
+                                <field name="mobile_phone" />
+                                <!-- <field name="active" /> -->
+                                <field name="work_email" />
+                                <field name="facilitator" />
+                            </group>
+        				</group>
+        			</sheet>
+        		</form>
+    		</field>
+		</record>
+
+        <record id="view_training_tree" model="ir.ui.view">
+            <field name="name">training.name.tree</field>
+            <field name="model">training.name</field>
+            <field name="arch" type="xml">
+
+                <tree string="Training Name">
+                    <field name="select" invisible="1"/>
+                    <field name="name"/>
+                    <field name="highest_qualification" />
+                    <field name="facilitator" />
+                    <field name="active" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_training_form" model="ir.actions.act_window">
+            <field name="name">Trainer</field>
+            <field name="res_model">training.name</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_training_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Trainer
+              </p>
+            </field>
+        </record>
+
+<!-- Training Type -->
+
+        <record id="view_trainingtype_form" model="ir.ui.view">
+            <field name="name">training.type.form</field>
+            <field name="model">training.type</field>
+            <field name="arch" type="xml">
+
+                <form string="Training Type">
+                    <sheet>
+                        <group>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object" groups="hr.group_hr_user"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                    options='{"terminology": "active"}'/>
+                            </button>
+                        </div>
+                            <group>
+                                <field name="name" />
+                                <!-- <field name="active" /> -->
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_trainingtype_tree" model="ir.ui.view">
+            <field name="name">training.type.tree</field>
+            <field name="model">training.type</field>
+            <field name="arch" type="xml">
+
+                <tree string="Training Type">
+                    <field name="select" invisible="1"/>
+                    <field name="name"/>
+                    <field name="active" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_trainingtype_form" model="ir.actions.act_window">
+            <field name="name">Training Type</field>
+            <field name="res_model">training.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_trainingtype_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Training Type
+              </p>
+            </field>
+        </record>
+
+<!-- Training Location -->
+
+        <record id="view_traininglocation_form" model="ir.ui.view">
+            <field name="name">training.location.form</field>
+            <field name="model">training.location</field>
+            <field name="arch" type="xml">
+
+                <form string="Training location">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object" groups="hr.group_hr_user"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                    options='{"terminology": "active"}'/>
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="name" />
+                                <field name="address"/>
+                                <!-- <field name="active" /> -->
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_traininglocation_tree" model="ir.ui.view">
+            <field name="name">training.location.tree</field>
+            <field name="model">training.location</field>
+            <field name="arch" type="xml">
+
+                <tree string="Training location">
+                    <field name="select" invisible="1"/>
+                    <field name="name"/>
+                    <field name="active" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_traininglocation_form" model="ir.actions.act_window">
+            <field name="name">Training location</field>
+            <field name="res_model">training.location</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_traininglocation_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Training location
+              </p>
+            </field>
+        </record>
+
+<!-- Training Master -->
+
+        <record id="view_trainingmaster_form" model="ir.ui.view">
+            <field name="name">training.master.form</field>
+            <field name="model">training.master</field>
+            <field name="arch" type="xml">
+
+                <form string="Training master">
+                    <sheet>
+
+                        <header>
+                            <button string="Training Completed" name="training_completed" type="object" groups="hr.group_hr_manager,hr.group_hr_user" attrs="{'invisible':[('state','!=','new')]}"/>
+                            <button string="Send Email" name="send_mail_training" type="object" groups="hr.group_hr_manager,hr.group_hr_user" attrs="{'invisible':[('state','!=','new')]}"/>
+
+                            <field name="state" widget="statusbar" statusbar_visible="new,complete"/>
+                        </header>
+                        <group>
+                            <field name="name" required="1" attrs="{'readonly':[('state','=','complete')]}"/>
+                        </group>
+                        <group>
+
+                            <group>
+                                <field name="company_id" style="width:50%%" attrs="{'readonly':[('state','=','complete')]}" required="1" options="{'no_open': True}"/>
+                                <field name="from_date" style="width:50%%" attrs="{'readonly':[('state','=','complete')]}" required="1"/>
+                                <field name="trainer_name" style="width:50%%"  attrs="{'readonly':[('state','=','complete')]}" required="1" options="{'no_open': True}"/>
+                                <!-- <field name="budget" style="width:50%%"/> -->
+                                <field name="training_type" style="width:50%%" attrs="{'readonly':[('state','=','complete')]}" required="1" options="{'no_open': True}"/>
+                                
+                            </group>
+                            <group>
+                                <field name="location" style="width:50%%" string="Venue" attrs="{'readonly':[('state','=','complete')]}" required="1" options="{'no_open': True}"/>
+                                <field name="to_date" style="width:50%%" attrs="{'readonly':[('state','=','complete')]}" required="1"/>
+                                <field name="budget"  style="width:50%%" attrs="{'readonly':[('state','=','complete')]}"/>
+                                <field name="training_id" invisible="1"/>
+                                <field name="training_comp_date" attrs="{'readonly':[('state','=','complete')]}"/>
+                            </group>
+                        </group>
+                        <group string="Attendees Details">
+                            <field name="employee_details_master" mode="tree" string="" nolabel="1">
+                                <tree string="Attendees Details" editable="bottom">
+                                    <field name="master_id" invisible="1"/>
+                                    <field name="employee" options="{'no_open': True}"/>
+                                    <field name="emp_code"/>
+                                    <field name="designation" options="{'no_open': True}"/>
+                                    <field name="department_id" options="{'no_open': True}"/>
+                                    <field name="site" options="{'no_open': True}"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group string="Add/Remove Employees">
+                            <field name="supervisor" style="width:50%%" attrs="{'readonly':[('state','=','complete')]}" required="1" options="{'no_open': True}"/>
+                            <field name="site_location" style="width:50%%" attrs="{'readonly':[('state','=','complete')]}" required="1" options="{'no_open': True}"/>
+                            <!-- <field name="department" style="width:50%%"/> -->
+                            <field name="department_id" widget="many2many_tags" invisible="1"/>
+                            <field name="employee" widget="many2many_tags" attrs="{'readonly':[('state','=','complete')]}" invisible="1" options="{'no_open': True}"/>
+                            <field name="main_user_id" attrs="{'readonly':[('state','=','complete')]}" options="{'no_open': True}"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_trainingmaster_tree" model="ir.ui.view">
+            <field name="name">training.master.tree</field>
+            <field name="model">training.master</field>
+            <field name="arch" type="xml">
+
+                <tree string="Training master">
+                    <field name="name"/>
+                    <field name="from_date"/>
+                    <field name="to_date"/>
+                    <field name="location"/>
+                    <field name="trainer_name" />
+                    <field name="training_comp_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_trainingmaster_calendar" model="ir.ui.view">
+            <field name="name">training.master.calendar</field>
+            <field name="model">training.master</field>
+            <field name="arch" type="xml">
+                <calendar string="Training Schedule" date_start="from_date" mode="month" color="state">
+                    <field name="name"/>
+                    <field name="from_date"/>
+                    <field name="to_date"/>
+                    <field name="state" invisible="1"/>
+                </calendar>
+            </field>
+        </record>
+
+        <record id="action_trainingmaster_form" model="ir.actions.act_window">
+            <field name="name">Training Schedule</field>
+            <field name="res_model">training.master</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">calendar,tree,form</field>
+            <field name="view_id" ref="view_trainingmaster_calendar"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Training Schedule
+              </p>
+            </field>
+        </record>
+
+<!-- Training Request -->
+
+        <record id="view_trainingrequest_form" model="ir.ui.view">
+            <field name="name">training.request.form</field>
+            <field name="model">training.request</field>
+            <field name="arch" type="xml">
+
+                <form string="Training request">
+                    <sheet>
+                        <header>
+                            <button string="Approve" name="training_approved" type="object" attrs="{'invisible':[('state','not in',('new'))]}" groups="hr.group_hr_manager,hr.group_hr_user"/>
+                            <button string="Reject" name="training_reject" type="object" attrs="{'invisible':[('state','in',('created','approved','reject'))]}" groups="hr.group_hr_manager,hr.group_hr_user"/>
+                            <button string="Postpone" name="training_postpone" type="object" attrs="{'invisible':[('state','not in',('new'))]}" groups="hr.group_hr_manager,hr.group_hr_user"/>
+                            <button string="Launch Training" name="create_training" type="object"  groups="hr.group_hr_manager,hr.group_hr_user" attrs="{'invisible':[('state','in',('new','reject','created'))]}"/>
+                            <field name="state" widget="statusbar" statusbar_visible="new,approved,reject,postpone,created"/>
+                        </header>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <!-- <field name="department" /> -->
+                                <field name="department_id" widget="many2many_tags" invisible="1"/>
+                                <field name="training_type" options="{'no_open': True}"/>
+
+                            </group>
+                        </group>
+                        <group string="Attendees Details">
+                            <field name="employee_details" mode="tree" style="width:100%%" nolabel="1">
+                                <tree string="Attendees Details" editable="bottom">
+                                    <field name="request_id" invisible="1"/>
+                                    <field name="employee"/>
+                                    <field name="emp_code"/>
+                                    <field name="designation"/>
+                                    <field name="department_id"/>
+                                    <field name="site"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group>
+                            <field name="employee" widget="many2many_tags" required="0" invisible="1"/>
+                            <field name="purpose"/>
+                            <field name="requested_by" options="{'no_open': True}"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_trainingrequest_tree" model="ir.ui.view">
+            <field name="name">training.request.tree</field>
+            <field name="model">training.request</field>
+            <field name="arch" type="xml">
+
+                <tree string="Training request">
+                    <!-- <field name="select" invisible="1"/> -->
+                    <field name="name"/>
+                    <field name="department_id" widget="many2many_tags" invisible="1"/>
+                    <field name="training_type"/>
+                    <field name="requested_by"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_trainingrequest_form" model="ir.actions.act_window">
+            <field name="name">Training request</field>
+            <field name="res_model">training.request</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_trainingrequest_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Training request
+              </p>
+            </field>
+        </record>
+
+<!-- FeedBack Type Template-->
+
+        <record id="feedback_type_template_tree" model="ir.ui.view">
+            <field name="name">feedback.type.template.tree</field>
+            <field name="model">feedback.type.template</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <tree string="FeedBack Type Template">
+                    <field name="name"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="feedback_type_template_form" model="ir.ui.view">
+            <field name="name">feedback.type.template.form</field>
+            <field name="model">feedback.type.template</field>
+            <field name="arch" type="xml">
+                <form string="Feedback Type Template">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Name..."/>
+                            </h1>
+                        </div>
+                         <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object" groups="hr.group_hr_user"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                    options='{"terminology": "active"}'/>
+                                <field name="category" invisible="1"/>
+                            </button>
+                        </div>
+                        <notebook>
+                            <page string="">
+                                <field name="template_line" mode="tree" nolabel="1">
+                                        <form>
+                                            <group>
+                                                <field name="name"/>
+                                                <field name="template_id" invisible="1"/>
+                                            </group>
+                                        </form>
+                                        <tree editable="bottom">
+                                            <field name="name"/>
+                                            <field name="template_id" invisible="1"/>
+                                        </tree>
+                                    </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="view_feedback_type_template">
+            <field name="name">FeedBack Type Template</field>
+            <field name="res_model">feedback.type.template</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Feedback Type List View
+                </p>
+            </field>
+        </record>
+
+
+<!-- Effective Type Template-->
+
+        <record id="effective_type_template_tree" model="ir.ui.view">
+            <field name="name">effective.type.template.tree</field>
+            <field name="model">effective.type.template</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <tree string="Effective Type Template">
+                    <field name="name"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="effective_type_template_form" model="ir.ui.view">
+            <field name="name">effective.type.template.form</field>
+            <field name="model">effective.type.template</field>
+            <field name="arch" type="xml">
+                <form string="Effective Type Template">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Name..."/>
+                            </h1>
+                            <div class="oe_button_box" name="button_box">
+                                <button name="toggle_active" type="object" groups="hr.group_hr_user"
+                                        class="oe_stat_button" icon="fa-archive">
+                                    <field name="active" widget="boolean_button"
+                                        options='{"terminology": "active"}'/>
+                                </button>
+                        </div>
+                        </div>
+                        <notebook>
+                            <page string="">
+                                <field name="effective_template_line" mode="tree" nolabel="1">
+                                        <form>
+                                            <group>
+                                                <field name="name"/>
+                                                <field name="effective_template_id" invisible="1"/>
+                                            </group>
+                                        </form>
+                                        <tree editable="bottom">
+                                            <field name="name"/>
+                                            <field name="effective_template_id" invisible="1"/>
+                                        </tree>
+                                    </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="view_effective_type_template">
+            <field name="name">Effective Type Template</field>
+            <field name="res_model">effective.type.template</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Effective Type List View
+                </p>
+            </field>
+        </record>
+
+
+<!-- FeedBack Type with Questions displayed-->
+
+        <record id="feedback_type_tree" model="ir.ui.view">
+            <field name="name">feedback.type.tree</field>
+            <field name="model">feedback.type</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <tree string="Feedback Form">
+                    <field name="name"/>
+                    <field name="employee" invisible="1" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="feedback_type_form" model="ir.ui.view">
+            <field name="name">feedback.type.form</field>
+            <field name="model">feedback.type</field>
+            <field name="arch" type="xml">
+                <form string="Feedback Form">
+                    <header>
+                        <button string="Submit" type="object" name="submit" class="oe_highlight" attrs="{'invisible':[('state','!=','new')]}"/>
+                        <!-- <button string="Cancel" type="object" name="cancel" attrs="{'invisible':[('state','!=','new')]}"/> -->
+                        <field name="state" widget="statusbar" statusbar_visible="new,done"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Name..." attrs="{'readonly':[('state','=','done')]}"/>
+                            </h1>
+                        </div>
+                        <field name="employee" invisible="1" />
+                        <field name="training" invisible="1"/>
+                        <notebook>
+                            <page string="">
+                                <field name="feedback_line" mode="tree" nolabel="1" attrs="{'readonly':[('state','=','done')]}">
+                                        <form>
+                                            <group>
+                                                <field name="category" invisible="0"/>
+                                                <field name="name" readonly="1"/>
+                                                <!-- <field name="comments"/> -->
+                                                <!-- <field name="poor"/> -->
+                                                <field name="bad"/>
+                                                <field name="satisfactory"/>
+                                                <field name="very_good"/>
+                                                <field name="excellent"/>
+                                                <field name="feedback_id" invisible="1"/>
+                                            </group>
+                                        </form>
+                                        <tree editable="bottom" create="false" >
+                                            <field name="category" invisible="0"/>
+                                            <field name="name" readonly="1"/>
+                                            <!-- <field name="comments"/> -->
+                                            <!-- <field name="poor"/> -->
+                                            <field name="bad"/>
+                                            <field name="satisfactory"/>
+                                            <field name="very_good"/>
+                                            <field name="excellent"/>
+                                            
+                                            <field name="feedback_id" invisible="1"/>
+                                        </tree>
+                                    </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="view_feedback_type_form">
+            <field name="name">FeedBack Form</field>
+            <field name="res_model">feedback.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('employee.user_id.id', '=', uid)]</field>
+            <field name="context">{'create':0,'delete':0}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Feedback Type Form
+                </p>
+            </field>
+        </record>
+
+
+<!-- Effective Type with Questions displayed-->
+
+        <record id="effective_type_tree" model="ir.ui.view">
+            <field name="name">effective.type.tree</field>
+            <field name="model">effective.type</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <tree string="Effectiveness Form">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="effective_type_form" model="ir.ui.view">
+            <field name="name">effective.type.form</field>
+            <field name="model">effective.type</field>
+            <field name="arch" type="xml">
+                <form string="Effectiveness Form">
+                    <header>
+                        <button string="Submit" type="object" name="submit" class="oe_highlight" attrs="{'invisible':[('state','!=','new')]}"/>
+                       <!--  <button string="Cancel" type="object" name="cancel" attrs="{'invisible':[('state','!=','new')]}"/> -->
+                        <field name="state" widget="statusbar" statusbar_visible="new,done"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Name..." attrs="{'readonly':[('state','=','done')]}"/>
+                            </h1>
+                        </div>
+                        <field name="employee" invisible="1" />
+                        <field name="training" invisible="1"/>
+                        <field name="date" invisible="1"/>
+                        <notebook>
+                            <page string="">
+                                <field name="effective_line" mode="tree" nolabel="1" attrs="{'readonly':[('state','=','done')]}">
+                                        <form>
+                                            <group>
+                                                <field name="name" readonly="1"/>
+                                                <!-- <field name="comments"/> -->
+                                                <!-- <field name="poor"/> -->
+                                                <field name="bad"/>
+                                                <field name="satisfactory"/>
+                                                <field name="very_good"/>
+                                                <field name="excellent"/>
+                                                <field name="effective_id" invisible="1"/>
+                                            </group>
+                                        </form>
+                                        <tree editable="bottom" create="false">
+                                            <field name="name" readonly="1"/>
+                                            <!-- <field name="comments"/> -->
+                                            <!-- <field name="poor"/> -->
+                                            <field name="bad"/>
+                                            <field name="satisfactory"/>
+                                            <field name="very_good"/>
+                                            <field name="excellent"/>
+                                            <field name="effective_id" invisible="1"/>
+                                        </tree>
+                                    </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+         <record id="view_effective_type_calendar" model="ir.ui.view">
+            <field name="name">effective.type.calendar</field>
+            <field name="model">effective.type</field>
+            <field name="arch" type="xml">
+                <calendar string="Effectiveness Form" date_start="date" mode="month">
+                    <field name="name"/>
+                </calendar>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="view_effective_type_form">
+            <field name="name">Effectiveness Form</field>
+            <field name="res_model">effective.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">calendar,form,tree</field>
+            <field name="context">{'create':0,'delete':0}</field>
+            <field name="domain">[('employee.user_id.id', '=', uid)]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Effectiveness Form
+                </p>
+            </field>
+        </record>
+
+<!-- Training Excel -->
+
+        <record id="view_trainingexcel_form" model="ir.ui.view">
+            <field name="name">training.excel.form</field>
+            <field name="model">training.excel</field>
+            <field name="arch" type="xml">
+
+                <form string="Excel for Training">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="from_date" style="width:50%%"/>
+                            </group>
+                            <group>
+                                <field name="to_date" style="width:50%%"/>
+                                <field name="access_token" invisible="1"/>
+                            </group>
+
+                            <field name="training_one2many" invisible="1" mode="tree" nolable="1" colspan="8">
+                                <tree string="" editable="bottom">
+                                    <field name="training"/>
+                                    <field name="training_id"/>
+                                    <!-- <field name="hint"/> -->
+                                    <!-- <field name="weightage"/> -->
+                                </tree>
+                            </field>
+
+
+                        </group>
+                        <group>
+                            <button string="Excel" name="export_training_xls" type="object" groups="hr.group_hr_manager,hr.group_hr_user" class="btn btn-primary"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_trainingexcel_form" model="ir.actions.act_window">
+            <field name="name">Training</field>
+            <field name="res_model">training.excel</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_trainingexcel_form"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Training request
+              </p>
+            </field>
+        </record>
+
+
+
+<!-- Meus -->
+
+        <menuitem id="training_management" name="Training" sequence="88"/>
+
+        <menuitem id="training_menu" name="Training" parent="training_management" sequence="1"/>
+        <menuitem id="training_menu_request" name="Training Request" parent="training_menu" action="action_trainingrequest_form" sequence="1" groups="hr.group_hr_manager,hr.group_hr_user,orient_hr_resignation.group_reporting_manager"/>
+        <menuitem id="training_name_master" name="Training Schedule" action="action_trainingmaster_form" parent="training_menu" sequence="2" groups="hr.group_hr_manager,hr.group_hr_user,base.group_user"/>
+        <menuitem id="feedback_type_list_id" name="Feedback Form" action="view_feedback_type_form" parent="training_menu" sequence="3"/>
+
+        <menuitem id="effective_type_list_id" name="Effectiveness Form" action="view_effective_type_form" parent="training_menu" sequence="4"/>
+
+
+        <menuitem id="training_management_config" name="Master" parent="training_management" sequence="2" groups="hr.group_hr_manager,hr.group_hr_user"/>
+        
+        <menuitem id="training_name" name="Trainer" action="action_training_form" parent="training_management_config" sequence="2" groups="hr.group_hr_manager,hr.group_hr_user"/>
+        <menuitem id="training_name_type" name="Training Type" action="action_trainingtype_form" parent="training_management_config" sequence="3" groups="hr.group_hr_manager,hr.group_hr_user"/>
+        <menuitem id="training_name_location" name="Training Location" action="action_traininglocation_form" parent="training_management_config" sequence="4" groups="hr.group_hr_manager,hr.group_hr_user"/>
+        <menuitem id="training_management" name="Training" sequence="77"/>
+        <!-- <menuitem id="training_management_config" name="Configuration" parent="training_management" groups="hr.group_hr_manager,hr.group_hr_user"/> -->
+        <!-- <menuitem id="training_name" name="Training Master" action="action_training_form" parent="training_management_config"/> -->
+
+        <menuitem id="feedback_type_id" name="Feedback Type Template" action="view_feedback_type_template" parent="training_management_config" groups="hr.group_hr_manager,hr.group_hr_user"/>
+
+        <menuitem id="effective_type_id" name="Effective Type Template" action="view_effective_type_template" parent="training_management_config" groups="hr.group_hr_manager,hr.group_hr_user"/>
+
+        <menuitem id="excel_menu" name="Excel Report" action="action_trainingexcel_form" parent="training_management_config" groups="hr.group_hr_manager,hr.group_hr_user"/>
+        
+	</data>
+</odoo>

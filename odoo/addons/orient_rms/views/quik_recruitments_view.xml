@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <data>
+
+
+        <record id="quik_recruitments_form" model="ir.ui.view">
+            <field name="name">quik.recruitments.form</field>
+            <field name="model">quik.recruitments</field>
+            <!-- <field name="priority" eval="8"/> -->
+            <field name="arch" type="xml">
+                <form string="Import Applications">
+                    <!-- <header>
+                        <button string="Import" class="btn-primary" type="object" states='draft' name="import_salary" style="background-color:lightgreen;"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                    </header> -->
+                    <sheet>
+                            <group>
+                                <field name="datas" filename="datas_fname"/>
+                                <field name="file_url" invisible="1"/>
+                                <field name="datas_fname" invisible="1"/>
+                                <field name="db_datas" invisible="1"/>
+                                <field name="applicant_search"/>
+                                <field name="searched" invisible="1"/>
+                                <field name="imported" invisible="1"/>
+                                <field name="mail_sent" invisible="1"/>
+                                <field name="employees_created" invisible="1"/>
+                            </group>
+                                <button string="Fetch" class="btn-primary" type="object" 
+                                        name="fetch_applications" style="background-color:grey"/>
+                                        <!-- attrs="{'invisible':[('mail_sent','=',True)]}" -->
+                                <br/>
+                                <br/>
+                                <!-- <field name="select_all" attrs="{'invisible':['|',('imported','=',False),('mail_sent','=',True)]}"/> -->
+                                <button string="Import " class="btn-primary" type="object" 
+                                        attrs="{'invisible':[('imported','=',True)]}"
+                                        name="import_quik_applications" style="background-color:blue"/>
+                                <label string="" colspan="4"/> 
+                                <button string="Send Mail " class="btn-primary" type="object"
+                                        attrs="{'invisible':['|',('imported','=',False),'|',('mail_sent','=',True),('applicant_search','=','verified')]}"
+                                        name="send_mail_to_quik_applicants" style="background-color:blue"/>
+                                <!-- <button string="Create Employees" class="btn-primary" type="object"
+                                        attrs="{'invisible':[('applicant_search','!=','verified')]}"
+                                        name="create_quik_employees" style="background-color:blue"/> -->
+
+                            <group colspan="2" col="2">
+                                <field name="applicant_ids" nolabel="1">
+                                    <tree create="false" delete="false">
+                                        <!-- <field name="marked"/> -->
+                                        <field name="message_needaction" invisible="1"/>
+                                        <field name="last_stage_id" invisible="1"/>
+                                        <field name="create_date" invisible="1"/>
+                                        <field name="date_last_stage_update" invisible="1"/>
+                                        <field name="partner_name"/>
+                                        <field name="name" invisible="1"/>
+                                        <field name="job_id"/>
+                                        <field name="location"/>                
+                                        <field name="email_from"/>
+                                        <field name="partner_phone"/>
+                                        <!-- <field name="stage_id"/>    -->
+                                        <field name="state"/>                 
+                                        <field name="hr_spoc"/>
+                                        <!-- <field name="medium_id"/> -->
+                                        <!-- <field name="source_id"/> -->
+                                        <!-- <field name="priority"/> -->
+                                        <field name="type_id" invisible="1"/>
+                                        <field name="availability" invisible="1"/>
+                                        <field name="department_id" invisible="context.get('invisible_department', True)"/>
+                                        <field name="quik_recruitment_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="action_quik_recruitments" model="ir.actions.act_window">
+            <field name="name">Import Applications</field>
+            <field name="res_model">quik.recruitments</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Import Applications
+                </p>
+            </field>
+            <field name="context">{'create':0,'delete': 0,'edit':1}</field>
+        </record>
+
+
+        <menuitem name="Import bulk applications"
+                  id="quik_recruitments_id"
+                  parent="hr_recruitment.menu_hr_recruitment_root"
+                  action="action_quik_recruitments" 
+                  sequence="5"
+                  groups="hr_recruitment.group_hr_recruitment_manager,hr_recruitment.group_hr_recruitment_user"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,187 @@
+<?xml version="1.0"?>
+<odoo>
+<data>
+
+    <!-- Templates for Hr Resignation from employee process -->
+    <record id="email_template_for_resignation" model="mail.template">
+        <field name="name">Employee: Resignation</field>
+        <field name="subject">Resignation of Employee: ${object.employee_id.name | safe}</field>
+        <field name="email_from">${object.employee_id.work_email | safe}</field>
+        <field name="email_to">${object.employee_id.parent_id.work_email | safe}</field>
+        <!-- <field name="partner_to">${object.partner_id.id or ''}</field> -->
+        <!-- <field name="email_cc">${object.hr_manager_id.work_email | safe}</field> -->
+        <field name="email_cc">ashishchutke@orientindia.net,mansisawant@orientindia.net</field>
+        <field name="lang">${object.employee_id.user_id.partner_id.lang or ''}</field>
+        <field name="model_id" ref="orient_hr_resignation.model_hr_resignation"/>
+        <field name="user_signature" eval="False"/>
+        <field name="body_html"><![CDATA[
+<p>Hi,</p>
+<p>Employee Name <strong> ${object.employee_id.name} </strong> is resigning from position as ${object.employee_id.job_id.name} for the Orient Technologies Pvt Ltd, effective date will be ${object.expected_relieving_date}</p>
+
+<p>${object.reason}</p>]]></field>
+    </record>
+
+    <!-- Templates for Approval Resignation process from Reporting Manager-->
+    <record id="email_template_resignation_approval" model="mail.template">
+        <field name="name">Employee: Resignation</field>
+        <field name="subject">Approval Resignation mail for Employee: ${object.employee_id.name | safe} from Reporting Manager</field>
+        <field name="email_from">${object.employee_id.parent_id.work_email | safe}</field>
+        <field name="email_to">ashishchutke@orientindia.net,mansisawant@orientindia.net</field>
+        <!-- <field name="partner_to">${object.partner_id.id or ''}</field> -->
+        <!-- <field name="email_cc">${object.hr_manager_id.work_email | safe}</field> -->
+        <field name="lang">${object.employee_id.user_id.partner_id.lang or ''}</field>
+        <field name="model_id" ref="orient_hr_resignation.model_hr_resignation"/>
+        <field name="user_signature" eval="False"/>
+        <field name="body_html"><![CDATA[
+<p>Hi,</p>
+<p>Resignation of Employee Name <strong> ${object.employee_id.name} </strong> for position as ${object.employee_id.job_id.name} for the Orient Technologies Pvt Ltd has been approved by his reporting manager</p>]]></field>
+    </record>
+
+    <!-- Templates for Approval Resignation process from HR Manager-->
+    <record id="email_template_resignation_hr_approval" model="mail.template">
+        <field name="name">Employee: Resignation</field>
+        <field name="subject">Approval Resignation mail for Employee: ${object.employee_id.name | safe} from HR Manager</field>
+        <field name="email_from">ashishchutke@orientindia.net</field>
+        <field name="email_to">${object.employee_id.work_email | safe}</field>
+        <!-- <field name="partner_to">${object.partner_id.id or ''}</field> -->
+        <field name="email_cc">${object.employee_id.parent_id.work_email | safe},mansisawant@orientindia.net</field>
+        <field name="lang">${object.employee_id.user_id.partner_id.lang or ''}</field>
+        <field name="model_id" ref="orient_hr_resignation.model_hr_resignation"/>
+        <field name="user_signature" eval="False"/>
+        <field name="body_html"><![CDATA[
+<p>Hi,</p>
+<p>Resignation of Employee Name <strong> ${object.employee_id.name} </strong> for position as ${object.employee_id.job_id.name} for the Orient Technologies Pvt Ltd has been approved by the HR Manager and his last date of working will be ${object.approved_relieving_date}</p>]]></field>
+    </record>
+
+    <!-- Templates for Reseting the last working date process from HR Manager-->
+    <record id="email_template_resignation_date_reset" model="mail.template">
+        <field name="name">Employee: Resignation Date Update</field>
+        <field name="subject">Last Working Date Changed for Employee: ${object.employee_id.name | safe} from HR Manager</field>
+        <field name="email_from">ashishchutke@orientindia.net</field>
+        <field name="email_to">${object.employee_id.work_email | safe}</field>
+        <!-- <field name="partner_to">${object.partner_id.id or ''}</field> -->
+        <field name="email_cc">${object.employee_id.parent_id.work_email | safe},mansisawant@orientindia.net</field>
+        <field name="lang">${object.employee_id.user_id.partner_id.lang or ''}</field>
+        <field name="model_id" ref="orient_hr_resignation.model_hr_resignation"/>
+        <field name="user_signature" eval="False"/>
+        <field name="body_html"><![CDATA[
+<p>Hi,</p>
+<p>Last Working Date will be changed of Employee Name <strong> ${object.employee_id.name} </strong> for position as ${object.employee_id.job_id.name} for the Orient Technologies Pvt Ltd has been changed by the HR Manager.</p>]]></field>
+    </record>
+
+    <!-- Templates for Rejection Resignation process from ReportingManager-->
+    <record id="email_template_resignation_reject_manager" model="mail.template">
+        <field name="name">Employee: Resignation</field>
+        <field name="subject">Reject Resignation mail for Employee: ${object.employee_id.name | safe} from Reporting Manager</field>
+        <field name="email_from">${object.employee_id.parent_id.work_email | safe}</field>
+        <field name="email_to">${object.employee_id.work_email | safe}</field>
+        <!-- <field name="partner_to">${object.partner_id.id or ''}</field> -->
+        <field name="email_cc">ashishchutke@orientindia.net,mansisawant@orientindia.net</field>
+        <field name="lang">${object.employee_id.user_id.partner_id.lang or ''}</field>
+        <field name="model_id" ref="orient_hr_resignation.model_hr_resignation"/>
+        <field name="user_signature" eval="False"/>
+        <field name="body_html"><![CDATA[
+<p>Hi,</p>
+<p>Resignation of Employee Name <strong> ${object.employee_id.name} </strong> for position as ${object.employee_id.job_id.name} for the Orient Technologies Pvt Ltd has been Rejected by Reporting Manager.</p>]]></field>
+    </record>
+
+    <!-- Templates for Rejection Resignation process from ReportingManager-->
+    <record id="email_template_resignation_reject_hr_manager" model="mail.template">
+        <field name="name">Employee: Resignation</field>
+        <field name="subject">Reject Resignation mail for Employee: ${object.employee_id.name | safe} from Reporting Manager</field>
+        <field name="email_from">ashishchutke@orientindia.net</field>
+        <field name="email_to">${object.employee_id.work_email | safe}</field>
+        <!-- <field name="partner_to">${object.partner_id.id or ''}</field> -->
+        <field name="email_cc">${object.employee_id.parent_id.work_email | safe},mansisawant@orientindia.net</field>
+        <field name="lang">${object.employee_id.user_id.partner_id.lang or ''}</field>
+        <field name="model_id" ref="orient_hr_resignation.model_hr_resignation"/>
+        <field name="user_signature" eval="False"/>
+        <field name="body_html"><![CDATA[
+<p>Hi,</p>
+<p>Resignation of Employee Name <strong> ${object.employee_id.name} </strong> for position as ${object.employee_id.job_id.name} for the Orient Technologies Pvt Ltd has been Rejected by Reporting by HR Manager.</p>]]></field>
+    </record>
+
+    <!-- Templates for Reminder mail for Exit Interview process -->
+    <record id="email_template_for_exit_interview" model="mail.template">
+        <field name="name">Employee: Exit Interview</field>
+        <field name="subject">Reminder mail for Exit Interview of Employee: ${object.submit_hr_employee.name | safe}</field>
+        <field name="email_from">ashishchutke@orientindia.net</field>
+        <field name="email_to">${object.submit_hr_employee.work_email | safe}</field>
+        <field name="email_cc">mansisawant@orientindia.net</field>
+        <field name="lang">${object.submit_hr_employee.user_id.partner_id.lang or ''}</field>
+        <field name="model_id" ref="orient_hr_resignation.model_hr_employee_exit"/>
+        <field name="user_signature" eval="False"/>
+        <field name="body_html"><![CDATA[
+<p>Hi,</p>
+<p>Please fill the Employee exit form for an Employee Name <strong> ${object.submit_hr_employee.name} </strong> on last working day ${object.last_working_date} for the Orient Technologies Pvt Ltd</p>
+]]></field>
+    </record>
+
+    <!-- Templates for Reminder mail for Asset Collection process -->
+    <record id="email_template_for_asset_collection" model="mail.template">
+        <field name="name">Employee: Asset Collection</field>
+        <field name="subject">Reminder mail for Asset Collection of Employee: ${object.employee_id.name | safe}</field>
+        <field name="email_from">${object.employee_id.company_id.hr_group_email | safe}</field>
+        <field name="email_to"> ${object.employee_id.company_id.finance_email | safe}, ${object.employee_id.company_id.rim_email | safe}</field>
+        <field name="lang">${object.employee_id.user_id.partner_id.lang or ''}</field>
+        <field name="model_id" ref="orient_hr_resignation.model_department_clearance"/>
+        <field name="user_signature" eval="False"/>
+        <field name="body_html"><![CDATA[
+<p>Hi,</p>
+<p>The Employee Name <strong> ${object.submit_hr_employee.name} </strong> has been resigned and employee last working day ${object.last_working_date} for Orient Technologies Pvt Ltd. Please collect all the assets before his last working day. And Please reply by acknowledgement email once collected. </p>
+]]></field>
+    </record>
+
+
+    <!-- Templates for Reminder mail for resignation reporting manager -->
+    <record id="email_template_for_reporting_manager" model="mail.template">
+        <field name="name">Employee: Employee Resignation</field>
+        <field name="subject">Reminder mail for Resignation of Employee: ${object.employee_id.name | safe}</field>
+        <field name="email_from">${object.employee_id.work_email | safe}</field>
+        <field name="email_to"> ${object.employee_id.parent_id.work_email}</field>
+        <field name="email_cc">ashishchutke@orientindia.net,mansisawant@orientindia.net</field>
+        <field name="lang">${object.employee_id.user_id.partner_id.lang or ''}</field>
+        <field name="model_id" ref="orient_hr_resignation.model_hr_resignation"/>
+        <field name="user_signature" eval="False"/>
+        <field name="body_html"><![CDATA[
+<p>Hi,</p>
+<p>Reminder Mail for Employee Name <strong> ${object.employee_id.name} </strong> has been resigned and employee last working day ${object.last_working_date} for Orient Technologies Pvt Ltd and it is in pending state so kindly approve the resignation.</p>
+]]></field>
+    </record>
+
+
+    <!-- Templates for Reminder mail for resignation BU head manager -->
+    <record id="email_template_for_bu_head" model="mail.template">
+        <field name="name">Employee: Employee Resignation</field>
+        <field name="subject">Reminder mail for Resignation of Employee: ${object.employee_id.name | safe}</field>
+        <field name="email_from">${object.employee_id.work_email | safe}</field>
+        <field name="email_to"> ${object.employee_id.parent_id.work_email}</field>
+        <field name="email_cc">ashishchutke@orientindia.net,mansisawant@orientindia.net</field>
+        <field name="lang">${object.employee_id.user_id.partner_id.lang or ''}</field>
+        <field name="model_id" ref="orient_hr_resignation.model_hr_resignation"/>
+        <field name="user_signature" eval="False"/>
+        <field name="body_html"><![CDATA[
+<p>Hi,</p>
+<p>Reminder Mail for Employee Name <strong> ${object.employee_id.name} </strong> has been resigned and employee last working day ${object.last_working_date} for Orient Technologies Pvt Ltd and reporting manager ${object.reporting_manager_id.name} has not approved and it is in pending state so kindly approve the resignation.</p>
+]]></field>
+    </record>
+
+    <!-- Templates for Reminder mail for resignation HR manager -->
+    <record id="email_template_for_hr_head" model="mail.template">
+        <field name="name">Employee: Employee Resignation</field>
+        <field name="subject">Reminder mail for Resignation of Employee: ${object.employee_id.name | safe}</field>
+        <field name="email_from">${object.employee_id.work_email | safe}</field>
+        <field name="email_to">ashishchutke@orientindia.net,mansisawant@orientindia.net</field>
+        <field name="lang">${object.employee_id.user_id.partner_id.lang or ''}</field>
+        <field name="model_id" ref="orient_hr_resignation.model_hr_resignation"/>
+        <field name="user_signature" eval="False"/>
+        <field name="body_html"><![CDATA[
+<p>Hi,</p>
+<p>Reminder Mail for Employee Name <strong> ${object.employee_id.name} </strong> has been resigned and employee last working day ${object.last_working_date} for Orient Technologies Pvt Ltd and reporting manager ${object.reporting_manager_id.name} has not approved and it is in pending state.</p>
+]]></field>
+    </record>
+
+
+
+</data>
+</odoo>

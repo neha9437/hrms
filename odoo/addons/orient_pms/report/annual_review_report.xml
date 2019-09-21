@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<template id="report_annualreview_document">
+    <t t-call="orient_hr_resignation.external_layout_standard_list">
+        <t t-set="doc" t-value="doc.with_context({'lang':doc.employee.user_id.partner_id.lang})"/>
+        <br/>
+
+        <div class="page">
+            <head>
+                <style>
+                    p.padding {
+                        padding-left: 2cm;
+                        padding-right: 2cm;
+                        font-size: 18px;
+                    }
+                    h1 {
+                        border-bottom: solid;
+                    }
+                    .underline {
+                            border-bottom: 2px solid currentColor;
+                            font-size: 25px;
+                    }
+                    table {
+                            font-family: arial, sans-serif;
+                            border-collapse: collapse;
+                            width: 100%;
+                        }
+
+                        td, th {
+                            border: 1px solid #dddddd;
+                            text-align: left;
+                            padding: 8px;
+                        }
+                        .make_center{
+                            text-align: center;
+                    }
+                    .subheader {
+                    	font-size : 20px;
+                    }
+
+                </style>
+            </head>
+        	<!-- <h1>Annual Appraisal</h1> -->
+        	<div class="oe_structure"/>
+        	<div class="row">
+                <p class="make_center">
+                    <span class="underline"><b>ANNUAL REVIEW FORM</b></span><br/><br/>
+                </p>
+                <table>
+                        <tr>
+                            <td>Employee Name</td>
+                            <td><var t-field="doc.employee.name"/></td>
+                            <td>Designation</td>
+                            <td><var t-field="doc.designation.name"/></td>
+                        </tr>
+                        <tr>
+                            <td>Employee Code</td>
+                            <td><var t-field="doc.employee_code"/></td>
+                            <td>Department</td>
+                            <td><var t-field="doc.department.name"/></td>
+                        </tr>
+                        <tr>
+                            <td>Location</td>
+                            <td><var t-field="doc.location.name"/></td>
+                            <td>Year Rating</td>
+                            <td><var t-field="doc.final_rating"/></td>
+                        </tr>
+                        <tr>
+                            <td>Review Summary :</td>
+                            <td><var t-field="doc.review_summary"/></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                </table>
+                <br/><br/>
+                <p class="make_center">
+                    <span class="subheader"><b>GOAL SHEET</b></span><br/><br/>
+                </p>                
+                <!-- <br/> -->
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th width="8%">Sr no</th>
+                            <th class="text-left" width="50%">Questions</th>
+                            <!-- <th class="text-left">Status</th> -->
+                            <th class="text-left">Answers</th>
+                        </tr>
+                   </thead>
+                   <tbody>
+                                <t t-set="i" t-value="1"/> 
+                                <tr t-foreach="doc.annual_goalsheet_lines" t-as="line">
+                                    <td><span t-esc="i"/></td>
+                                    <td><span t-field="line.questions"/></td>
+                                    <!-- <td><span t-field="line.answers"/></td> -->
+                                    <td><span t-field="line.answers"/></td>
+                                    <t t-set="i" t-value="i+1"/> 
+                                </tr>
+                            </tbody>
+                
+                </table><br/>
+                <br/><br/>
+                <p class="make_center">
+                    <span class="subheader"><b>PERFORMANCE APPRAISAL</b></span><br/>
+                    <span><b>SELF APPRAISAL</b></span><br/>
+                    <span>(To be filled by the Appraisee)</span><br/>
+                </p>                
+                <!-- <br/> -->
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th width="8%">Sr no</th>
+                            <th class="text-left" width="50%">Questions</th>
+                            <th class="text-left">Answers</th>
+                        </tr>
+                   </thead>
+                   <tbody>
+                        <t t-set="i" t-value="1"/> 
+                        <tr t-foreach="doc.annual_appraisal_lines" t-as="line">
+                            <td><span t-esc="i"/></td>
+                            <td><span t-field="line.questions"/></td>
+                            <td><span t-field="line.answers"/></td>
+                            <t t-set="i" t-value="i+1"/> 
+                        </tr>
+                    </tbody>
+                
+                </table>
+
+                <br/><br/>
+                <p class="make_center">
+                    <span class="subheader underline"><b>BEHAVIOURAL ATTRIBUTES</b></span><br/>
+                    <span>(To be completed by the Appraiser)</span><br/><br/>
+                </p>
+                <br/>
+                <p style="padding-left:1cm;padding-right:1cm;">
+                	Each of the following Behavioural Attributes is stated in terms of two extreme positions. Rate the employee on each of these behavioural attributes, based on your own observations during the appraisal period just completed.
+            	</p>
+            	<br/>
+            	<table>
+            		<thead>
+            			<tr>
+            				<th>Unsatisfactory</th>
+            				<th>Marginal</th>
+            				<th>Satisfactory</th>
+            				<th>Highly Satisfactory</th>
+            				<th>Exceptional</th>
+            			</tr>
+                        <tr>
+                        	<td>1</td>
+                        	<td>2</td>
+                        	<td>3</td>
+                        	<td>4</td>
+                        	<td>5</td>
+                    	</tr>
+        			</thead>
+        		</table><br/>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th width="8%">Sr no</th>
+                            <th class="text-left" width="30%">Attributes</th>
+                            <th class="text-left">Self Rating</th>
+                            <th class="text-left">Team Leader Rating</th>
+                            <th class="text-left">Comments</th>
+                        </tr>
+                   </thead>
+                   <tbody>
+                        <t t-set="i" t-value="1"/> 
+                        <tr t-foreach="doc.annual_behavioural_lines" t-as="line">
+                            <td><span t-esc="i"/></td>
+                            <td><span t-field="line.attributes"/></td>
+                            <td><span t-field="line.self_rating"/></td>
+                            <td><span t-field="line.team_leader_rating" /></td>
+                            <td><span t-field="line.comments"/></td>
+                            <t t-set="i" t-value="i+1"/> 
+                        </tr>
+                    </tbody>
+                
+                </table><br/><br/>
+
+                <p>
+                	<span class="underline" style="font-size:15px">Comments by Appraiser :-</span>
+            	</p>
+            	<br/><br/><br/>
+            	<div>
+            		<div style="width: 50%; float:left">
+   						<!-- #left content in here -->
+   						<span><b>Signature of Employee</b></span>
+					</div>
+
+					<div style="width: 50%; float:right">
+					   <span><b>Signature of Reporting Authority</b></span>
+					</div>
+					<br/><br/><br/>
+
+					<div  style="width: 50%; float:left">
+						<span><b>Signature of HR Executive</b></span>
+					</div>
+				</div>
+    		</div>
+
+
+    	</div>
+
+    </t>
+</template>
+
+<template id="report_annualreview">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="doc">
+            <t t-call="orient_pms.report_annualreview_document" />
+        </t>
+    </t>
+</template>
+
+</odoo>

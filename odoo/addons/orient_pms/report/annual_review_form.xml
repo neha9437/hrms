@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report 
+            id="action_report_reviewform"
+            string="Annual Review"
+            model="annual.review" 
+            report_type="qweb-pdf"
+            file="orient_pms.report_annualreview" 
+            name="orient_pms.report_annualreview"
+            print_report_name="('Annual Review Form')"
+        />
+
+        <report 
+            id="action_appraisal_form"
+            string="Appraisal Form"
+            model="hr.employee" 
+            report_type="qweb-pdf"
+            file="orient_pms.report_appraisal_form" 
+            name="orient_pms.report_appraisal_form"
+            print_report_name="('Appraisal Letter')"
+        />
+
+        <!-- <report 
+            id="action_appraisal_form_generate"
+            string="Appraisal Form"
+            model="generate.appraisal.letter" 
+            report_type="qweb-pdf"
+            file="orient_pms.report_appraisal_form_new" 
+            name="orient_pms.report_appraisal_form_new"
+            print_report_name="('Appraisal Letter')"
+        /> -->
+
+        <report 
+            id="action_appraisal_form_generate1"
+            string="Appraisal Form"
+            model="employee.salary.structure" 
+            report_type="qweb-pdf"
+            file="orient_pms.report_appraisal_form_new1" 
+            name="orient_pms.report_appraisal_form_new1"
+            print_report_name="('Appraisal Letter')"
+        />
+
+    </data>
+</odoo>

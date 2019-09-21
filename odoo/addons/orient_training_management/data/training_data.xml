@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<odoo>
+<data>
+
+
+    <record id="email_template_feedback_form" model="mail.template">
+        <field name="name">Employee: Training Feedback</field>
+        <field name="subject">Training Feedback Forms for Employee: ${object.name | safe}</field>
+        <field name="email_from">${object.hr_executive_id.work_email | safe}</field>
+        <field name="email_to">${object.work_email | safe}</field>
+        <field name="email_cc">${object.parent_id.work_email | safe}</field>
+        <field name="lang">${object.resource_id.user_id.partner_id.lang or ''}</field>
+        <field name="model_id" ref="hr.model_hr_employee"/>
+        <field name="user_signature" eval="False"/>
+        <field name="body_html"><![CDATA[
+			<p>Hi,</p>
+			<p>Kindly fill the Training Feedback Form and Effective Form generated in your HRMS portal!</p>
+
+            ]]></field>
+    </record>
+
+
+    <record id="email_training_mail_template" model="mail.template">
+        <field name="name">Employee: Training Schedule</field>
+        <field name="subject">Training has been Schedule for your department </field>
+        <field name="email_from">${user.partner_id.email | safe}</field>
+        <field name="email_to">${object.work_email | safe}</field>
+        <field name="email_cc">${object.parent_id.work_email | safe}</field>
+        <field name="lang">${object.resource_id.user_id.partner_id.lang or ''}</field>
+        <field name="model_id" ref="hr.model_hr_employee"/>
+        <field name="user_signature" eval="False"/>
+        <field name="body_html"><![CDATA[
+            <p>Hi ${object.name},</p>
+            <p>Training has been scheduled!</p>
+            <p>
+                <strong>Training Details</strong>  <br/><br/>
+                Name : <strong>${ctx['training_name']}</strong> <br/>
+                Venue : <strong>${ctx['training_details']}</strong> <br/>
+                Date : <strong>${ctx['training_date']}</strong> <br/>
+                Trainer Name : <strong>${ctx['trainer_name']}</strong> <br/>
+
+                For further details, kindly click the link below
+            </p>
+
+            <a href="${ctx['link']}" style="padding: 5px 10px; font-size: 12px; line-height: 18px; color: #FFFFFF; border-color:#0099FF; text-decoration: none; display: inline-block; margin-bottom: 0px; font-weight: 400; text-align: center; vertical-align: middle; cursor: pointer; white-space: nowrap; background-image: none; background-color: #0099FF; border: 1px solid #0099FF; border-radius:3px">Go to HRMS Portal</a>
+
+            ]]></field>
+
+    </record>
+
+
+
+    <!-- Reminder mail for the Training Scheduled -->
+    <record id="reminder_email_training_mail_template" model="mail.template">
+        <field name="name">Employee: Reminder Training Schedule</field>
+        <field name="subject">Reminder Mail Training has been Schedule for your department </field>
+        <field name="email_from">${user.partner_id.email | safe}</field>
+        <field name="email_to">${object.work_email | safe}</field>
+        <field name="email_cc">${object.parent_id.work_email | safe}</field>
+        <field name="lang">${object.resource_id.user_id.partner_id.lang or ''}</field>
+        <field name="model_id" ref="hr.model_hr_employee"/>
+        <field name="user_signature" eval="False"/>
+        <field name="body_html"><![CDATA[
+            <p>Hi,</p>
+            <p>Reminder Mail for Training has been scheduled Please check the HRMS portal for more details!</p>
+
+                        
+            ]]>
+                
+            <!-- <p>${ctx['link']}</p> -->
+
+            </field>
+    </record>
+
+
+
+</data>
+</odoo>

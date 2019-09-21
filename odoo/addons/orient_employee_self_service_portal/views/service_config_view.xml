@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+       <record id="service_experiance_form_view" model="ir.ui.view">
+            <field name="name">service.experiance.form.view</field>
+            <field name="model">service.experiance</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="experiance"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="service_experiance_list_view" model="ir.ui.view">
+            <field name="name">service.experiance.list.view</field>
+            <field name="model">service.experiance</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="experiance"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="service_experiance_master_action" model="ir.actions.act_window">
+            <field name="name">Experience Master</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">service.experiance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="service_experiance_list_view"/>
+        </record>
+
+        <record id="service_domain_form_view" model="ir.ui.view">
+            <field name="name">service.domain.form.view</field>
+            <field name="model">service.domain</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="domain"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="service_domain_list_view" model="ir.ui.view">
+            <field name="name">service.domain.list.view</field>
+            <field name="model">service.domain</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="domain"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="service_domain_master_action" model="ir.actions.act_window">
+            <field name="name">Domain Master</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">service.domain</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="service_domain_list_view"/>
+        </record>
+
+
+        <record id="service_pf_esic_nominee_form_view" model="ir.ui.view">
+            <field name="name">service.pf.esic.nominee.form.view</field>
+            <field name="model">service.pf.esic.nominee</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="nominee"/>
+                        <!-- <field name="percent"/> -->
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="service_pf_esic_nominee_tree_view" model="ir.ui.view">
+            <field name="name">service.pf.esic.nominee.tree.view</field>
+            <field name="model">service.pf.esic.nominee</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="nominee"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="service_pf_esic_nominee_master_action" model="ir.actions.act_window">
+            <field name="name">Nominee Master</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">service.pf.esic.nominee</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="service_pf_esic_nominee_tree_view"/>
+        </record>
+
+
+        <record id="skillset_form_view" model="ir.ui.view">
+            <field name="name">skillset.form.view</field>
+            <field name="model">skillset</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="skillset_tree_view" model="ir.ui.view">
+            <field name="name">skillset.tree.view</field>
+            <field name="model">skillset</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="skillset_master_action" model="ir.actions.act_window">
+            <field name="name">Skillset Master</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">skillset</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="skillset_tree_view"/>
+        </record>
+
+
+        <record id="cost_center_form_view" model="ir.ui.view">
+            <field name="name">cost.center.form.view</field>
+            <field name="model">cost.center</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="cost_center_tree_view" model="ir.ui.view">
+            <field name="name">cost.center.tree.view</field>
+            <field name="model">cost.center</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="cost_center_master_action" model="ir.actions.act_window">
+            <field name="name">Cost Centers</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cost.center</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="cost_center_tree_view"/>
+        </record>
+
+
+        <record id="bank_name_form_view" model="ir.ui.view">
+            <field name="name">bank.name.form.view</field>
+            <field name="model">bank.name</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object" groups="hr.group_hr_user"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                    options='{"terminology": "active"}'/>
+                            </button>
+                        </div>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="bank_name_tree_view" model="ir.ui.view">
+            <field name="name">bank.name.tree.view</field>
+            <field name="model">bank.name</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="bank_name_master_action" model="ir.actions.act_window">
+            <field name="name">Banks</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">bank.name</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="bank_name_tree_view"/>
+        </record>
+
+<!--         <record id="service_ctc_form_view" model="ir.ui.view">
+            <field name="name">service.ctc.form.view</field>
+            <field name="model">service.ctc</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="ctc" String='CTC'/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="service_ctc_list_view" model="ir.ui.view">
+            <field name="name">service.ctc.list.view</field>
+            <field name="model">service.ctc</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="ctc" string='CTC'/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="service_ctc_master_action" model="ir.actions.act_window">
+            <field name="name">CTC Master</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">service.ctc</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="service_ctc_list_view"/>
+        </record> -->
+
+
+       <!--  <record id="service_documents_form_view" model="ir.ui.view">
+            <field name="name">service.documents.form.view</field>
+            <field name="model">service.documents</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="sub_document_id" string="Document Name"/>
+                        <field name="datas" string="Attachment"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="service_documents_list_view" model="ir.ui.view">
+            <field name="name">service.documents.list.view</field>
+            <field name="model">service.documents</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="sub_document_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="service_documents_master_action" model="ir.actions.act_window">
+            <field name="name">Documents Master</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">service.documents</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="service_documents_list_view"/>
+        </record>
+
+        <record id="service_sub_documents_form_view" model="ir.ui.view">
+            <field name="name">service.sub.documents.form.view</field>
+            <field name="model">service.sub.documents</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="name"/>
+                        <field name="technical_name"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="service_sub_documents_list_view" model="ir.ui.view">
+            <field name="name">service.sub.documents.list.view</field>
+            <field name="model">service.sub.documents</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="technical_name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="service_sub_documents_master_action" model="ir.actions.act_window">
+            <field name="name">Sub Documents Master</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">service.sub.documents</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="service_sub_documents_list_view"/>
+        </record> -->
+
+
+        <record id="service_portal_master_recruitment_list_view" model="ir.ui.view">
+            <field name="name">service.portal.master.recruitment.list.view</field>
+            <field name="model">service.portal.master</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <tree create="0">
+                    <field name="full_name"/>
+                    <field name="phone_number" string="Mobile"/>
+                    <field name="aadhar"/>
+                    <field name="candidate_type"/>
+                    <field name="experiance_id"/>
+                    <field name="domain_id"/>
+                    <!-- <field name="expected_ctc"/> -->
+                </tree>
+            </field>
+        </record>
+
+        <record id="service_portal_master_recruitment_action" model="ir.actions.act_window">
+            <field name="name">Candidate Forms</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">service.portal.master</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="service_portal_master_recruitment_list_view"/>
+            <field name="domain">[('submitted','=',True)]</field>
+            <field name="context">{'create':0,'delete': 0,'attachment':0,'edit':0}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    No results to display.
+                </p>
+            </field>
+        </record>
+
+<!--         <menuitem id="menu_hr_service_portal_forms" 
+                  name="Self Service Portal" 
+                  parent="hr_recruitment.menu_hr_recruitment_root"
+                  sequence="5"
+                  groups="hr_recruitment.group_hr_recruitment_manager"/>
+
+        <menuitem id="menu_portal_candidate_form_master"
+                  name="Submitted Forms"
+                  parent="menu_hr_service_portal_forms"
+                  action="service_portal_master_recruitment_action"
+                  sequence="6"
+                  groups="hr_recruitment.group_hr_recruitment_manager"/> -->
+
+        <menuitem id="menu_portal_candidate_form_master"
+                  name="Self-Service Submitted Forms"
+                  parent="hr_recruitment.menu_hr_recruitment_root"
+                  action="service_portal_master_recruitment_action"
+                  sequence="6"
+                  groups="hr_recruitment.group_hr_recruitment_user,hr_recruitment.group_hr_recruitment_manager"/> -->
+        
+        
+        <menuitem id="menu_hr_service_portal_configuration" 
+                  name="Service Portal Configuration" 
+                  parent="hr_recruitment.menu_hr_recruitment_root"
+                  sequence="121"
+                  groups="hr_recruitment.group_hr_recruitment_manager"
+                  />
+
+        <menuitem id="menu_service_experiance_master"
+                  name="Experience Master"
+                  parent="hr_recruitment.menu_hr_recruitment_configuration"
+                  action="service_experiance_master_action"
+                  groups="hr_recruitment.group_hr_recruitment_manager"
+                  sequence="4"/>
+
+        <menuitem id="menu_service_domain_master"
+                  name="Domain Master"
+                  parent="hr_recruitment.menu_hr_recruitment_configuration"
+                  action="service_domain_master_action"
+                  sequence="5"/>
+
+        <menuitem id="menu_service_pr_esic_nominee_master"
+                  name="Nominee Master"
+                  parent="hr_recruitment.menu_hr_recruitment_configuration"
+                  action="service_pf_esic_nominee_master_action"
+                  sequence="6"/>       
+
+        <menuitem id="menu_skillset_master"
+                  name="Skillset Master"
+                  parent="hr_recruitment.menu_hr_recruitment_configuration"
+                  action="skillset_master_action"
+                  groups="hr_recruitment.group_hr_recruitment_manager"  
+                  sequence="7"/>  
+
+        <menuitem id="menu_cost_center_master"
+                  name="Cost Centers"
+                  parent="hr.menu_human_resources_configuration"
+                  action="cost_center_master_action"
+                  sequence="23"/>  
+
+        <menuitem id="menu_bank_name_master"
+                  name="Bank Master"
+                  parent="hr.menu_human_resources_configuration"
+                  action="bank_name_master_action"
+                  sequence="24"/> 
+
+<!--         <menuitem id="menu_service_ctc_master"
+                  name="CTC Master"
+                  parent="menu_hr_service_portal_configuration"
+                  action="service_ctc_master_action"
+                  sequence="3"/> -->
+
+<!--         <menuitem id="menu_service_documents_master"
+                  name="Service Document Master"
+                  parent="menu_hr_service_portal_configuration"
+                  action="service_documents_master_action"
+                  sequence="4"/> -->
+
+<!--         <menuitem id="menu_sub_service_documents_master"
+                  name="Service Sub Document Master"
+                  parent="menu_hr_service_portal_configuration"
+                  action="service_sub_documents_master_action"
+                  sequence="5"/> -->
+
+    </data>
+</odoo>

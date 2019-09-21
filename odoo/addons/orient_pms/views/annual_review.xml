@@ -1,0 +1,1628 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <data>
+        <record id="view_annual_kra_form" model="ir.ui.view">
+            <field name="name">Annual Review</field>
+            <field name="model">annual.review</field>
+            <field name="arch" type="xml">
+                <form string="KRA">
+                    <header>
+                        <!-- <button string='Submit To Employee' name="cron_annual_review" type="object" class="btn-primary"  groups="hr.group_hr_manager,hr.group_hr_user, orient_hr_resignation.group_reporting_manager" /> -->
+                        <!-- <button string='Submit To Manager' name="submit_to_manager" type="object" class="btn-primary"  attrs="{'invisible': [('state', '!=','draft')]}" />
+                        <button string='Submit To HR' name="submit_to_hr" type="object" class="btn-primary"  groups="hr.group_hr_manager,hr.group_hr_user, orient_hr_resignation.group_reporting_manager"  attrs="{'invisible': [('state', '!=','manager')]}" />
+                        <button string='Approve' name="approve" type="object" class="btn-primary"  groups="hr.group_hr_manager,hr.group_hr_user, orient_hr_resignation.group_reporting_manager"  attrs="{'invisible': [('state', '!=','hr')]}" />
+                        <button string="Print" name="print_review" type="object" attrs="{'invisible': [('state', '!=','done')]}"  />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,manager,hr,done,cancel"/> -->
+                    </header>
+                    <sheet>
+                        <group>
+                           
+                            <group>
+                                <field name="employee" readonly="1" invisible="1"/>
+                                <!--<field name="company_id" invisible="1"/>
+                                <field name="designation" readonly="1"/> -->
+                                <field name="kra_year" invisible="0" required="0"  options="{'no_open': True,'no_create':True}" />
+                                <!-- <field name="final_rating" readonly="1" string="Annual Rating"/>
+                                <field name="review_start_date" invisible="1"/>
+                                <field name="review_end_date" invisible="1"/>
+                                <field name="application_date" invisible="1"/>
+                                <field name="approved_date" invisible="1"/>
+                                <field name="active" invisible="1"/> -->
+                                <!-- <field name="employee_code" readonly="1"/>
+                                <field name="department" readonly="1"/>
+                                <field name="location" readonly="1"/>
+                                <field name="check1" invisible="1"/> -->
+                                <field name="appraisal_cycle" invisible="0" string="Review Month" required="0"/>
+                                <button class="btn-primary" type="object" name="search_annual_form" string="Search"/>
+                                <!-- <field name="review_summary" invisible="1" groups="hr.group_hr_manager,hr.group_hr_user, orient_hr_resignation.group_reporting_manager"/> -->
+                            </group>
+                           
+                            <group colspan="8">
+                                <notebook>
+                                    <page name="public" string="Goal Sheet">
+                                        <group string="" colspan="8">
+                                            <label string="" colspan="2"/>
+                                        </group>
+                                            <button string='Add' name="add_goalsheet" type="object" class="btn-primary" />
+                                            <label string="" colspan="2"/>   
+                                            <button string='View' name="view_goalsheet" type="object" class="btn-primary"  />
+                                            <label string="" colspan="2"/>   
+                                            <button string='Modify' name="modify_goalsheet" type="object" class="btn-primary" />
+                                            <label string="" colspan="2"/>   
+                                            <button string='View All' name="view_goalsheet" type="object" class="btn-primary" />
+                                            <!-- <field name="final_rating" string="Final Rating" readonly="1"/> -->
+                                        <!-- </group> -->
+                                        <group string="" colspan="8">
+                                            <label string="" colspan="2"/>
+                                        </group>
+                                        <field name="annual_goalsheet_details" mode="tree" nolabel="1" colspan="8">
+                                            <tree string="Goal Sheet" editable="bottom" create="false" delete="false">
+                                                <field name="select"/>
+                                                <field name="year" readonly="1"  options="{'no_open': True,'no_create':True}"/>
+                                                <field name="review_start_date" readonly="1"/>
+                                                <field name="review_end_date" readonly="1"/>
+                                                <field name="status" invisible="1"/>
+                                                <field name="status_char" readonly="1"/>
+                                            </tree>
+                                        </field>
+                                       <!--  <field name="annual_goalsheet_lines" mode="tree" nolable="1" colspan="8" create="false" delete="false">
+                                            <tree string="Goal Sheet" editable="bottom" create="false" delete="false">
+                                                <field name="questions" readonly="1"/>
+                                                <field name="answers"/>
+                                            </tree>
+                                        </field> -->
+                                    </page>
+                                    <page name="public" string="Annual Appraisal">
+                                        <!-- <field name="annual_appraisal_lines" mode="tree" nolable="1" colspan="8" create="false" delete="false">
+                                            <tree string="Annual Appraisal" editable="bottom" create="false" delete="false">
+                                                <field name="questions" readonly="1"/>
+                                                <field name="answers"/>
+                                            </tree>
+                                        </field>
+
+                                        <field name="annual_behavioural_lines" mode="tree" nolable="1" colspan="8" create="false" delete="false">
+                                            <tree string="Annual Appraisal" editable="bottom" create="false" delete="false">
+                                                <field name="check1" invisible="1"/>
+                                                <field name="check2" invisible="1"/>
+                                                <field name="attributes" readonly="1"/>
+                                                <field name="self_rating" attrs="{'readonly':[('check1','=',True),('check2','=',False)]}"/>
+                                                <field name="team_leader_rating" attrs="{'readonly':[('check1','=',False),('check2','=',True)]}"/>
+                                                <field name="comments" attrs="{'readonly':[('check1','=',False),('check2','=',True)]}"/>
+                                            </tree>
+                                        </field> -->
+
+                                        <group string="" colspan="8">
+                                            <label string="" colspan="2"/>
+                                        </group>
+                                            <button string='Add' name="add_annualappraisal" type="object" class="btn-primary" />
+                                            <label string="" colspan="2"/>   
+                                            <button string='View' name="view_annualappraisal" type="object" class="btn-primary"  />
+                                            <label string="" colspan="2"/>   
+                                            <!-- <button string='Modify' name="modify_appraisal_form" type="object" class="btn-primary" /> -->
+                                            <label string="" colspan="2"/>   
+                                            <button string='View All' name="view_annualappraisal" type="object" class="btn-primary" />
+                                            <!-- <field name="final_rating" string="Final Rating" readonly="1"/> -->
+                                        <!-- </group> -->
+                                        <group string="" colspan="8">
+                                            <label string="" colspan="2"/>
+                                        </group>                                        
+
+                                        <field name="annual_appraisal_details" mode="tree" nolabel="1" colspan="8">
+                                            <tree string="Annual Appraisal" editable="bottom" create="false" delete="false">
+                                                <field name="select"/>
+                                                <field name="review_cycle" readonly="1" string="Review Month"/>
+                                                <field name="year" readonly="1" options="{'no_open': True,'no_create':True}"/>
+                                                <field name="review_start_date" readonly="1"/>
+                                                <field name="review_end_date" readonly="1"/>
+                                                <field name="status" invisible="1"/>
+                                                <field name="status_char" readonly="1"/> 
+                                            </tree>
+                                        </field>
+
+                                    </page>
+                                    <page name="public" string="Annual KRA">
+                                        <group string="" colspan="8">
+                                            <label string="" colspan="2"/>
+                                        </group>
+                                            <button string='Add' name="add_annual_kra" type="object" class="btn-primary" />
+                                            <label string="" colspan="2"/>   
+                                            <button string='View' name="view_annual_kra" type="object" class="btn-primary"  />
+                                            <label string="" colspan="2"/>   
+                                            <button string='Modify' name="modify_annual_kra" type="object" class="btn-primary" />
+                                            <label string="" colspan="2"/>   
+                                            <button string='View All' name="view_annual_kra" type="object" class="btn-primary" />
+                                            <!-- <field name="final_rating" string="Final Rating" readonly="1"/> -->
+                                        <!-- </group> -->
+                                        <group string="" colspan="8">
+                                            <label string="" colspan="2"/>
+                                        </group>
+
+                                        <field name="annual_kra_details" mode="tree" nolabel="1" colspan="8">
+                                            <tree string="Annual KRA" editable="bottom" create="false" delete="false">
+                                                <field name="select"/>
+                                                <field name="review_cycle" readonly="1" string="Review Month"/>
+                                                <field name="year" readonly="1" options="{'no_open': True,'no_create':True}"/>
+                                                <field name="review_start_date" readonly="1"/>
+                                                <field name="review_end_date" readonly="1"/>
+                                                <field name="status" invisible="1"/>
+                                                <field name="status_char" readonly="1"/>
+                                            </tree>
+                                        </field>
+                                            
+                                    </page>
+                                </notebook>
+                            </group>
+
+                    </group>
+                    </sheet>
+                    <footer> 
+                        <button name="write" type="object" string="Save" class="btn-primary"/> 
+                        <button name="cancel" string="Close" special="cancel" class="oe_link"/> 
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_annual_tree" model="ir.ui.view">
+            <field name="name">kramain.tree</field>
+            <field name="model">annual.review</field>
+            <field name="arch" type="xml">
+                <tree string="KRA" decoration-success="state=='done'" decoration-info="state=='draft'" decoration-danger="state=='cancel'" decoration-primary="state=='manager'" decoration-bf="state=='hr'">
+                    <!-- <field name="kra_year"/> -->
+                    <field name="employee" options="{'no_open': True,'no_create':True}"/>
+                    <field name="department"/>
+                    <field name="appraisal_cycle"/>
+                    <!-- <field name="review_start_date"/>
+                    <field name="review_end_date"/> -->
+                    <field name="state" string="Status"/>
+                    <field name="active" readonly="1"/>
+                    <button class="btn-primary" type="object" name="open_annual_review_form" string="Open"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_annual_auth_form" model="ir.ui.view">
+            <field name="name">Annual Authorisation</field>
+            <field name="model">annual.review</field>
+            <field name="arch" type="xml">
+                <form string="Annual Authorisation">
+                    <header>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"  required="0"/> <!--domain="['|','|','|',('parent_id.user_id', '=', uid),('parent_id.parent_id.user_id', '=', uid),('parent_id.parent_id.parent_id.user_id', '=', uid),('hr_executive_id.user_id','!=',uid)]"-->
+                                <field name="approved_status" string="Approved Status" required="0"/>
+                                <field name="kra_year" invisible="0" required="0" options="{'no_open': True,'no_create':True}"/>
+                                <button class="btn-primary" type="object" name="search_annualauth_form" string="Search"/>
+                            </group>
+                           
+                            <group colspan="8">
+                                <notebook>
+                                    <page name="public" string="Goal Sheet">
+                                        <group string="" colspan="8">
+                                            <label string="" colspan="2"/>
+                                        </group>
+                                            <button string='Approval' name="view_goalsheet" type="object" class="btn-primary" />
+                                            <label string="" colspan="2"/>   
+                                            <button string='View' name="view_goalsheet" type="object" class="btn-primary"  />
+                                            <label string="" colspan="2"/>   
+
+                                        <group string="" colspan="8">
+                                            <label string="" colspan="2"/>
+                                        </group>
+                                        <field name="annual_goalsheet_details" mode="tree" nolabel="1" colspan="8">
+                                            <tree string="Goal Sheet" editable="bottom" create="false" delete="false">
+                                                <field name="select"/>
+                                                <field name="employee_code" readonly="1"/>
+                                                <field name="employee" readonly="1" options="{'no_open': True}"/>
+                                                <field name="year" readonly="1" options="{'no_open': True,'no_create':True}"/>
+                                                <field name="review_start_date" readonly="1"/>
+                                                <field name="review_end_date" readonly="1"/>
+                                                <field name="status" invisible="1"/>
+                                                <field name="status_char" readonly="1"/>
+                                            </tree>
+                                        </field>
+                                    </page>
+                                    <page name="public" string="Annual Appraisal">
+
+                                        <group string="" colspan="8">
+                                            <label string="" colspan="2"/>
+                                        </group>
+                                            <button string='Approval' name="view_annualappraisal" type="object" class="btn-primary" />
+                                            <label string="" colspan="2"/>   
+                                            <button string='View' name="view_annualappraisal" type="object" class="btn-primary"  />
+                                            <label string="" colspan="2"/>
+                                        <group string="" colspan="8">
+                                            <label string="" colspan="2"/>
+                                        </group>                                        
+
+                                        <field name="annual_appraisal_details" mode="tree" nolabel="1" colspan="8">
+                                            <tree string="Annual Appraisal" editable="bottom" create="false" delete="false">
+                                                <field name="select"/>
+                                                <field name="employee_code" readonly="1"/>
+                                                <field name="employee" readonly="1" options="{'no_open': True}"/>
+                                                <field name="review_cycle" readonly="1" string="Review Month"/>
+                                                <field name="year" readonly="1" options="{'no_open': True,'no_create':True}"/>
+                                                <field name="review_start_date" readonly="1"/>
+                                                <field name="review_end_date" readonly="1"/>
+                                                <field name="status" invisible="1"/>
+                                                <field name="status_char" readonly="1"/>
+                                            </tree>
+                                        </field>
+
+                                    </page>
+                                    <page name="public" string="Annual KRA">
+                                        <group string="" colspan="8">
+                                            <label string="" colspan="2"/>
+                                        </group>
+                                            <button string='Approval' name="view_annual_kra" type="object" class="btn-primary" />
+                                            <label string="" colspan="2"/>   
+                                            <button string='View' name="view_annual_kra" type="object" class="btn-primary"  />
+                                            <label string="" colspan="2"/>
+                                        <group string="" colspan="8">
+                                            <label string="" colspan="2"/>
+                                        </group>
+
+                                        <field name="annual_kra_details" mode="tree" nolabel="1" colspan="8">
+                                            <tree string="Annual KRA" editable="bottom" create="false" delete="false">
+                                                <field name="select"/>
+                                                <field name="employee_code" readonly="1"/>
+                                                <field name="employee" readonly="1" options="{'no_open': True}"/>
+                                                <field name="review_cycle" readonly="1" string="Review Month"/>
+                                                <field name="year" readonly="1" options="{'no_open': True,'no_create':True}"/>
+                                                <field name="review_start_date" readonly="1"/>
+                                                <field name="review_end_date" readonly="1"/>
+                                                <field name="status" invisible="1"/>
+                                                <field name="status_char" readonly="1"/>
+                                            </tree>
+                                        </field>
+                                            
+                                    </page>
+                                </notebook>
+                            </group>
+
+                    </group>
+                    </sheet>
+                    <footer> 
+                        <button name="write" type="object" string="Save" class="btn-primary"/> 
+                        <button name="cancel" string="Close" special="cancel" class="oe_link"/> 
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_annual_auth_tree" model="ir.ui.view">
+            <field name="name">kramain.tree</field>
+            <field name="model">annual.review</field>
+            <field name="arch" type="xml">
+                <tree string="Annual Authorization">
+                    <!-- <field name="kra_year"/> -->
+                    <field name="employee" options="{'no_open': True}"/>
+                    <field name="department"/>
+                    <field name="appraisal_cycle"/>
+                    <!-- <field name="review_start_date"/>
+                    <field name="review_end_date"/> -->
+                    <field name="state" string="Status"/>
+                    <field name="active" readonly="1"/>
+                    <button class="btn-primary" type="object" name="open_annual_review_form" string="Open"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_annual_kra_employee_calendar" model="ir.ui.view">
+            <field name="name">Annual Review</field>
+            <field name="model">annual.review</field>
+            <field name="arch" type="xml">
+                <calendar string="Annual Review" date_start="application_date" mode="month">
+                    <field name="employee"/>
+                </calendar>
+            </field>
+        </record>
+
+        <record id="action_annual_form" model="ir.actions.act_window">
+            <field name="name">Annual Review</field>
+            <field name="res_model">annual.review</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree,calendar</field>
+            <!-- <field name="search_view_id" ref="view_activity_class_search"/> -->
+            <field name="view_id" ref="view_annual_kra_form"/>
+            <field name="target">inline</field>
+            <field name="context">{'create':1,'delete': 1}</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Annual Review
+              </p>
+            </field>
+        </record>
+
+
+        <record id="action_annual_auth_form" model="ir.actions.act_window">
+            <field name="name">Annual Review</field>
+            <field name="res_model">annual.review</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+            <field name="domain">[('state', '=', 'manager')]</field>
+            <field name="view_id" ref="view_annual_auth_form"/>
+            <field name="target">inline</field>            
+            <field name="context">{'create':1,'delete': 1}</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Annual Review
+              </p>
+            </field>
+        </record>
+
+        <record id="view_annualreviewyearmaster_form" model="ir.ui.view">
+            <field name="name">yearmasterAnnual.form</field>
+            <field name="model">year.master.annual</field>
+            <field name="arch" type="xml">
+                <form string="Year">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_annualreviewyearmaster_tree" model="ir.ui.view">
+            <field name="name">yearmasterannual.tree</field>
+            <field name="model">year.master.annual</field>
+            <field name="arch" type="xml">
+                <tree string="Year">
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_annualreviewyearmaster_form" model="ir.actions.act_window">
+            <field name="name">Year Master Annual</field>
+            <field name="res_model">year.master.annual</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+            <!-- <field name="search_view_id" ref="view_activity_class_search"/> -->
+            <field name="view_id" ref="view_annualreviewyearmaster_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Year 
+              </p>
+            </field>
+        </record>
+
+<!-- Year Master Annual-->
+
+        <record id="view_annualreviewstatusreport_form" model="ir.ui.view">
+            <field name="name">annual.review.status.report.form</field>
+            <field name="model">annual.review.status.report</field>
+            <field name="arch" type="xml">
+                <form string="Review Status">
+                    <sheet>
+                        <group>
+                            <field name="company_id" style="width:30%%" options="{'no_open': True}"/>
+                            <field name="location" style="width:30%%" invisible="1" options="{'no_open': True}"/>
+                            <field name="site_id" style="width:30%%" widget="many2many_tags"/>
+                            <field name="form_type" style="width:30%%"/>
+                            <field name="financial_year" style="width:30%%" options="{'no_open': True,'no_create':True}"/>
+                            <!-- <field name="year_of_application" style="width:30%%"/> -->
+                            <field name="review_cycle" style="width:30%%" attrs="{'invisible': [('form_type', '=','Goalsheet')]}"/>
+                        </group>
+                        <button string="Generate" name="search_records" type="object" class="btn-primary"/>
+                        <label string="" colspan="2"/> 
+                        <button string="Excel" name="generate_status_excel" class="btn-primary" type="object"/>
+                        <newline/>
+                        <!-- <tree string="Annual Details" editable="bottom" open="false" mode="tree"> -->
+                            <field name="annual_review_one2many" editable="bottom" readonly="1">
+                                <tree string="Annual Details" editable="bottom" open="false" mode="tree" >
+                                    <field name="employee_code"/>
+                                    <field name="employee" options="{'no_open': True}"/>
+                                    <field name="site_id" string="Location" options="{'no_open': True}"/>
+                                    <field name="department" options="{'no_open': True}"/>
+                                    <field name="reporting_to" options="{'no_open': True}"/>
+                                    <field name="application_date"/>
+                                    <field name="financial_year" options="{'no_open': True,'no_create':True}"/>
+                                    <field name="status"/>
+                                    <field name="approved_date"/>
+                                </tree>
+                            </field>
+                        <!-- </tree> -->
+                        <!-- <group>
+                            <button string="Excel" name="generate_status_excel" class="btn-primary" type="object"/>
+                        </group> -->
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_annualreviewstatusreport_tree" model="ir.ui.view">
+            <field name="name">annual.review.status.report.tree</field>
+            <field name="model">annual.review.status.report</field>
+            <field name="arch" type="xml">
+                <tree string="Review Status">
+                    <field name="company_id"/>
+                    <field name="location"/>
+                    <field name="form_type"/>
+                    <field name="financial_year"  options="{'no_open': True,'no_create':True}"/>
+                    <field name="year_of_application"/>
+                    <field name="review_cycle" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_annualreviewstatusreport_report" model="ir.actions.act_window">
+            <field name="name">Annual Review Status Report</field>
+            <field name="res_model">annual.review.status.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+            <!-- <field name="search_view_id" ref="view_activity_class_search"/> -->
+            <field name="view_id" ref="view_annualreviewstatusreport_form"/>
+            <field name="target">inline</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Year 
+              </p>
+            </field>
+        </record>
+
+<!-- Increment Status Report -->
+
+        <record id="view_incrementstatus_report_form" model="ir.ui.view">
+            <field name="name">increment.status.report.form</field>
+            <field name="model">increment.status.report</field>
+            <field name="arch" type="xml">
+                <form string="Review Status">
+                    <sheet>
+                        <group>
+                            <field name="year" style="width:30%%" options="{'no_open': True,'no_create':True}"/>
+                            <field name="review_month" style="width:30%%"/>
+                            <field name="status" style="width:30%%"/>
+                            <field name="report_type" style="width:30%%"/>
+                            <field name="check_exists" invisible="1"/>
+                            <!-- <field name="check_exists_emp" invisible="1"/> -->
+                            <!-- <field name="no_of_records" style="width:30%%"/> -->
+                        </group>
+                        <group>
+                            <button string="Report" name="get_increment_status_report" type="object" class="btn-primary"/>
+                        </group>
+                        <field name="increment_status_one2many_tl" mode="tree" nolabel="1" colspan="8" create="false" delete="false" attrs="{'invisible':[('report_type','=','emp')]}" readonly="1">
+                            <tree string="" editable="bottom" create="false" delete="false">
+                                <field name="increment_status_tl_id" invisible="1"/>
+                                <field name="tl_code"/>
+                                <field name="tl_name" options="{'no_open': True}"/>
+                                <field name="department" options="{'no_open': True}"/>
+                                <field name="increment_status"/>
+                            </tree>
+                        </field>
+                        <field name="increment_status_one2many_emp" mode="tree" nolabel="1" colspan="8" create="false" delete="false" attrs="{'invisible':[('report_type','=','tl')]}" readonly="1">
+                            <tree string="" editable="bottom" create="false" delete="false">
+                                <field name="increment_status_emp_id" invisible="1"/>
+                                <field name="tl_code"/>
+                                <field name="tl_name" options="{'no_open': True}"/>
+                                <field name="employee_code"/>
+                                <field name="employee" options="{'no_open': True}"/>
+                                <field name="department" options="{'no_open': True}"/>
+                                <field name="increment_status"/>
+                            </tree>
+                        </field>
+                        <group>
+                            <button string="Excel" class="btn-primary" attrs="{'invisible':[('check_exists','=',False)]}" name="generate_increment_excel" type="object"/>
+                        </group>                            
+                    </sheet>
+                    
+                </form>
+            </field>
+        </record>
+
+        <record id="view_incrementstatus_report_tree" model="ir.ui.view">
+            <field name="name">increment.status.report.tree</field>
+            <field name="model">increment.status.report</field>
+            <field name="arch" type="xml">
+                <tree string="Review Status">
+                    <field name="year"  options="{'no_open': True,'no_create':True}"/>
+                    <field name="review_month"/>
+                    <field name="status"/>
+                    <field name="report_type"/>
+                    <field name="no_of_records"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_incrementstatus_report" model="ir.actions.act_window">
+            <field name="name">Increment Status Report</field>
+            <field name="res_model">increment.status.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+            <!-- <field name="search_view_id" ref="view_activity_class_search"/> -->
+            <field name="view_id" ref="view_incrementstatus_report_form"/>
+            <field name="target">inline</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Year 
+              </p>
+            </field>
+        </record>
+
+
+<!-- Increment Report -->
+
+        <record id="view_increment_report_form" model="ir.ui.view">
+            <field name="name">increment.report.form</field>
+            <field name="model">increment.report</field>
+            <field name="arch" type="xml">
+                <form string="Review Status">
+                    <sheet>
+                        <group>
+                            <field name="year" style="width:30%%" options="{'no_open': True,'no_create':True}"/>
+                            <field name="review_month" style="width:30%%"/>
+                        </group>
+                        <group>
+                            <button string="Report" type="object" name="get_report" class="btn-primary"/>
+                        </group>
+                        <newline/><newline/><newline/>
+                        <!-- <group> -->
+                            <field name="increment_one2many" mode="tree" nolabel="1" colspan="8" create="false" delete="false" readonly="1">
+                                <tree string="" editable="bottom" create="false" delete="false">
+                                    <field name="increment_id" invisible="1"/>
+                                    <field name="employee_code"/>
+                                    <field name="employee_name" invisible="1"/>
+                                    <field name="employee"/>
+                                    <field name="department"/>
+                                    <field name="tl_ikra"/>
+                                    <field name="tl_iar"/>
+                                    <field name="reportee2_ikra"/>
+                                    <field name="reportee2_iar"/>
+                                    <field name="reportee3_ikra"/>
+                                    <field name="reportee3_iar"/>
+                                    <field name="hr_ikra"/>
+                                    <field name="hr_iar"/>
+                                    <field name="sum_ikra"/>
+                                    <field name="sum_iar"/>
+                                    <field name="current_gross"/>
+                                    <field name="current_ctc"/>
+                                    <field name="proposed_increment"/>
+                                    <field name="weightage"/>
+                                    <field name="actual_increment"/>
+                                    <field name="final_increment"/>
+                                </tree>
+                            </field>
+                            <group>
+                                <button string="Excel" name="generate_increment_excel" class="btn-primary" type="object"/>
+                            </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_increment_report_tree" model="ir.ui.view">
+            <field name="name">increment.report.tree</field>
+            <field name="model">increment.report</field>
+            <field name="arch" type="xml">
+                <tree string="Review Status">
+                    <field name="year"  options="{'no_open': True,'no_create':True}"/>
+                    <field name="review_month"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_increment_report" model="ir.actions.act_window">
+            <field name="name">Increment Report</field>
+            <field name="res_model">increment.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+            <!-- <field name="search_view_id" ref="view_activity_class_search"/> -->
+            <field name="view_id" ref="view_increment_report_form"/>
+            <field name="target">inline</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Year 
+              </p>
+            </field>
+        </record>
+
+        <record id="view_annual_goalsheet_form" model="ir.ui.view">
+            <field name="name">Annual Goalsheet</field>
+            <field name="model">goalsheet.details</field>
+            <field name="arch" type="xml">
+                <form string="KRA">
+                    <header>
+                        <!-- <button string='Approve' name="approve" type="object" class="btn-primary"  groups="hr.group_hr_manager,hr.group_hr_user, orient_hr_resignation.group_reporting_manager" attrs="{'invisible': [('button_check','=',True)]}"/>
+                        <button string='Reject' name="reject" type="object" class="btn-primary"  groups="hr.group_hr_manager,hr.group_hr_user, orient_hr_resignation.group_reporting_manager" attrs="{'invisible': [('button_check','=',True)]}"/> -->
+
+                        <button string='Approve' name="approve" type="object" class="btn-primary"  groups="hr.group_hr_manager,hr.group_hr_user, orient_hr_resignation.group_reporting_manager" attrs="{'invisible':['|','|',('button_check','=',True),('approve2','=',True),('status','=','approved')]}"/>
+                        <button string='Approve' name="approve_2" type="object" class="btn-primary"  groups="hr.group_hr_manager,hr.group_hr_user, orient_hr_resignation.group_reporting_manager" attrs="{'invisible':['|','|','|',('approve2','=',False),('approve3','=',True),('approve_hr','=',True),('status','=','approved')]}" />
+                        <button string='Approve' name="approve_3" type="object" class="btn-primary"  groups="hr.group_hr_manager,hr.group_hr_user, orient_hr_resignation.group_reporting_manager" attrs="{'invisible':['|','|',('approve3','=',False),('approve_hr','=',True),('status','=','approved')]}"/>
+                        <button string='Approve' name="hr_approve" type="object" class="btn-primary"  groups="hr.group_hr_manager,hr.group_hr_user,orient_hr_resignation.group_reporting_manager" attrs="{'invisible':['|',('approve_hr','=',False),('status','=','approved')]}" />
+                        <button string='Reject' name="reject" type="object" class="btn-primary" attrs="{'invisible':['|',('button_check','=',True),('status','=','approved')]}" groups="hr.group_hr_manager,hr.group_hr_user, orient_hr_resignation.group_reporting_manager" />
+                    </header>
+                    <sheet>
+                        <group>                           
+                            <group>
+                                <field name="button_check" invisible="1"/>
+                                <field name="employee_code" readonly="1"/>                             
+                                <field name="location" readonly="1" options="{'no_open': True}"/>
+                                <field name="department" readonly="1" options="{'no_open': True}"/>
+                                <field name="year" readonly="1" required="1" attrs="{'readonly':[('readonly_chk','=',True)]}" options="{'no_open': True,'no_create':True}"/>
+                                <field name="status" invisible="1"/>   
+                                <field name="status_char" invisible="1"/>                                 
+                            </group>
+                            <group>
+                                <field name="employee" readonly="1" options="{'no_open': True}"/>
+                                <field name="designation" readonly="1" options="{'no_open': True}"/>
+                                <field name="joining_date" readonly="1" options="{'no_open': True}"/>
+                                <field name="main_id" invisible="1"/>
+                                <field name="readonly_chk" invisible="1"/>
+                                <field name="approved_date" invisible="1"/>
+                                <field name="application_date" invisible="1"/>
+                                <field name="rejected_date" invisible="1"/>
+                                <field name="review_cycle" invisible="1"/>
+                                <field name="site_id" invisible="1" options="{'no_open': True}"/>
+                                <field name="approve1_char" invisible="1"/>
+                                <field name="approve2_char" invisible="1"/>
+                                <field name="approve3_char" invisible="1"/>
+                                <field name="approve4_char" invisible="1"/>
+                                <field name="approve2" invisible="1"/>
+                                <field name="approve3" invisible="1"/>
+                                <field name="approve_hr" invisible="1"/>
+                            </group>
+                            <group colspan="8">
+                                <notebook>
+                                    <page name="public" string="Career Goals">
+                                        
+                                        <field name="annual_goalsheet_lines" mode="tree" nolabel="1" colspan="8" create="false" delete="false" attrs="{'readonly':[('readonly_chk','=',True)]}">
+                                            <tree string="Goal Sheet" editable="bottom" create="false" delete="false">
+                                                <field name="questions" readonly="1"/>
+                                                <field name="answers"/>
+                                            </tree>
+                                        </field>
+                                    </page>
+                                </notebook>
+                            </group>
+                            <group string="Comments"></group>
+                            <field name="comments" groups="hr.group_hr_manager,hr.group_hr_user, orient_hr_resignation.group_reporting_manager" attrs="{'readonly':[('status','=','approved')]}" placeholder="Add Comments if any...."/>
+                    </group>
+                    </sheet>
+                    <footer> 
+                        <button name="save_exit" type="object" string="Save &amp; Exit" attrs="{'invisible':['|',('readonly_chk','=',True),('status','in',('pending','approved'))]}" class="btn-primary"/> 
+                        <button name="cancel" string="Close" special="cancel" class="oe_link"/>
+                        <button string='Approve' name="approve" type="object" class="btn-primary"  groups="hr.group_hr_manager,hr.group_hr_user, orient_hr_resignation.group_reporting_manager" attrs="{'invisible':['|','|',('button_check','=',True),('approve2','=',True),('status','=','approved')]}"/>
+                        <button string='Approve' name="approve_2" type="object" class="btn-primary"  groups="hr.group_hr_manager,hr.group_hr_user, orient_hr_resignation.group_reporting_manager" attrs="{'invisible':['|','|','|',('approve2','=',False),('approve3','=',True),('approve_hr','=',True),('status','=','approved')]}" />
+                        <button string='Approve' name="approve_3" type="object" class="btn-primary"  groups="hr.group_hr_manager,hr.group_hr_user, orient_hr_resignation.group_reporting_manager" attrs="{'invisible':['|','|',('approve3','=',False),('approve_hr','=',True),('status','=','approved')]}"/>
+                        <button string='Approve' name="hr_approve" type="object" class="btn-primary"  groups="hr.group_hr_manager,hr.group_hr_user,orient_hr_resignation.group_reporting_manager" attrs="{'invisible':['|',('approve_hr','=',False),('status','=','approved')]}" />
+                        <button string='Reject' name="reject" type="object" class="btn-primary" attrs="{'invisible':['|',('button_check','=',True),('status','=','approved')]}" groups="hr.group_hr_manager,hr.group_hr_user, orient_hr_resignation.group_reporting_manager" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_goalsheet_tree" model="ir.ui.view">
+            <field name="name">kramain.tree</field>
+            <field name="model">goalsheet.details</field>
+            <field name="arch" type="xml">
+                <tree string="KRA">
+                    <field name="year"  options="{'no_open': True,'no_create':True}"/>
+                    <field name="employee" options="{'no_open': True,'no_create':True}"/>
+                    <field name="employee_code"/>
+                    <field name="review_start_date"/>
+                    <field name="review_end_date"/>
+                    <field name="status"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_goalsheet_form" model="ir.actions.act_window">
+            <field name="name">Goalsheet</field>
+            <field name="res_model">goalsheet.details</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <!-- <field name="search_view_id" ref="view_activity_class_search"/> -->
+            <field name="view_id" ref="view_goalsheet_tree"/>
+            <field name="context">{'create':1,'delete': 0}</field>
+            <field name="target">inline</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Goalsheet
+              </p>
+            </field>
+        </record>
+
+        <record id="view_annual_appraisal_form" model="ir.ui.view">
+            <field name="name">Annual Appraisal</field>
+            <field name="model">annual.appraisal.details</field>
+            <field name="arch" type="xml">
+                <form string="KRA">
+                    <header>
+                        <button string='Approve' name="approve" type="object" class="btn-primary"  groups="hr.group_hr_manager,hr.group_hr_user, orient_hr_resignation.group_reporting_manager" attrs="{'invisible':['|','|',('button_check','=',True),('approve2','=',True),('status','=','approved')]}"/>
+                        <button string='Approve' name="approve_2" type="object" class="btn-primary"  groups="hr.group_hr_manager,hr.group_hr_user, orient_hr_resignation.group_reporting_manager" attrs="{'invisible':['|','|','|',('approve2','=',False),('approve3','=',True),('approve_hr','=',True),('status','=','approved')]}" />
+                        <button string='Approve' name="approve_3" type="object" class="btn-primary"  groups="hr.group_hr_manager,hr.group_hr_user, orient_hr_resignation.group_reporting_manager" attrs="{'invisible':['|','|',('approve3','=',False),('approve_hr','=',True),('status','=','approved')]}"/>
+                        <button string='Approve' name="hr_approve" type="object" class="btn-primary"  groups="hr.group_hr_manager,hr.group_hr_user,orient_hr_resignation.group_reporting_manager" attrs="{'invisible':['|',('approve_hr','=',False),('status','=','approved')]}" />
+                        <button string='Reject' name="reject" type="object" class="btn-primary" attrs="{'invisible':['|',('button_check','=',True),('status','=','approved')]}" groups="hr.group_hr_manager,hr.group_hr_user, orient_hr_resignation.group_reporting_manager" />
+
+                    </header>
+                    <sheet>
+                        <group>                           
+                            <group>
+                                <field name="button_check" invisible="1" />
+                                <field name="employee_code" readonly="1"/>
+                                <field name="employee" readonly="1" options="{'no_open': True}"/>
+                                <field name="location" readonly="1" options="{'no_open': True}"/>
+                                <field name="reporting_head" readonly="1" options="{'no_open': True}"/>
+                                <field name="year" required="1" attrs="{'readonly':[('readonly_chk','=',True)]}" readonly="1" options="{'no_open': True,'no_create':True}"/>
+                                <field name="status" invisible="1"/>   
+                                <field name="status_char" invisible="1"/>
+                                <field name="show" invisible="1"/>                           
+                            </group>
+                            <group>
+                                <field name="designation" readonly="1" options="{'no_open': True}"/>
+                                <field name="department" readonly="1" options="{'no_open': True}"/>
+                                <field name="joining_date" readonly="1"/>
+                                <label string="" colspan="2"/>
+                                <field name="review_cycle" readonly="1"/>
+                                <field name="main_id" invisible="1"/>
+                                <field name="readonly_chk" invisible="1"/>
+                                <field name="approved_date" invisible="1"/>
+                                <field name="application_date" invisible="1"/>
+                                <field name="rejected_date" invisible="1"/>
+                                <field name="site_id" invisible="1"/>
+                                <field name="approve2" invisible="1"/>
+                                <field name="approve3" invisible="1"/>
+                                <field name="approve_hr" invisible="1"/>
+                                <field name="approve1_char" invisible="1"/>
+                                <field name="approve2_char" invisible="1"/>
+                                <field name="approve3_char" invisible="1"/>
+                                <field name="approve4_char" invisible="1"/>
+                            </group>
+                            <group colspan="8">
+                                <notebook>
+                                    <page name="public" string="Annual Appraisal">
+                                        
+                                        <field name="annual_appraisalsheet_lines" mode="tree" nolabel="1" colspan="8" create="false" delete="false" attrs="{'readonly':[('readonly_chk','=',True)]}">
+                                            <tree string="Annual Appraisal" editable="bottom" create="false" delete="false">
+                                                <field name="questions" readonly="1"/>
+                                                <field name="answers"/>
+                                                <field name="annual_appraisalline_id" invisible="1"/>
+                                                <field name="questions_id" invisible="1"/>
+                                            </tree>
+                                        </field>
+
+                                        <newline/>
+                                        <group string="Appraisal Ratings" attrs="{'invisible':[('show','=',False)]}" colspan="8">
+                                        </group>
+                                         <group col="8" attrs="{'invisible':[('show','=',False)]}">
+                                            <label string="Not Applicable - 0"/>
+                                            <label string="Unable to meet Requirements - 1"/>
+                                            <label string="Meets Minimal Requirements - 2"/>
+                                            <label string="Meets Expectations  - 3"/>
+                                            <label string="Exceeds Expectations - 4"/>
+                                            <!-- <label string=" * Applicable For Asst. Managers and Above" colspan="8"/> -->
+                                        </group>
+                                        <field name="annual_attributes_lines" mode="tree" nolabel="1" colspan="8" create="false" delete="false" attrs="{'readonly':[('status','=','approved')],'invisible':[('show','=',False)]}">
+                                            <tree string="Annual Attributes" editable="bottom" create="false" delete="false">
+                                                <!-- <field name="questions" readonly="1"/> -->
+                                                <field name="attributes" readonly="1"/>
+                                                <field name="self_rating" attrs="{'readonly':[('status','in',('pending','approved'))]}"/>
+                                                <field name="team_leader_rating" attrs="{'readonly':[('check2','=',False),('check1','=',True)]}"/>
+                                                <field name="comments" attrs="{'readonly':[('check2','=',False),('check1','=',True)]}"/>
+                                                <field name="annual_attribute_id" invisible="1"/>
+                                                <field name="attributes_id" invisible="1"/>
+                                                <field name="check1" invisible="1"/>
+                                                <field name="check2" invisible="1"/>
+                                                <field name="status" invisible="1"/>
+                                            </tree>
+                                        </field>
+
+                                    </page>
+                                </notebook>
+                            </group>
+                        <group string="What motivates you?" attrs="{'readonly':[('readonly_chk','=',True)]}">
+                            <group>
+                                <field name="increment" attrs="{'readonly':[('readonly_chk','=',True)]}"/>
+                                <field name="recognition" attrs="{'readonly':[('readonly_chk','=',True)]}"/>
+                                <field name="sec_emp" attrs="{'readonly':[('readonly_chk','=',True)]}"/>
+                                <field name="creative_work" attrs="{'readonly':[('readonly_chk','=',True)]}"/>
+                            </group>
+                            <group>
+                                <field name="designation_choice" attrs="{'readonly':[('readonly_chk','=',True)]}"/>
+                                <field name="role_exp" attrs="{'readonly':[('readonly_chk','=',True)]}"/>
+                                <field name="promotion" attrs="{'readonly':[('readonly_chk','=',True)]}"/>
+                                <field name="training" attrs="{'readonly':[('readonly_chk','=',True)]}"/>
+                            </group>
+                        </group>
+                        <newline/>
+                        <group string="Your goal in the Organization in near future" col="4" style="width:100%%">
+                            <group col="1" attrs="{'readonly':[('readonly_chk','=',True)]}">
+                                <label string="By"/>
+                                <newline/>
+                                <newline/>
+                                <label string="Designation"/>
+                                <newline/>
+                                <newline/>
+                                <label string="Salary"/>
+                            </group>
+                            <group col="1" attrs="{'readonly':[('readonly_chk','=',True)]}">
+                                <field name="last_year" readonly="1" nolabel="1" style="width:35%%" attrs="{'readonly':[('readonly_chk','=',True)]}"/>
+                                <newline/>
+                                <field name="designation_last" nolabel="1" style="width:35%%" attrs="{'readonly':[('readonly_chk','=',True)]}"/>
+                                <newline/>
+                                <field name="salary_last" nolabel="1" style="width:35%%" attrs="{'readonly':[('readonly_chk','=',True)]}"/>
+                            </group>
+                            <group col="1" attrs="{'readonly':[('readonly_chk','=',True)]}">
+                                <field name="current_year" readonly="1" nolabel="1" style="width:35%%" attrs="{'readonly':[('readonly_chk','=',True)]}"/>
+                                <newline/>
+                                <field name="designation_current" nolabel="1" style="width:35%%" attrs="{'readonly':[('readonly_chk','=',True)]}"/>
+                                <newline/>
+                                <field name="salary_current" nolabel="1" style="width:35%%" attrs="{'readonly':[('readonly_chk','=',True)]}"/>
+                            </group>
+                            <group col="1" attrs="{'readonly':[('readonly_chk','=',True)]}">
+                                <field name="next_year" readonly="1" nolabel="1" style="width:35%%" attrs="{'readonly':[('readonly_chk','=',True)]}"/>
+                                <newline/>
+                                <field name="designation_next" nolabel="1" style="width:35%%" attrs="{'readonly':[('readonly_chk','=',True)]}"/>
+                                <newline/>
+                                <field name="salary_next" nolabel="1" style="width:35%%" attrs="{'readonly':[('readonly_chk','=',True)]}"/>
+                            </group>
+                        </group>
+                        <newline/>
+                        <group string="Prospects of growth of Orient in the IT Industry as per your perception" attrs="{'readonly':[('readonly_chk','=',True)]}">
+                            <field name="excellent" attrs="{'readonly':[('readonly_chk','=',True)]}"/>
+                            <field name="good" attrs="{'readonly':[('readonly_chk','=',True)]}"/>
+                            <field name="scope" attrs="{'readonly':[('readonly_chk','=',True)]}"/>
+                        </group>
+                    </group>
+                    <field name="comments" groups="hr.group_hr_manager,hr.group_hr_user, orient_hr_resignation.group_reporting_manager" attrs="{'readonly':[('status','=','approved')]}"/>
+                    </sheet>
+                    <footer> 
+                        <button name="save_exit" attrs="{'invisible':[('readonly_chk','=',True)]}" type="object" string="Save &amp; Exit" />
+                        <button string='Approve' name="approve" type="object" class="btn-primary"  groups="hr.group_hr_manager,hr.group_hr_user, orient_hr_resignation.group_reporting_manager" attrs="{'invisible':['|','|',('button_check','=',True),('approve2','=',True),('status','=','approved')]}"/>
+                        <button string='Approve' name="approve_2" type="object" class="btn-primary"  groups="hr.group_hr_manager,hr.group_hr_user, orient_hr_resignation.group_reporting_manager" attrs="{'invisible':['|','|','|',('approve2','=',False),('approve3','=',True),('approve_hr','=',True),('status','=','approved')]}" />
+                        <button string='Approve' name="approve_3" type="object" class="btn-primary"  groups="hr.group_hr_manager,hr.group_hr_user, orient_hr_resignation.group_reporting_manager" attrs="{'invisible':['|','|',('approve3','=',False),('approve_hr','=',True),('status','=','approved')]}"/>
+                        <button string='Approve' name="hr_approve" type="object" class="btn-primary"  groups="hr.group_hr_manager,hr.group_hr_user,orient_hr_resignation.group_reporting_manager" attrs="{'invisible':['|',('approve_hr','=',False),('status','=','approved')]}" />
+                        <button string='Reject' name="reject" type="object" class="btn-primary" attrs="{'invisible':['|',('button_check','=',True),('status','=','approved')]}" groups="hr.group_hr_manager,hr.group_hr_user, orient_hr_resignation.group_reporting_manager" />
+                        <button name="cancel" string="Close" special="cancel" class="btn-primary"/> 
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_appraisal_tree" model="ir.ui.view">
+            <field name="name">annual.appraisal.tree</field>
+            <field name="model">annual.appraisal.details</field>
+            <field name="arch" type="xml">
+                <tree string="Annual Appraisal">
+                    <field name="year"  options="{'no_open': True,'no_create':True}"/>
+                    <field name="employee"  options="{'no_open': True,'no_create':True}"/>
+                    <field name="employee_code"/>
+                    <field name="review_start_date"/>
+                    <field name="review_end_date"/>
+                    <field name="status"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_annual_appraisal_form" model="ir.actions.act_window">
+            <field name="name">Annual Appraisal</field>
+            <field name="res_model">annual.appraisal.details</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <!-- <field name="search_view_id" ref="view_activity_class_search"/> -->
+            <field name="view_id" ref="view_goalsheet_tree"/>
+            <field name="target">inline</field>
+            <field name="context">{'create':1,'delete': 0}</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Annual Appraisal
+              </p>
+            </field>
+        </record>
+
+
+
+        <record id="view_annual_kra_details_form" model="ir.ui.view">
+            <field name="name">Annual Appraisal</field>
+            <field name="model">annual.kra.details</field>
+            <field name="arch" type="xml">
+                <form string="KRA">
+                    <header>
+                        <button string='Approve' name="approve1" type="object" class="btn-primary"  groups="hr.group_hr_manager,hr.group_hr_user, orient_hr_resignation.group_reporting_manager" attrs="{'invisible':['|','|','|','|',('button_check','=',True),('approve2','=',True),('approve3','=',True),('approve_hr','=',True),('status','=','approved')]}"/>
+                        <button string='Approve' name="approve_2" type="object" class="btn-primary"  groups="hr.group_hr_manager,hr.group_hr_user, orient_hr_resignation.group_reporting_manager" attrs="{'invisible':['|','|','|',('approve2','=',False),('approve3','=',True),('approve_hr','=',True),('status','=','approved')]}" />
+                        <button string='Approve' name="approve_3" type="object" class="btn-primary"  groups="hr.group_hr_manager,hr.group_hr_user, orient_hr_resignation.group_reporting_manager" attrs="{'invisible':['|','|',('approve3','=',False),('approve_hr','=',True),('status','=','approved')]}"/>
+                        <button string='Approve' name="hr_approve" type="object" class="btn-primary"  groups="hr.group_hr_manager,hr.group_hr_user,orient_hr_resignation.group_reporting_manager" attrs="{'invisible':['|','|','|',('approve2','=',True),('approve3','=',True),('approve_hr','=',False),('status','=','approved')]}" />
+                        <!-- <button string='Approve' name="admin_approve" type="object" class="btn-primary"  groups="base.group_erp_manager" attrs="{'invisible':['|','|','|',('approve2','=',True),('approve3','=',True),('approve_hr','=',True),('status','=','approved')]}" /> -->
+                        <button string='Reject' name="reject" type="object" class="btn-primary" attrs="{'invisible':['|',('button_check','=',True),('status','=','approved')]}" groups="hr.group_hr_manager,hr.group_hr_user, orient_hr_resignation.group_reporting_manager" />
+                    </header>
+                    <sheet>
+                        <group>                           
+                            <group>
+                                <field name="button_check" invisible="1" />
+                                <field name="employee_code" readonly="1"/>
+                                <field name="employee" readonly="1" options="{'no_open': True}"/>
+                                <field name="location" readonly="1" options="{'no_open': True}"/>
+                                <field name="reporting_head" readonly="1" options="{'no_open': True}"/>
+                                <field name="year" required="0" attrs="{'readonly':[('readonly_chk','=',True)]}" readonly="1" options="{'no_open': True}"/>
+                                <field name="assist_managers_bool" attrs="{'readonly':[('readonly_chk','=',True)]}"/>                               
+                            </group>
+                            <group>
+                                <field name="designation" readonly="1" options="{'no_open': True}"/>
+                                <field name="department" readonly="1" options="{'no_open': True}"/>
+                                <field name="joining_date" readonly="1"/>
+                                <field name="review_cycle" readonly="1"/>
+                                <!-- <field name="final_rating" string="Final Rating" readonly="1"/> -->
+                                <field name="main_id" invisible="1"/>
+                                <field name="readonly_chk" invisible="1"/>
+                                <field name="status" invisible="1"/>
+                                <field name="status_char" invisible="1"/> 
+                                <field name="approved_date" invisible="1"/>
+                                <field name="application_date" invisible="1"/>
+                                <field name="rejected_date" invisible="1"/>
+                                <field name="approve2" invisible="1"/>
+                                <field name="approve3" invisible="1"/>
+                                <field name="approve_hr" invisible="1"/>
+                                <field name="hr_total_rating" invisible="1"/>
+                                <field name="reportee1_total_rating" invisible="1"/>
+                                <field name="reportee2_total_rating" invisible="1"/>
+                                <field name="reportee3_total_rating" invisible="1"/>
+                                <field name="hr_total_cb" invisible="1"/>
+                                <field name="reportee1_total_cb" invisible="1"/>
+                                <field name="reportee2_total_cb" invisible="1"/>
+                                <field name="reportee3_total_cb" invisible="1"/>
+                                <field name="sum_ikra" invisible="1"/>
+                                <field name="sum_iar" invisible="1"/>
+                                <field name="final_weightage" invisible="1"/>
+                                <field name="site_id" invisible="1"/>
+                                <field name="proposed_increment" invisible="1"/>
+                                <field name="actual_increment" invisible="1"/>
+                                <field name="increment_status" invisible="1"/>
+                                <field name="reporting_levels" invisible="1"/>
+                                <field name="current_ctc" invisible="1"/>
+                                <field name="current_gross" invisible="1"/>
+                                <field name="approve1_char" invisible="1"/>
+                                <field name="approve2_char" invisible="1"/>
+                                <field name="approve3_char" invisible="1"/>
+                                <field name="approve4_char" invisible="1"/>
+                            </group>
+                            <group string="Reporting Hierarchy" colspan="8">
+                            </group>
+                             <group col="8">
+                                <table border="1">
+                                <tr>
+                                <td>
+                                <field name="reportee1_name" nolabel="1" attrs="{'invisible':[('reportee1_name','=','')]}" readonly="1"/></td>
+                                <td>
+                                <field name="reportee2_name" nolabel="1"  attrs="{'invisible':[('reportee2_name','=','')]}" readonly="1"/></td>
+                                <td>
+                                <field name="reportee3_name" nolabel="1"  attrs="{'invisible':[('reportee3_name','=','')]}" readonly="1"/></td>
+                                <td>
+                                <field name="reportee4_name" nolabel="1"  attrs="{'invisible':[('reportee4_name','=','')]}" readonly="1"/></td>
+                                </tr>
+                            </table>
+                            </group>
+                            <group colspan="8">
+                                <notebook>
+                                        <page name="public" string="Critical Behaviour Attributes &amp; KRA">
+                                        <group string="Critical Behaviour Attributes" colspan="8">
+                                        </group>
+                                         <group col="8">
+                                            <label string="Unsatisfactory - 1"/>
+                                            <label string="Marginal - 2"/>
+                                            <label string="Satisfactory - 3"/>
+                                            <label string="Highly Satisfactory - 4"/>
+                                            <label string="Exceptional - 5"/>
+                                            <label string=" * Applicable For Asst. Managers and Above" colspan="8"/>
+                                        </group>
+                                        <field name="cba_lines" mode="tree" nolabel="1" colspan="8" create="false" delete="false" attrs="{'readonly':[('status','=','approved')]}">
+                                                <tree string="Annual KRA" editable="bottom" create="false" delete="false">
+                                                    <field name="description" string="Critical Behavioural Attributes (CBA)" readonly="1"/>
+                                                    <field name="self_rating" sum="Total" attrs="{'readonly':[('check1','=',False)]}"/> 
+                                                    <field name="tl_rating" string="Reportee1 Rating" sum="Total" attrs="{'readonly':[('tl_check','=',False)]}"/>
+                                                    <field name="reportee2_rating" sum="Total" attrs="{'readonly':[('rp2_check','=',False)]}"/>
+                                                    <field name="reportee3_rating" sum="Total" attrs="{'readonly':[('rp3_check','=',False)]}"/>
+                                                    <field name="hr_rating" sum="Total" attrs="{'readonly':[('check2','=',False)]}"/>
+                                                    <field name="check1" invisible="1"/>
+                                                    <field name="check2" invisible="1"/>
+                                                    <field name="rp2_check" invisible="1"/>
+                                                    <field name="rp3_check" invisible="1"/>
+                                                    <field name="tl_check" invisible="1"/>
+                                                </tree>
+                                            </field>
+                                            <field name="annual_kra_lines" mode="tree" nolabel="1"  attrs="{'readonly':[('status','=','approved')]}" colspan="8" create="false" delete="false"> <!--groups="hr.group_hr_manager,hr.group_hr_user,orient_hr_resignation.group_reporting_manager"-->
+                                                <tree string="Annual KRA" editable="bottom" create="false" delete="false">
+                                                    <field name="kra" invisible="1"/>
+                                                    <field name="readonly_flag" invisible="1"/>
+                                                    <field name="readonly_flag1" invisible="1"/>
+                                                    <field name="kra_name" readonly="1"/> 
+                                                    <field name="kpi" readonly="1"/>
+                                                    <field name="weightage" readonly="1" sum="Total"/>
+                                                    <field name="self_rating" sum="Total" attrs="{'readonly':['|',('check1','=',False),('readonly_flag','=',True)]}"/>
+                                                    <field name="reportee1_rating" sum="Total" attrs="{'readonly':['|',('tl_check','=',False),('readonly_flag1','=',True)]}"/>
+                                                    <field name="reportee2_rating" sum="Total" attrs="{'readonly':[('rp2_check','=',False)]}"/>
+                                                    <field name="reportee3_rating" sum="Total" attrs="{'readonly':[('rp3_check','=',False)]}"/> 
+                                                    <field name="hr_rating" sum="Total" attrs="{'readonly':[('check2','=',False)]}"/>
+                                                    <field name="check1" invisible="1"/>
+                                                    <field name="check2" invisible="1"/>
+                                                    <field name="rp2_check" invisible="1"/>
+                                                    <field name="rp3_check" invisible="1"/>
+                                                    <field name="tl_check" invisible="1"/>
+                                                </tree>
+                                            </field>
+                                    </page>
+                                    <!-- <page name="public" string="Quarterly KRA Details">
+                                        
+                                        <group string="All Quarter KRA Details" colspan="8">
+                                            <field name="average_quarter_rating" string="Average Rating" readonly="1" invisible="0"/> 
+                                        </group>
+                                            <field name="all_quarter_details" string="" mode="tree" nolabel="1" colspan="8" readonly="1" invisible="0">                                              
+                                                <tree string="Quarterly KRA Details" editable="bottom">
+                                                    <field name="kra_month"/>
+                                                    <field name="quarter"/>
+                                                    <field name="review_start_date"/>
+                                                    <field name="review_end_date"/>
+                                                    <field name="state"/>
+                                                    <field name="final_rating"/>
+                                                    <field name="all_kra_id" invisible="1" options="{'no_open': True}"/>
+                                                    <button class="oe_stat_button" type="object" name="open_review_form" string="Open"/>
+                                                </tree>
+                                           
+                                            </field>
+                                        </page> -->
+                                </notebook>
+                            </group>
+                            <field name="comments" groups="hr.group_hr_manager,hr.group_hr_user, orient_hr_resignation.group_reporting_manager" attrs="{'readonly':[('status','=','approved')]}"/>
+                    </group>
+                    </sheet>
+                    <footer> 
+                        <button name="save_exit" confirm="Note: Kindly tick on 'Asst. Managers and Above' based on your Designation \n Do you want to submit the form?" type="object" string="Save &amp; Exit" attrs="{'invisible':[('status','in',('pending','approved'))]}" class="btn-primary"/> 
+                        <button name="cancel" string="Close" special="cancel" class="btn-primary"/>
+                        <button string='Approve' name="approve1" type="object" class="btn-primary"  groups="hr.group_hr_manager,hr.group_hr_user, orient_hr_resignation.group_reporting_manager" attrs="{'invisible':['|','|','|','|',('button_check','=',True),('approve2','=',True),('approve3','=',True),('approve_hr','=',True),('status','=','approved')]}"/>
+                        <button string='Approve' name="approve_2" type="object" class="btn-primary"  groups="hr.group_hr_manager,hr.group_hr_user, orient_hr_resignation.group_reporting_manager" attrs="{'invisible':['|','|','|',('approve2','=',False),('approve3','=',True),('approve_hr','=',True),('status','=','approved')]}" />
+                        <button string='Approve' name="approve_3" type="object" class="btn-primary"  groups="hr.group_hr_manager,hr.group_hr_user, orient_hr_resignation.group_reporting_manager" attrs="{'invisible':['|','|',('approve3','=',False),('approve_hr','=',True),('status','=','approved')]}"/>
+                        <button string='Approve' name="hr_approve" type="object" class="btn-primary"  groups="hr.group_hr_manager,hr.group_hr_user,orient_hr_resignation.group_reporting_manager" attrs="{'invisible':['|','|','|',('approve2','=',True),('approve3','=',True),('approve_hr','=',False),('status','=','approved')]}" /> 
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_annual_kra_details_tree" model="ir.ui.view">
+            <field name="name">annual.appraisal.tree</field>
+            <field name="model">annual.kra.details</field>
+            <field name="arch" type="xml">
+                <tree string="Annual Appraisal">
+                    <field name="year"  options="{'no_open': True,'no_create':True}"/>
+                    <field name="employee"  options="{'no_open': True,'no_create':True}"/>
+                    <field name="employee_code"/>
+                    <field name="review_start_date"/>
+                    <field name="review_end_date"/>
+                    <field name="status"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_annual_kra_details_form" model="ir.actions.act_window">
+            <field name="name">Annual Appraisal</field>
+            <field name="res_model">annual.kra.details</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <!-- <field name="search_view_id" ref="view_activity_class_search"/> -->
+            <field name="view_id" ref="view_annual_kra_details_tree"/>
+            <field name="target">inline</field>
+            <field name="context">{'create':1,'delete': 0}</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Annual Appraisal
+              </p>
+            </field>
+        </record>
+
+<!-- Appraisal Due Report -->
+
+
+        <record id="view_appraisal_due_child_form" model="ir.ui.view">
+            <field name="name">appraisal.due.report.form</field>
+            <field name="model">appraisal.due.report</field>
+            <field name="arch" type="xml">
+                <form string="Review Status">
+                    <sheet>
+                        <group>
+                            <field name="review_cycle" style="width:30%%"/>
+                            <field name="financial_year" style="width:30%%" options="{'no_open': True,'no_create':True}"/>
+                            <field name="exists" invisible="1"/>
+                            <field name="email_chars" invisible="1"/>
+                        </group>
+                        <button string="Search" name="search_records" type="object" class="btn-primary"/>
+                        <br/>
+                        <label string="Select All" attrs="{'invisible':[('exists','=',False)]}" colspan="2"/>
+                        <field name="select_all" attrs="{'invisible':[('exists','=',False)]}"/>
+                        <notebook>
+                            <page name="public" string="Appraisal Due List" attrs="{'invisible':[('exists','=',False)]}">
+                            <group>
+                            <field name="appraisal_one2many" nolabel="1" attrs="{'invisible':[('exists','=',False)]}">
+                                <tree string="Details" editable="bottom" open="false" delete="false" create="false">
+                                    <field name="due_id" invisible="1"/>
+                                    <field name="select"/>
+                                    <field name="employee" readonly="1" options="{'no_open': True}"/>
+                                    <field name="emp_code" readonly="1"/>
+                                    <field name="joining_date" readonly="1"/>
+                                    <field name="parent_id" readonly="1" options="{'no_open': True}"/>
+                                    <field name="department" readonly="1" options="{'no_open': True}"/>
+                                    <field name="designation" readonly="1" options="{'no_open': True}"/>
+                                    <field name="appraisal_cycle" readonly="1"/>
+                                    <field name="quarter1" readonly="1"/>
+                                    <field name="quarter2" readonly="1"/>
+                                    <field name="quarter3" readonly="1"/>
+                                    <field name="quarter4" readonly="1"/>
+                                    <field name="position_type" readonly="1"/>
+                                </tree>
+                            </field>
+                            </group>
+                        </page>
+                        <page name="public" string="Appraisal Due List (PIP Applicable)" attrs="{'invisible':[('exists','=',False)]}">
+                        <group>
+                            <field name="pip_appraisal_one2many" nolabel="1" attrs="{'invisible':[('exists','=',False)]}">
+                                <tree string="Details" editable="bottom" open="false" delete="false" create="false">
+                                    <field name="pip_due_id" invisible="1"/>
+                                    <field name="select"/>
+                                    <field name="employee" readonly="1" options="{'no_open': True}"/>
+                                    <field name="emp_code" readonly="1"/>
+                                    <field name="joining_date" readonly="1"/>
+                                    <field name="parent_id" readonly="1" options="{'no_open': True}"/>
+                                    <field name="department" readonly="1" options="{'no_open': True}"/>
+                                    <field name="designation" readonly="1" options="{'no_open': True}"/>
+                                    <field name="appraisal_cycle" readonly="1"/>
+                                    <field name="quarter1" readonly="1"/>
+                                    <field name="quarter2" readonly="1"/>
+                                    <field name="quarter3" readonly="1"/>
+                                    <field name="quarter4" readonly="1"/>
+                                    <field name="position_type" readonly="1"/>
+                                </tree>
+                            </field>
+                        </group>
+                        </page>
+                        <page name="public" string="Appraisal Due List (Skipped in Last cycle)" attrs="{'invisible':[('exists','=',False)]}">
+                        <group string="">
+                            <field name="skipped_appraisal_one2many" nolabel="1" attrs="{'invisible':[('exists','=',False)]}">
+                                <tree string="Details" editable="bottom" open="false" delete="false" create="false">
+                                    <field name="skipped_due_id" invisible="1"/>
+                                    <field name="select"/>
+                                    <field name="employee" readonly="1" options="{'no_open': True}"/>
+                                    <field name="emp_code" readonly="1"/>
+                                    <field name="joining_date" readonly="1"/>
+                                    <field name="parent_id" readonly="1" options="{'no_open': True}"/>
+                                    <field name="department" readonly="1" options="{'no_open': True}"/>
+                                    <field name="designation" readonly="1" options="{'no_open': True}"/>
+                                    <field name="appraisal_cycle" readonly="1"/>
+                                    <field name="quarter1" readonly="1"/>
+                                    <field name="quarter2" readonly="1"/>
+                                    <field name="quarter3" readonly="1"/>
+                                    <field name="quarter4" readonly="1"/>
+                                    <field name="position_type" readonly="1"/>
+                                </tree>
+                            </field>
+                        </group>
+                        </page>
+                        </notebook>
+                        <button string="Send Email" type="object" name="send_email" attrs="{'invisible':[('exists','=',False)]}" class="btn-primary"/>                       
+                        <button string="Excel" type="object" name="generate_excel" attrs="{'invisible':[('exists','=',False)]}" class="btn-primary"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_appraisal_due_child_ree" model="ir.ui.view">
+            <field name="name">appraisal.due.report.tree</field>
+            <field name="model">appraisal.due.report</field>
+            <field name="arch" type="xml">
+                <tree string="Review Status">
+                    <field name="review_cycle"/>
+                    <field name="financial_year"  options="{'no_open': True,'no_create':True}"/>
+                    <field name="application_year"  options="{'no_open': True,'no_create':True}"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_appraisal_due_child" model="ir.actions.act_window">
+            <field name="name">Appraisal Due Report</field>
+            <field name="res_model">appraisal.due.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+            <!-- <field name="search_view_id" ref="view_activity_class_search"/> -->
+            <field name="view_id" ref="view_appraisal_due_child_form"/>
+            <field name="target">inline</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Year 
+              </p>
+            </field>
+        </record>
+
+<!-- Employee Hierarchy -->
+
+        <record id="view_hierarchy_form" model="ir.ui.view">
+            <field name="name">employee.reporting.hierarchy.form</field>
+            <field name="model">employee.reporting.hierarchy</field>
+            <field name="arch" type="xml">
+                <form string="Employee Reporting Hierarchy">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="emp_code" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="reportee_1" style="width:30%%" options="{'no_open': True}"/>
+                            <field name="hr_reportee" style="width:30%%" options="{'no_open': True}"/>
+                            <field name="reportee_2" style="width:30%%" options="{'no_open': True}"/>
+                            <field name="reportee_3" style="width:30%%" options="{'no_open': True}"/>
+                            <field name="sub_department_form" style="width:30%%" options="{'no_open': True}"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_hierarchy_tree" model="ir.ui.view">
+            <field name="name">employee.reporting.hierarchy.tree</field>
+            <field name="model">employee.reporting.hierarchy</field>
+            <field name="arch" type="xml">
+                <tree string="Employee Reporting Hierarchy">
+                    <field name="emp_code" invisible="0" readonly="0"/>
+                    <field name="name"/>
+                    <field name="reportee_1"/>
+                    <field name="hr_reportee" string="Reportee 2"/>
+                    <field name="reportee_2" string="Reportee 3"/>
+                    <field name="reportee_3" string="Reportee 4"/>
+                    <field name="sub_department_form"/>
+                    <field name="reportee1_code" invisible="1"/>
+                    <field name="reportee2_code" invisible="1"/>
+                    <field name="reportee3_code" invisible="1"/>
+                    <field name="hr_reportee_code" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_hierarchy_report" model="ir.actions.act_window">
+            <field name="name">Employee Reporting Hierarchy</field>
+            <field name="res_model">employee.reporting.hierarchy</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+            <!-- <field name="search_view_id" ref="view_activity_class_search"/> -->
+            <field name="view_id" ref="view_hierarchy_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Year 
+              </p>
+            </field>
+        </record>
+
+<!-- Increment List -->
+
+        <record id="view_incrementlist_form" model="ir.ui.view">
+            <field name="name">increment.list.form</field>
+            <field name="model">increment.list</field>
+            <field name="arch" type="xml">
+                <form string="Increment List" create="false">
+                    <sheet>
+                        <group>
+                            <field name="select_type" style="width:30%%" colspan="2"/>
+                            <field name="financial_year" attrs="{'invisible':[('select_type','!=','year')]}" style="width:30%%" colspan="2"  options="{'no_open': True}"/>
+                            <field name="review_cycle" attrs="{'invisible':[('select_type','!=','review_month')]}" style="width:30%%" colspan="2"/>
+                            <field name="state" attrs="{'invisible':[('select_type','!=','status')]}" style="width:30%%" colspan="2"/>                            
+                        </group>
+                        <group>
+                            <button string="Search" name="search_increment_list" type="object" class="btn-primary" style="width:30%%"/>
+                        </group>
+                        <notebook>
+                        <page name="public" string="Increment List">
+                            <group string="" colspan="8">
+                                <label string="" colspan="2"/>
+                            </group>
+                        <button string='Add' type="object" name="add_increment_list" class="btn-primary" />
+                        <label string="" colspan="2"/>   
+                        <button string='View' name="view_increment_list" type="object" class="btn-primary"  />
+                        <label string="" colspan="2"/>   
+                        <button string='View All' name="" type="object" class="btn-primary" />
+                        <group>
+                            <label string="" colspan="1"/>
+                        </group>
+                        <group>
+                            <field name="increment_child_list_one2many" nolabel="1" mode="tree">
+                                <tree string="Increment List" editable="bottom" open="false" create="false" delete="false">
+                                    <field name="inc_list_id" invisible="1"/>
+                                    <field name="select"/>
+                                    <field name="year" readonly="1" options="{'no_open': True,'no_create':True}"/>
+                                    <field name="review_cycle" readonly="1"/>
+                                    <field name="review_start_date" readonly="1"/>
+                                    <field name="review_end_date" readonly="1"/>
+                                    <field name="status" readonly="1"/>
+                                    <field name="active" readonly="1"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </notebook>
+                        <!-- <button string="Generate" type="object"/> -->
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_incrementlist_report" model="ir.actions.act_window">
+            <field name="name">Increment List</field>
+            <field name="res_model">increment.list</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field> 
+            <!-- <field name="search_view_id" ref="view_activity_class_search"/> -->
+            <field name="view_id" ref="view_incrementlist_form"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Year  -->
+              </p>
+            </field>
+        </record>
+
+<!-- Increment record -->
+
+        <record id="view_incrementrecord_form" model="ir.ui.view">
+            <field name="name">increment.record.form</field>
+            <field name="model">increment.child.list</field>
+            <field name="arch" type="xml">
+                <form string="Increment Record">
+                    <sheet>
+                        <group>
+                        <group>
+                            <field name="employee_code" readonly="1"/>                            
+                            <field name="location" readonly="1" options="{'no_open': True}"/>
+                            <field name="department" readonly="1" options="{'no_open': True}"/>
+                            <field name="year" attrs="{'readonly':[('status','=','approved')]}" options="{'no_open': True,'no_create':True}"/>
+                            <field name="main_id" invisible="1" options="{'no_open': True}"/>                            
+                            <field name="readonly_chk" invisible="1"/>
+                            <field name="active" invisible="1"/>
+                            <field name="status" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="employee" readonly="1" options="{'no_open': True}"/>
+                            <field name="designation" readonly="1" options="{'no_open': True}"/>                            
+                            <field name="joining_date" readonly="1"/>                            
+                            <field name="review_cycle" attrs="{'readonly':[('status','=','approved')]}"/>                            
+                        </group>
+                    </group>
+                        <field name="increment_rec_one2many_new" nolabel="1" mode="tree" attrs="{'readonly':[('status','=','approved')]}">
+                            <tree string=" " editable="bottom" open="false" create="false" delete="false">
+                                <field name="inc_child_list_id1" invisible="1"/>
+                                <field name="employee_code" readonly="1"/>
+                                <field name="employee" readonly="1" options="{'no_open': True}"/>
+                                <field name="department" readonly="1" options="{'no_open': True}"/>
+                                <field name="reportee1_total_rating" readonly="1"/>
+                                <field name="reportee1_total_cb" readonly="1"/>
+                                <field name="reportee2_total_rating" readonly="1"/>
+                                <field name="reportee2_total_cb" readonly="1"/>
+                                <field name="reportee3_total_rating" readonly="1"/>
+                                <field name="reportee3_total_cb" readonly="1"/>
+                                <field name="hr_total_rating" readonly="1"/>
+                                <field name="hr_total_cb" readonly="1"/>
+                                <field name="sum_ikra" readonly="1"/>
+                                <field name="sum_iar" readonly="1"/>
+                                <field name="current_gross" readonly="1"/>
+                                <field name="current_ctc" readonly="1"/>
+                                <field name="proposed_increment" readonly="1"/>
+                                <field name="final_weightage" readonly="1"/>
+                                <field name="reporting_levels" readonly="1"/>
+                                <field name="actual_increment"/>
+                            </tree>
+                        </field>
+                    </sheet>
+                    <footer> 
+                        <button name="save_exit" type="object" class="btn-primary" string="Save &amp; Exit" attrs="{'invisible':[('status','=','approved')]}"/> 
+                        <button name="cancel" string="Close" special="cancel" class="oe_link"/> 
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_increment_child_tree" model="ir.ui.view">
+            <field name="name">kramain.tree</field>
+            <field name="model">increment.child.list</field>
+            <field name="arch" type="xml">
+                <tree string="KRA">
+                    <field name="year"  options="{'no_open': True,'no_create':True}"/>
+                    <field name="employee"  options="{'no_open': True,'no_create':True}"/>
+                    <field name="employee_code"/>
+                    <field name="review_start_date"/>
+                    <field name="review_end_date"/>
+                    <field name="status"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_increment_child_form" model="ir.actions.act_window">
+            <field name="name">Goalsheet</field>
+            <field name="res_model">increment.child.list</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <!-- <field name="search_view_id" ref="view_activity_class_search"/> -->
+            <field name="view_id" ref="view_incrementrecord_form"/>
+            <field name="target">inline</field>
+            <field name="context">{'create':1,'delete': 0}</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Increment
+              </p>
+            </field>
+        </record>
+
+<!-- Freeze Date -->
+
+        <record id="view_freezedate_form" model="ir.ui.view">
+            <field name="name">kra.freeze.date.form</field>
+            <field name="model">kra.freeze.date</field>
+            <field name="arch" type="xml">
+                <form string="PMS Freeze Date">
+                    <sheet>
+                        <group>
+                            <field name="from_date" style="width:40%%"/>
+                            <field name="to_date" style="width:40%%"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_freezedate_tree" model="ir.ui.view">
+            <field name="name">kra.freeze.date.tree</field>
+            <field name="model">kra.freeze.date</field>
+            <field name="arch" type="xml">
+                <tree string="PMS Freeze Date">
+                    <field name="from_date"/>        
+                    <field name="to_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_freezedate_report" model="ir.actions.act_window">
+            <field name="name">PMS Freeze Date</field>
+            <field name="res_model">kra.freeze.date</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_freezedate_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                PMS Freeze Date 
+              </p>
+            </field>
+        </record>
+
+
+        <record id="view_kra_mapping_form" model="ir.ui.view">
+            <field name="name">kra.mapping.report.form</field>
+            <field name="model">kra.mapping.report</field>
+            <field name="arch" type="xml">
+                <form string="Review Status" create="false">
+                    <sheet>
+                        <group>
+                            <field name="report_type" style="width:30%%"/>
+                            <field name="employee" style="width:30%%" attrs="{'invisible':[('report_type','=','department')]}"/>
+                            <field name="department" style="width:30%%" attrs="{'invisible':[('report_type','=','employee')]}"/>
+                            <field name="exists" invisible="1"/>
+                        </group>
+                        <button string="Search" name="search_records" type="object" class="btn-primary"/>
+                        
+                            <field name="mapping_report_one2many" nolabel="1" attrs="{'invisible':[('exists','=',False)]}" readonly="1">
+                                <tree string="Details" editable="bottom" open="false" delete="false" create="false">
+                                    <field name="sr_no"/>
+                                    <field name="reporting_code"/>
+                                    <field name="reporting_name" options="{'no_open': True}"/>
+                                    <!-- <field name="hr_code"/>
+                                    <field name="hr_name"/> -->
+                                    <field name="employee_code"/>
+                                    <field name="employee_name"/>
+                                    <field name="employee" invisible="1"/>
+                                    <field name="department" options="{'no_open': True}"/>
+                                    <field name="designation" options="{'no_open': True}"/>
+                                    <field name="joining_date"/>
+                                    <field name="kra_mapped"/>
+                                    <field name="status"/>
+                                    <!-- <field name="pip_applicable" readonly="1"/> -->
+                                    <!-- <button class="oe_stat_button" type="object" name="open_kpi" string="View KPI"/> -->
+                                </tree>
+                            </field>
+                        <!-- </group>                       -->
+                        <!-- <button string="Excel" type="object" name="generate_excel" attrs="{'invisible':[('exists','=',False)]}"/> -->
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_kra_mapping_tree" model="ir.ui.view">
+            <field name="name">kra.mapping.report.tree</field>
+            <field name="model">kra.mapping.report</field>
+            <field name="arch" type="xml">
+                <tree string="Review Status">
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_kra_mapping" model="ir.actions.act_window">
+            <field name="name">KRA Mapping Report</field>
+            <field name="res_model">kra.mapping.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+            <field name="target">inline</field>
+            <!-- <field name="search_view_id" ref="view_activity_class_search"/> -->
+            <field name="view_id" ref="view_kra_mapping_form"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Year 
+              </p>
+            </field>
+        </record>
+
+
+        <record id="quarterly_rating_upload_form" model="ir.ui.view">
+            <field name="name">quarterly.rating.upload</field>
+            <field name="model">quarterly.rating.upload</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <form string="Quarterly KRA Data Import">
+                    <header>
+                        <button string="Import" class="btn-primary" type="object" states='draft' name="import_quarterly_data" style="background-color:lightgreen;"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="datas" filename="datas_fname" attrs="{'invisible':[('state','in',('done','failed'))]}"/>
+                                <field name="file_url" invisible="1"/>
+                                <field name="datas_fname" attrs="{'invisible':[('state','=','draft')]}"/>
+                                <field name="db_datas" invisible="1"/>
+                                <field name="check_exists" invisible="1"/>
+                            </group>
+                                <!-- <field name="kra_main_lines" attrs="{'invisible':[('check_exists','=',False)]}" readonly="1">
+                                </field> -->
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_view_kra_main_import">
+            <field name="name">Quarterly KRA Data Import</field>
+            <field name="res_model">quarterly.rating.upload</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Quarterly Data Import Form
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_view_kra_main_import"
+            name="Import Quarterly KRA Data"
+            action="action_view_kra_main_import"
+            parent="pms_configuration" groups="base.group_erp_manager"/>
+<!-- Menus -->
+
+        <menuitem id="annual_kra_id" name="Annual Appraisal" parent="kra_id" action="action_annual_form" sequence="5"/>
+
+        <menuitem id="annual_auth_id" name="Annual Appraisal Authorization" parent="kra_id" action="action_annual_auth_form" sequence="6" groups="hr.group_hr_manager,hr.group_hr_user,orient_hr_resignation.group_reporting_manager"/>
+
+        <!-- <menuitem id="annual_goalsheet_id" name="Goalsheet Form" parent="kra_id" action="action_goalsheet_form" sequence="5"/>
+
+        <menuitem id="annual_appraisal_menu" name="Annual Appraisal Form" parent="kra_id" action="action_annual_appraisal_form"/> -->
+        <menuitem id="appraisal_due_child_menu_id" name="Annual Appraisal Due Report" parent="report_menu_id" action="action_appraisal_due_child" sequence="82" groups="hr.group_hr_manager,hr.group_hr_user"/>
+
+        <menuitem id="annual_status_report_menu_id" name="Annual Review Status Report" parent="report_menu_id" action="action_annualreviewstatusreport_report" sequence="83" groups="hr.group_hr_manager,hr.group_hr_user"/>
+
+        <menuitem id="increment_report_menu_id" name="Increment Report" parent="report_menu_id" action="action_increment_report" sequence="84" groups="hr.group_hr_manager,hr.group_hr_user"/>
+        
+        <menuitem id="increment_status_report_menu_id" name="Increment Status Report" parent="report_menu_id" action="action_incrementstatus_report" sequence="85" groups="hr.group_hr_manager,hr.group_hr_user"/>
+
+        <menuitem id="increment_list_menu_id" name="Increment List" parent="report_menu_id" action="action_incrementlist_report" sequence="86" groups="hr.group_hr_manager,hr.group_hr_user,orient_hr_resignation.group_reporting_manager"/>
+
+        <menuitem id="mapping_menu_id" name="KRA Mapping Report" parent="report_menu_id" action="action_kra_mapping" groups="hr.group_hr_manager,hr.group_hr_user"/>
+
+        <menuitem id="action_annualreviewyearmasterannual_form" name="Annual Year Master" parent="pms_configuration" groups="base.group_erp_manager" action="action_annualreviewyearmaster_form"/>
+
+        <menuitem id="action_hierarchy_report_menu" string="Employee Reporting Hierarchy" parent="pms_configuration" action="action_hierarchy_report" groups="base.group_erp_manager"/>
+
+        <menuitem id="kra_freeze_date_menu" parent="pms_configuration" name="PMS Freeze Date" action="action_freezedate_report" groups="base.group_erp_manager"/>
+
+	</data>
+</odoo>

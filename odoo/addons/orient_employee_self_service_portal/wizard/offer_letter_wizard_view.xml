@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="offer_letter_wizard_view_form" model="ir.ui.view">
+        <field name="name">offer.letter.wizard.view.form</field>
+        <field name="model">offer.letter.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Package">
+                <group>
+                    <field name="hr_applicant_id" required="1" readonly="1"/>
+                    <field name="applicant_name" required="1" readonly="1"/>
+                    <separator string="The generated offer letter will be sent to the candidate along with the link to set password for self service portal"/>
+<!--                     <label for="shipping_weight" attrs="{'invisible': [('delivery_packaging_id', '=', False)]}"/>
+                    <div class="o_row" attrs="{'invisible': [('delivery_packaging_id', '=', False)]}">
+                        <field name="shipping_weight"/>
+                        <span>kg</span>
+                    </div> -->
+                </group>
+                <footer>
+                    <button string="Send" name="send_offer_letter" type="object" class="btn btn-sm btn-primary"/>
+                    <button string="Discard" special="cancel" class="btn btn-sm btn-default"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

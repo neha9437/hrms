@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="orient_pms_personal_rule" model="ir.rule">
+            <field name="name">PMS</field>
+            <field ref="orient_pms.model_kra_main" name="model_id"/>
+            <field name="domain_force">['|',('employee.user_id','=',user.id),'|',('employee.parent_id.parent_id.user_id','=',user.id),('employee.parent_id.user_id','=',user.id)]</field>
+            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="orient_pms_personal_rule_officer" model="ir.rule">
+            <field name="name">PMS : Officer</field>
+            <field ref="orient_pms.model_kra_main" name="model_id"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4, ref('hr.group_hr_user'))]"/>
+        </record>
+
+        <record id="orient_pms_personal_rule_manager" model="ir.rule">
+            <field name="name">PMS : Manager</field>
+            <field name="model_id" ref="orient_pms.model_kra_main"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4,ref('hr.group_hr_manager'))]"/>
+        </record>
+
+        <record id="orient_pms_annual_personal_rule" model="ir.rule">
+            <field name="name">PMS</field>
+            <field ref="orient_pms.model_annual_review" name="model_id"/>
+            <field name="domain_force">['|',('employee.user_id','=',user.id),'|',('employee.parent_id.parent_id.user_id','=',user.id),('employee.parent_id.user_id','=',user.id)]</field>
+            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="orient_pms_annual_personal_rule_officer" model="ir.rule">
+            <field name="name">PMS : Officer</field>
+            <field ref="orient_pms.model_annual_review" name="model_id"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4, ref('hr.group_hr_user'))]"/>
+        </record>
+
+        <record id="orient_pms_annual_personal_rule_manager" model="ir.rule">
+            <field name="name">PMS : Manager</field>
+            <field name="model_id" ref="orient_pms.model_annual_review"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4,ref('hr.group_hr_manager'))]"/>
+        </record>                
+
+    </data>
+</odoo>

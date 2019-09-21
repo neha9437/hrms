@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.cron" id="employee_exit_reminder">
+            <field name="name">HR Employee Exit Reminder</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model_id" ref="model_hr_employee_exit"/>
+            <field name="state">code</field>
+            <field name="code">model.exit_mail_reminder()</field>
+        </record>
+    </data>
+</odoo>

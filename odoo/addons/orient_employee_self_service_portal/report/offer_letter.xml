@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report 
+            id="action_report_offerletter"
+            string="Offer Letter"
+            model="hr.applicant" 
+            report_type="qweb-pdf"
+            file="orient_employee_self_service_portal.report_offerreport" 
+            name="orient_employee_self_service_portal.report_offerreport"
+            print_report_name="('Offer Letter')"
+            attachment="('Offer'+(object.name or '').replace('/','')+'.pdf')"
+        />
+
+    </data>
+</odoo>

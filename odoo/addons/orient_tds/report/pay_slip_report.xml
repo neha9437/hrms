@@ -1,0 +1,650 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<template id="report_pay_slip_document">
+    <t t-call="orient_hr_resignation.external_layout_standard_list">
+        <t t-set="doc" t-value="doc.with_context({'lang':doc.employee_id.user_id.partner_id.lang})"/>
+
+        <div class="page">
+            <head>
+                <style>
+                    p.padding {
+                        padding-left: 3cm;
+                        padding-right: 3cm;
+                        font-size: 16px;
+                    }
+                    h1 {
+                        border-bottom: solid;
+                    }
+                    .underline {
+                            border-bottom: 2px solid currentColor;
+                            font-size: 20px;
+                    }
+
+                    table {
+                            font-family: times new roman;
+                            border-collapse: collapse;
+                            width: 100%;
+                        }
+
+                        td,th {
+                            border: 1px solid black;
+                            text-align: left;
+                            padding: 6px;
+                        }
+                        .make_center{
+                            text-align: center;
+                    }
+                    .subheader {
+                        font-size : 14px;
+                    }
+                    .normalsize {
+                        font-size : 11px;
+                    }
+
+                    table.new {
+                            font-family: times new roman;
+                            border-collapse: collapse;
+                            width: 100%;
+                        }
+
+                        td,th {
+                            border: 0px solid black;
+                            text-align: left;
+                            padding: 6px;
+                        }
+                        .make_center{
+                            text-align: center;
+                    }
+                    .subheader {
+                        font-size : 14px;
+                    }
+                    .normalsize {
+                        font-size : 11px;
+                    }
+                </style>
+            </head>
+            <!-- Third page -->
+            <div>
+                
+                <table>
+                    <t t-set="i" t-value="0" />
+                    <tr>
+                        <th class="make_left">
+                        <img t-if="doc.employee_id.company_id.logo1" t-att-src="'data:image/png;base64,%s' % to_text(doc.employee_id.company_id.logo1)" style="max-height: 44px;"/></th>
+                    </tr> 
+                    <tr>
+                        <th class="make_center">ORIENT TECHNOLOGIES PVT LTD</th>
+                    </tr>
+                    <tr>
+                        <th class="make_center">PAYSLIP FOR THE MONTH OF: <span t-esc="doc.month_sel"/>-<span t-esc="doc.year_sel.name"/></th>
+                    </tr>
+                    <tr>
+                        <th class="make_center" style="text-align:center;font-size:11px;">EMPLOYEE DETAILS</th>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <td style="text-align:left;font-size:11px;">
+                            NAME<![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>:
+                                <span t-esc="doc.employee_id.name"/></td>
+                        <td style="text-align:left;font-size:11px;">
+                            EMPLOYEE CODE<![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>:
+                                <span t-esc="doc.employee_id.emp_code"/></td>                
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;font-size:11px;">
+                            DESIGNATION<![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>:
+                                <span style="text-transform:uppercase;" t-esc="doc.employee_id.job_id.name"/></td>
+                        <td style="text-align:left;font-size:11px;">
+                            DATE OF JOIN.<![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]> :
+                                <span t-esc="datetime.datetime.strptime(str(doc.join_date), '%Y-%m-%d').strftime('%d-%m-%Y')"/></td>                
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;font-size:11px;">
+                            PAN NO.<![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>:
+                                <span t-esc="doc.employee_id.pan"/></td>
+                        <td style="text-align:left;font-size:11px;">
+                            PF NO.<![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]> :
+                                <span t-esc="doc.pf_no"/></td>                
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;font-size:11px;">
+                            UAN NO.<![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]><![CDATA[&nbsp;]]> :
+                                <span t-esc="doc.uan"/></td>
+                        <td style="text-align:left;font-size:11px;">
+                            AADHAR NO.<![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>:
+                                <span t-esc="str(doc.employee_id.aadhar)"/></td>                
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;font-size:11px;">
+                            GROSS SALARY<![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>:
+                                <span t-esc="'%.2f'%(doc.gross_salary)"/></td>
+                        <td style="text-align:left;font-size:11px;">
+                            ESIC NO.<![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>                                
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]> :
+                                <span t-esc="doc.esic_no"/></td>                
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;font-size:11px;">
+                            PAID DAYS<![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]> :
+                                <span t-esc="doc.paid_days"/></td>
+                        <td style="text-align:left;font-size:11px;">
+                            BANK ACCOUNT NO.<![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>:
+                                <span t-esc="str(doc.employee_id.bank_account_number)"/></td>                
+                    </tr>                    
+                </table>
+                <!-- <table>
+                    <t t-set="i" t-value="0" /> 
+                    <tr>
+                        <th class="make_center" style="text-align:center;font-size:11px;">ATTENDANCE DETAILS</th>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <td style="text-align:left;font-size:11px;">
+                            PRESENT DAYS :<![CDATA[&nbsp;]]>
+                                <span t-esc="doc.present_days"/></td>
+                        <td style="text-align:left;font-size:11px;">
+                            ABSENT DAYS :<![CDATA[&nbsp;]]>
+                                <span t-esc="doc.absent_days"/></td>                
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;font-size:11px;">
+                            PL :<![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>
+                                <span t-esc="doc.pl"/></td>
+                        <td style="text-align:left;font-size:11px;">
+                            W-Off :<![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]>
+                                <span t-esc="doc.w_off"/></td>                
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;font-size:11px;">
+                            HOLIDAY :<![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]> 
+                                <![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]> 
+                                <![CDATA[&nbsp;]]>
+                                <span t-esc="doc.holiday"/></td>
+                        <td style="text-align:left;font-size:11px;">
+                            C-OFF :<![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]>
+                                <![CDATA[&nbsp;]]> 
+                                <span t-esc="doc.c_off"/></td>                
+                    </tr>
+                </table> -->
+                <table class="new">
+                    <thead>
+                    <tr>
+                        <th colspan="6" class="make_center" style="text-align:center;font-size:11px;">EARNINGS</th>
+                        <th colspan="6" class="make_center" style="text-align:center;font-size:11px;">DEDUCTIONS</th>
+                    </tr>
+                    <tr>
+                        <th class="make_center" colspan="2" style="text-align:center;font-size:11px;"></th>
+                        <th class="make_center" colspan="2" style="text-align:center;font-size:11px;">Actual</th>
+                        <th class="make_center" colspan="2" style="text-align:center;font-size:11px;">Arrear</th>
+                        <th class="make_center" colspan="2" style="text-align:center;font-size:11px;"></th>
+                        <th class="make_center" colspan="2" style="text-align:center;font-size:11px;">Actual</th>
+                        <th class="make_center" colspan="2" style="text-align:center;font-size:11px;">Arrear</th>       
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align:left;font-size:11px;">
+                            <b>BASIC+DA</b></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.basic_da)"/></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.basic_arrear)"/></td>
+                        <span t-if="doc.pt != 0.0">
+                        <td colspan="2" style="text-align:left;font-size:11px;">
+                            <b>PT</b></td>   
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.pt)"/></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.pt_arrear)"/></td></span> 
+                        <span t-if="doc.pt == 0.0">
+                        <td colspan="2" style="text-align:left;font-size:11px;"></td>
+                        <td colspan="2" style="text-align:left;font-size:11px;"></td>
+                        <td colspan="2" style="text-align:left;font-size:11px;"></td>
+                        </span>                                 
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align:left;font-size:11px;">
+                            <b>HRA</b></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.hra)"/></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.hra_arrear)"/></td>
+                        <span t-if="doc.pf != 0.0">
+                        <td colspan="2" style="text-align:left;font-size:11px;">
+                            <b>PF</b></td>   
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.pf)"/></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.pf_arrear)"/></td></span>
+                        <span t-if="doc.pf == 0.0">
+                        <td colspan="2" style="text-align:left;font-size:11px;"></td>
+                        <td colspan="2" style="text-align:left;font-size:11px;"></td>
+                        <td colspan="2" style="text-align:left;font-size:11px;"></td>
+                        </span>       
+                    </tr>
+
+                    <tr>
+                        <td colspan="2" style="text-align:left;font-size:11px;">
+                            <b>OTHER ALLOWANCE</b></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.other_allowance)"/></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.other_allowance_arrear)"/></td>                        
+                        <span t-if="doc.tds != 0.0">
+                        <td colspan="2" style="text-align:left;font-size:11px;">
+                            <b>TDS</b></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.tds)"/></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.tds_arrear)"/></td></span>
+                        <span t-if="doc.tds == 0.0">
+                        <td colspan="2" style="text-align:left;font-size:11px;"></td>
+                        <td colspan="2" style="text-align:left;font-size:11px;"></td>
+                        <td colspan="2" style="text-align:left;font-size:11px;"></td>
+                        </span>
+                                
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align:left;font-size:11px;">
+                            <b>PROFESSION DEVELOPMENT</b></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.prof_development)"/></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.prof_development_arrear)"/></td>
+                        <span t-if="doc.esic != 0.0">
+                        <td colspan="2" style="text-align:left;font-size:11px;">
+                            <b>ESIC</b></td>   
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.esic)"/></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.esic_arrear)"/></td></span>
+                        <span t-if="doc.esic == 0.0">
+                        <td colspan="2" style="text-align:left;font-size:11px;"></td>
+                        <td colspan="2" style="text-align:left;font-size:11px;"></td>
+                        <td colspan="2" style="text-align:left;font-size:11px;"></td>
+                        </span>
+                                
+                    </tr>
+                    
+                    <tr>
+                       <td colspan="2" style="text-align:left;font-size:11px;">
+                            <b>TRANSPORT ALLOWANCE</b></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.conveyance)"/></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.conveyance_arrear)"/></td>
+                        <span t-if="doc.salary_advance != 0.0">
+                        <td colspan="2" style="text-align:left;font-size:11px;">
+                            <b>SALARY ADVANCE</b></td>   
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.salary_advance)"/></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                </td></span>
+                        <span t-if="doc.salary_advance == 0.0">
+                        <td colspan="2" style="text-align:left;font-size:11px;"></td>
+                        <td colspan="2" style="text-align:left;font-size:11px;"></td>
+                        <td colspan="2" style="text-align:left;font-size:11px;"></td>
+                        </span>
+                        
+                    </tr>
+                    
+                    <tr>
+                        <span t-if="doc.attire_allowance != 0.0">
+                        <td colspan="2" style="text-align:left;font-size:11px;">
+                            <b>ATTIRE ALLOWANCE</b></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.attire_allowance)"/></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.attire_allowance_arrear)"/></td> 
+                        </span> 
+                        <span t-if="doc.attire_allowance == 0.0">
+                        <td colspan="2" style="text-align:left;font-size:11px;"></td>
+                        <td colspan="2" style="text-align:left;font-size:11px;"></td>
+                        <td colspan="2" style="text-align:left;font-size:11px;"></td>
+                        </span>
+                        <span t-if="doc.nps != 0.0">
+                        <td colspan="2" style="text-align:left;font-size:11px;">
+                            <b>NPS</b></td>   
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.nps)"/></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                </td></span>
+                        <span t-if="doc.nps == 0.0">
+                        <td colspan="2" style="text-align:left;font-size:11px;"></td>
+                        <td colspan="2" style="text-align:left;font-size:11px;"></td>
+                        <td colspan="2" style="text-align:left;font-size:11px;"></td>
+                        </span> 
+                        
+                    </tr>
+                    
+                    <tr>
+                        <span t-if="doc.medical_allowance != 0.0">
+                        <td colspan="2" style="text-align:left;font-size:11px;">
+                            <b>MEDICAL ALLOWANCE</b></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.medical_allowance)"/></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.medical_allowance_arrear)"/></td>
+                        </span>
+                        <span t-if="doc.other_deductions != 0.0">
+                        <td colspan="2" style="text-align:left;font-size:11px;">
+                            <b>OTHER DEDUCTION</b></td>   
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.other_deductions)"/></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                </td></span>
+                        <span t-if="doc.other_deductions == 0.0">
+                        <td colspan="2" style="text-align:left;font-size:11px;"></td>
+                        <td colspan="2" style="text-align:left;font-size:11px;"></td>
+                        <td colspan="2" style="text-align:left;font-size:11px;"></td>
+                        </span>
+                              
+                    </tr>
+                    <tr>
+                        <span t-if="doc.educational_allowance != 0.0">
+                        <td colspan="2" style="text-align:left;font-size:11px;">
+                            <b>EDUCATION ALLOWANCE</b></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.educational_allowance)"/></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.educational_allowance_arrear)"/></td></span> 
+                        <span t-if="doc.mobile_deduction != 0.0">
+                        <td colspan="2" style="text-align:left;font-size:11px;">
+                            <b>MOBILE DEDUCTION</b></td>   
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.mobile_deduction)"/></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                </td></span>
+                        <span t-if="doc.mobile_deduction == 0.0">
+                        <td colspan="2" style="text-align:left;font-size:11px;"></td>
+                        <td colspan="2" style="text-align:left;font-size:11px;"></td>
+                        <td colspan="2" style="text-align:left;font-size:11px;"></td>
+                        </span>
+                         
+                    </tr>
+                    <tr>
+                        <span t-if="doc.transport_allowance != 0.0">
+                        <td colspan="2" style="text-align:left;font-size:11px;">
+                            <b>CONVEYANCE</b></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.transport_allowance)"/></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.transport_allowance_arrear)"/></td>
+                        </span>
+                        <span t-if="doc.transport_allowance == 0.0">
+                        <td colspan="2" style="text-align:left;font-size:11px;"></td>
+                        <td colspan="2" style="text-align:left;font-size:11px;"></td>
+                        <td colspan="2" style="text-align:left;font-size:11px;"></td>
+                        </span>
+                        <span t-if="doc.loan != 0.0">
+                        <td colspan="2" style="text-align:left;font-size:11px;">
+                            <b>LOAN</b></td>   
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.loan)"/></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                </td></span>
+                        <span t-if="doc.loan == 0.0">
+                        <td colspan="2" style="text-align:left;font-size:11px;"></td>
+                        <td colspan="2" style="text-align:left;font-size:11px;"></td>
+                        <td colspan="2" style="text-align:left;font-size:11px;"></td>
+                        </span>
+                    </tr>
+                    
+                    <tr>
+                        <span t-if="doc.mobile_allowance != 0.0">
+                        <td colspan="2" style="text-align:left;font-size:11px;">
+                            <b>MOBILE ALLOWANCE</b></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.mobile_allowance)"/></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.mobile_allowance_arrear)"/></td></span>
+                        <td colspan="6" class="make_left"></td>   
+                    </tr>
+                    
+                    <tr>
+                        <span t-if="doc.contribution_towards_nps_us_80ccd != 0.0">
+                        <td colspan="2" style="text-align:left;font-size:11px;">
+                            <b>NPS CONTRIBUTION</b></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.contribution_towards_nps_us_80ccd)"/></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;"><span t-esc="'%.2f'%(doc.contribution_towards_nps_us_80ccd_arrear)"/>
+                                </td></span>
+                        <td colspan="6" class="make_left"></td>  
+                    </tr>
+                    
+                    <tr>
+                        <span t-if="doc.other_earnings != 0.0">
+                        <td colspan="2" style="text-align:left;font-size:11px;">
+                            <b>OTHER EARNING</b></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.other_earnings)"/></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                </td></span> 
+                        <td colspan="6" class="make_left"></td>  
+                    </tr>
+                    
+                    <tr>
+                        <span t-if="doc.news_paper_journal_allowance != 0.0">
+                        <td colspan="2" style="text-align:left;font-size:11px;">
+                            <b>NEWS PAPER JOURNAL ALLOWANCE</b></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.news_paper_journal_allowance)"/></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.news_paper_journal_allowance_arrear)"/></td>
+                        </span> 
+                        <td colspan="6" class="make_left"></td> 
+                    </tr>
+                    
+                    <tr>
+                        <span t-if="doc.gadget_for_professional_use != 0.0">
+                        <td colspan="2" style="text-align:left;font-size:11px;">
+                            <b>GADGET FOR PROFESSIONAL USE</b></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.gadget_for_professional_use)"/></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.gadget_for_professional_use_arrear)"/></td></span>
+                        <td colspan="6" class="make_left"></td>   
+                    </tr>
+                    
+                    <tr>
+                        <span t-if="doc.statutory_bonus != 0.0">
+                        <td colspan="2" style="text-align:left;font-size:11px;">
+                            <b>STATUTORY BONUS</b></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.statutory_bonus)"/></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                </td></span>
+                        <td colspan="6" class="make_left"></td>   
+                    </tr>
+                    
+                    <tr>
+                        <span t-if="doc.paid_leave_encashment != 0.0">
+                        <td colspan="2" style="text-align:left;font-size:11px;">
+                            <b>PAID LEAVE ENCASHMENT</b></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.paid_leave_encashment)"/></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                </td></span>
+                        <td colspan="6" class="make_left"></td>   
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align:left;font-size:11px;">
+                            <b>TOTAL EARNINGS</b></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.total_earnings)"/></td>
+                        <td colspan="2" style="text-align:left;font-size:11px;"></td>
+                        <td colspan="2" style="text-align:left;font-size:11px;">
+                            <b>TOTAL DEDUCTIONS</b></td>
+                        <td colspan="2" style="text-align:right;font-size:11px;">
+                                <span t-esc="'%.2f'%(doc.total_deductions)"/></td>
+                        <td colspan="2" style="text-align:left;font-size:11px;"></td>   
+                    </tr>
+                    <tr>
+                        <td colspan="12" class="make_right"><b>NET PAY:  <span t-esc="'%.2f'%(doc.net_pay)"/></b></td>
+                    </tr>
+                </thead>
+                </table>
+                </div>
+            </div> 
+            <br/>
+            <div>
+                <div>
+                    <p class="subheader">
+                    This is computer generated pay slip, signature not required.
+                    </p>
+                </div>              
+            </div>
+
+
+    </t>
+</template>
+
+    <template id="report_pay_slip">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="orient_tds.report_pay_slip_document" />
+            </t>
+        </t>
+    </template>
+
+</odoo>

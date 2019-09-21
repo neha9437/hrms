@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<template id="report_appraisal_document">
+    <t t-call="orient_hr_resignation.external_layout_standard_list">
+        <t t-set="doc" t-value="doc.with_context({'lang':doc.user_id.partner_id.lang})"/>
+        <br/>
+
+        <div class="page">
+            <head>
+                <style>
+                    p.padding {
+                        padding-left: 2cm;
+                        padding-right: 2cm;
+                        font-size: 18px;
+                    }
+                    h1 {
+                        border-bottom: solid;
+                    }
+                    .underline {
+                            border-bottom: 2px solid currentColor;
+                            font-size: 25px;
+                    }
+                    table {
+                            font-family: arial, sans-serif;
+                            border-collapse: collapse;
+                            width: 100%;
+                        }
+
+                        td, th {
+                            border: 1px solid #dddddd;
+                            text-align: left;
+                            padding: 8px;
+                        }
+                        .make_center{
+                            text-align: center;
+                    }
+                    .subheader {
+                    	font-size : 16px;
+                    }
+                    .normalsize {
+                    	font-size : 14px;
+                    }
+
+
+                </style>
+            </head>
+
+			<div class="oe_structure"/>
+
+
+
+			<div class="row">
+				<div>
+                	<m><p style="padding-left:1cm; font-size:18px">Date: <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d %B %Y')"/></p></m>
+	                <p class="make_center">
+	                    <span class="underline"><b>APPRAISAL LETTER</b></span><br/><br/>
+	                </p>
+
+	                <h4 style="padding-left: 1cm;padding-right: 1cm;"><b><var t-field="doc.title"/> <var t-field="doc.name"/></b></h4>
+	                <h4 style="padding-left: 1cm;padding-right: 1cm;"><b>Emp Code: <var t-field="doc.emp_code"/></b></h4>
+	                <h4 style="padding-left: 1cm;padding-right: 1cm;"><b>Location: <var t-field="doc.site_master_id.name"/></b></h4>
+	                <br/>
+	                <h4 style="padding-left: 1cm;padding-right: 1cm;"><b>Dear <var t-field="doc.first_name"/>,</b></h4>
+            	</div>
+            	<div>
+            		<h5 class="subheader" style="padding-left: 1cm;padding-right: 1cm;padding-bottom: 0.2cm;">
+            			We are pleased to inform you that your untiring effort, zeal and commitment shown throughout your job have had a great
+						impact to the overall performance of the organization and we are confident that you will continue to give your best
+						performance and play a stellar role in the years to come to take the company to a greater height.
+        			</h5>
+
+            		<h5 class="subheader" style="padding-left: 1cm;padding-right: 1cm;padding-bottom: 0.2cm;">
+						With effect from <p style="padding-left:1cm; font-size:18px">Date: <span t-esc="context_timestamp(doc.salary_with_effect_from).strftime('%d %B %Y')"/></p> you are in <b><var t-field="doc.grade_id.name"/></b> of our organization structure. Your designation would be <b><var t-field="doc.job_id.name"/></b> and you will be entitled to the benefits as applicable to your Grade.
+        			</h5>
+
+            		<h5 class="subheader" style="padding-left: 1cm;padding-right: 1cm;padding-right: 0.1cm;">
+						Please go through the detailed annexure for your revised compensation breakup details.
+        			</h5>       
+
+        			<br/>
+            		<h5 class="subheader" style="padding-left: 1cm;padding-right: 1cm;font-size: 18px;">
+						<u><b>Terms and Conditions:</b></u>
+        			</h5> 
+        			<br/>
+        			<u><h6 style="padding-left: 1cm;padding-right: 1cm;;font-size: 17px;">Appraisal Amount</h6></u>
+        			<h6 style="padding-left: 1cm;padding-right: 1cm;;font-size: 16px;">
+        				The revised compensation package has been customized for you taking into consideration your performance, company policies and related factors.
+    				</h6>
+
+        			<br/>
+        			<u><h6 style="padding-left: 1cm;padding-right: 1cm;;font-size: 17px;">Confidentiality</h6></u>
+        			<h6 style="padding-left: 1cm;padding-right: 1cm;;font-size: 16px;">
+        				Matter of your compensation	is confidential information of the company. Any discussion or disclosuer of your compensation with anybody other than your departmental head or HR will be considered as breach of agreement by you.
+    				</h6>
+
+    				<br/>
+        			<h6 style="padding-left: 1cm;padding-right: 1cm;;font-size: 16px;padding-bottom: 0.2cm;">
+						Your compensation package is unique to you and not for comparison with other employees of the company.
+    				</h6>
+
+    				<!-- <br/> -->
+        			<h6 style="padding-left: 1cm;padding-right: 1cm;;font-size: 16px;padding-bottom: 0.2cm;">
+        				All other terms and conditions as stipulated in your appointment letter will remain unchanged.
+    				</h6>
+
+        			<h6 style="padding-left: 1cm;padding-right: 1cm;;font-size: 16px;">
+        				We wish you all the very best and look forward to a long and fruitful association with Orient Technologies.
+    				</h6>
+    				<br/>
+        		</div>
+        		<div class="row">
+        			<div class="col-md-6" style="width:50%;float:left;">
+	            		<h5 class="subheader" style="padding-left: 1cm;padding-right: 1cm;font-size: 17px;">
+							<b>With Best Wishes</b>
+	        			</h5>
+
+	            		<h5 class="subheader" style="padding-left: 1cm;padding-right: 1cm;padding-bottom:0.1cm;font-size: 17px;">
+							<b>For <var t-field="doc.company_id.name"/></b>
+	        			</h5> 
+	        			<h5 class="subheader" style="padding-left: 1cm;padding-right: 1cm;padding-bottom:0.3cm;font-size: 17px;"><b>Authorised Signatory</b></h5>
+        			</div> 	
+        			<div class="col-md-6" style="width:50%;float:right;text-align:right">
+	            		<h5 class="subheader" style="padding-left: 1cm;padding-right: 1cm;padding-top: 1cm;font-size: 17px;">
+							<b>Accepted By</b>
+	        			</h5>   
+	            		<h5 class="subheader" style="padding-left: 1cm;padding-right: 1cm;font-size: 17px;">
+							<b><var t-field="doc.name"/></b>
+	        			</h5>       				
+    				</div>		
+    			</div>
+
+    			<!-- TABLE -->
+
+    			<div>
+                <br/>
+                <br/>
+                <br/>
+                <b>Annexure: Compensation Break-up is as under:</b>
+                <table>
+                    <tr>
+                        <th> </th>
+                        <th class="make_center">SALARY - HEAD</th>
+                        <th>MONTHLY (Rs.)</th>
+                        <th>YEARLY (Rs.)</th>
+                    </tr>
+                    <tr>
+                        <td><b>A</b></td>
+                        <td><b>FIXED COMPONENT:</b></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><b>1</b></td>
+                        <td>BASIC+DA</td>   
+                        <td></td> 
+                        <td></td>                      
+                    </tr>
+                    <tr>
+                        <td><b>2</b></td>
+                        <td>HRA</td>   
+                        <td></td> 
+                        <td></td>                      
+                    </tr>
+                    <tr>
+                        <td><b>3</b></td>
+                        <td>TRANSPORTATION ALLOWANCE FROM HOME TO OFFICE</td>   
+                        <td></td> 
+                        <td></td>                      
+                    </tr>
+                    <tr>
+                        <td><b>4</b></td>
+                        <td>PROF. DEVELOPMENT REIMBURSEMENT (TRAINING and CERTIFCATION, UNIFORM ALLOWANCE)</td>   
+                        <td></td> 
+                        <td></td>                      
+                    </tr>
+                    <tr>
+                        <td><b>5</b></td>
+                        <td>ADVANCE BONUS PAYOUT</td>   
+                        <td></td> 
+                        <td></td>                      
+                    </tr>
+                    <tr>
+                        <td><b>6</b></td>
+                        <td>OTHER ALLOWANCES</td>   
+                        <td></td> 
+                        <td></td>                      
+                    </tr>
+                    <tr>
+                        <td><b>7</b></td>
+                        <td>MEDICAL ALLOWANCES</td>   
+                        <td></td> 
+                        <td></td>                      
+                    </tr>
+                    <tr>
+                        <td><b>8</b></td>
+                        <td>EDUCATION ALLOWANCES FOR CHILDREN</td>   
+                        <td></td> 
+                        <td></td>                      
+                    </tr>  
+                    <tr>
+                        <td><b>9</b></td>
+                        <td>CONTRIBUTION TOWARDS NPS U/S 80CCD(2)</td>   
+                        <td></td> 
+                        <td></td>                      
+                    </tr>  
+                    <tr>
+                        <td><b>10</b></td>
+                        <td>NEWS PAPER / JOURNAL ALLOWANCE</td>   
+                        <td></td> 
+                        <td></td>                      
+                    </tr>                                                                               
+                    <tr>
+                        <td><b>11</b></td>
+                        <td>GADGET FOR PROFESSIONAL USE</td>   
+                        <td></td> 
+                        <td></td>                      
+                    </tr> 
+                    <tr>
+                        <td></td>
+                        <td><b>GROSS SALARY</b></td>   
+                        <td></td> 
+                        <td></td>                      
+                    </tr> 
+                    <tr>
+                        <td><b>B</b></td>
+                        <td><b>REIMBURSED COMPONENT:</b></td>   
+                        <td></td> 
+                        <td></td>                      
+                    </tr> 
+                    <tr>
+                        <td><b>1</b></td>
+                        <td>CONVEYANCE ALLOWANCE</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><b>2</b></td>
+                        <td>MOBILE ALLOWANCE</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><b>3</b></td>
+                        <td>LTA</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><b>C</b></td>
+                        <td><b>OTHER BENEFITS:</b></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><b>1</b></td>
+                        <td>MEDICAL INSURANCE</td>   
+                        <td></td> 
+                        <td></td>                      
+                    </tr> 
+                    <tr>
+                        <td><b>2</b></td>
+                        <td>GRATUITY</td>   
+                        <td></td> 
+                        <td></td>                      
+                    </tr> 
+                    <tr>
+                        <td><b>3</b></td>
+                        <td>PROVIDENT FUND (EMPLOYER'S CONTRIBUTIONS)</td>   
+                        <td></td> 
+                        <td></td>                      
+                    </tr> 
+                    <tr>
+                        <td><b>4</b></td>
+                        <td>ESI (EMPLOYER'S CONTRIBUTIONS)</td>   
+                        <td></td> 
+                        <td></td>                      
+                    </tr> 
+                    <tr>
+                        <td><b>5</b></td>
+                        <td>SODEXO</td>   
+                        <td></td> 
+                        <td></td>                      
+                    </tr> 
+                    <tr>
+                        <td></td>
+                        <td><b>CTC ( COST TO THE COMPANY )</b></td>   
+                        <td></td> 
+                        <td></td>                      
+                    </tr> 
+                </table>
+    			</div>
+    			<br/>
+    			<p>
+    				*Mobile at actuals subject to a maximum of Rs. 400/- per month.
+				</p>
+			</div> 
+
+           	<!-- Third page -->
+           	<br/><br/>
+            <br/>
+           	<div>
+        		<h4 class="subheader" style="padding-left: 1cm;padding-right: 1cm;">
+        			<b>NOTICE FOR SEPARATION AND TERMINATION</b>
+    			</h4>
+
+    			<div class="normalsize">
+    				<ul>
+    					<li style="font-size:16px;">You are required to serve <var t-field="doc.notice_period"/> days’ notice period or salary in lieu thereof; as considered appropriate by the management. If you fail to serve the required notice period or salary in lieu, you will not be applicable for experience certificate and full and final settlement dues if any. Also, in case of any short notice served by you; the same will be deducted from your full and final settlement. In case of termination of your employment by the company, you will be entitled to serve one-month notice period or payment in lieu thereof.</li>
+    					<br/>
+    					<li style="font-size:16px;">However, if you are found to be guilty of misconduct which includes, but not limited to, any act of dishonesty, conflict of interest, on account of non-performance, unauthorized absence, breach of confidentiality, assault, insubordination etc., an employment contract may be terminated by the employer at any time for cause, without notice or salary in lieu of notice or severance pay whatsoever.</li>
+    					<br/>
+    					<li style="font-size:16px;">On separation of employment for whatever reasons, you will be required to hand over charge of your responsibilities to a person nominated by the management and for the company’s satisfaction. You will also be responsible for the recovery of any business outstanding arising out of any business transactions performed by you on behalf of the company. Till such a time as the above conditions are fulfilled your full and final settlement will not be processed and you will not be formally relieved from the services of the company. Kindly note that as per our company policy when you are separating from the rolls of the company your full and final settlement will be processed after 45 days from your Last working date. Your Full and Final Settlement will be adjusted as per the leaves availed by you and adjusted accordingly.</li>
+    					<br/>
+    					<li style="font-size:16px;">In case an employee leaves an organization without prior intimation and wilfully remains absent for a period more than 7 days shall lose occupancy over the job, the employee will be termed as absconding; the employer holds the right to withheld the Full and final settlement and the experience letter.</li>
+    					<br/>
+    					<li style="font-size:16px;">It will be responsibility of the Supervisor to create checklist and get it signed off from exiting employee if resigned if absconded supervisor needs to get it approved by Vertical Director/s, Human Resources Department, and employee to whom the handover has been decided upon. This activity needs to be completed within 7 days of employee resigning or absconding. The sign off the above shall be done in presence of HR representative, exiting employee, vertical Director.</li>
+    					<br/>
+    					<li style="font-size:16px;">No accumulated leaves will be adjusted against notice period a special approval of MD needs to be taken upon case to case basis, this shall happen in knowledge of HR representatives.</li>
+    					<br/>
+    					<li style="font-size:16px;">Leave/s which has been prior approved and coincides with notice period shall deemed to be cancelled.</li>
+    					<br/>
+    					<li style="font-size:16px;">Leaves taken during Notice period will be deducted in full and final settlement. Last working day of the employee will not be extended.</li>
+					</ul>
+				</div>
+
+        		<div class="row">
+        			<div class="col-md-6" style="width:50%;float:left;">
+	            		<h5 class="subheader" style="padding-left: 1cm;padding-right: 1cm;padding-bottom:0.1cm;font-size: 17px;">
+							<b>For <var t-field="doc.company_id.name"/></b>
+	        			</h5> 
+	        			<h5 class="subheader" style="padding-left: 1cm;padding-right: 1cm;padding-bottom:0.3cm;font-size: 17px;"><b>Authorised Signatory</b></h5>
+        			</div> 	
+        			<div class="col-md-6" style="width:50%;float:right;text-align:right">
+	            		<h5 class="subheader" style="padding-left: 1cm;padding-right: 1cm;padding-top: 1cm;font-size: 17px;">
+							<b>Accepted By</b>
+	        			</h5>   
+	            		<h5 class="subheader" style="padding-left: 1cm;padding-right: 1cm;font-size: 17px;">
+							<b><var t-field="doc.name"/></b>
+	        			</h5>       				
+    				</div>		
+    			</div>
+    			<p class="subheader" style="font-style: italic;">
+    				This is computer generated document, signature not required.
+				</p>
+       		</div>
+
+        </div>
+
+    </t>
+</template>
+
+	<template id="report_appraisal_form">
+	    <t t-call="web.html_container">
+	        <t t-foreach="docs" t-as="doc">
+	            <t t-call="orient_pms.report_appraisal_document" />
+	        </t>
+	    </t>
+	</template>
+
+
+</odoo>

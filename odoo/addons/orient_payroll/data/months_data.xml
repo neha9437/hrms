@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="month_month_jan_id" model="month.month">
+            <field name="name">January</field>
+        </record>
+
+        <record id="month_month_feb_id" model="month.month">
+            <field name="name">February</field>
+        </record>
+
+        <record id="month_month_mar_id" model="month.month">
+            <field name="name">March</field>
+        </record>
+
+        <record id="month_month_apr_id" model="month.month">
+            <field name="name">Arpil</field>
+        </record>
+
+        <record id="month_month_may_id" model="month.month">
+            <field name="name">May</field>
+        </record>
+
+        <record id="month_month_june_id" model="month.month">
+            <field name="name">June</field>
+        </record>
+
+        <record id="month_month_july_id" model="month.month">
+            <field name="name">July</field>
+        </record>
+
+        <record id="month_month_aug_id" model="month.month">
+            <field name="name">August</field>
+        </record>
+
+        <record id="month_month_sept_id" model="month.month">
+            <field name="name">September</field>
+        </record>
+
+        <record id="month_month_oct_id" model="month.month">
+            <field name="name">October</field>
+        </record>
+
+        <record id="month_month_nov_id" model="month.month">
+            <field name="name">November</field>
+        </record>
+
+        <record id="month_month_dec_id" model="month.month">
+            <field name="name">December</field>
+        </record>
+
+	</data>
+</odoo>

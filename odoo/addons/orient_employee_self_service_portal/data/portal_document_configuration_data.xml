@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Documents -->
+
+        <record id="portal_documents1" model="service.documents">
+            <field name="sub_document_id" ref="orient_employee_self_service_portal.portal_sub1_documents1"/>
+        </record>
+
+        <record id="portal_documents2" model="service.documents">
+            <field name="sub_document_id" ref="orient_employee_self_service_portal.portal_sub2_documents2"/>
+        </record>
+
+        <record id="portal_documents3" model="service.documents">
+            <field name="sub_document_id" ref="orient_employee_self_service_portal.portal_sub3_documents3"/>
+        </record>
+
+        <record id="portal_documents4" model="service.documents">
+            <field name="sub_document_id" ref="orient_employee_self_service_portal.portal_sub4_documents4"/>
+        </record>
+
+        <record id="portal_documents5" model="service.documents">
+            <field name="sub_document_id" ref="orient_employee_self_service_portal.portal_sub5_documents5"/>
+        </record>
+
+        <record id="portal_documents6" model="service.documents">
+            <field name="sub_document_id" ref="orient_employee_self_service_portal.portal_sub6_documents6"/>
+        </record>
+
+        <record id="portal_documents7" model="service.documents">
+            <field name="sub_document_id" ref="orient_employee_self_service_portal.portal_sub7_documents7"/>
+        </record>
+
+        <record id="portal_documents8" model="service.documents">
+            <field name="sub_document_id" ref="orient_employee_self_service_portal.portal_sub8_documents8"/>
+        </record>
+
+        <record id="portal_documents9" model="service.documents">
+            <field name="sub_document_id" ref="orient_employee_self_service_portal.portal_sub9_documents9"/>
+        </record>
+
+        <record id="portal_documents10" model="service.documents">
+            <field name="sub_document_id" ref="orient_employee_self_service_portal.portal_sub10_documents10"/>
+        </record>
+
+        <record id="portal_documents11" model="service.documents">
+            <field name="sub_document_id" ref="orient_employee_self_service_portal.portal_sub11_documents11"/>
+        </record>
+
+        <record id="portal_documents12" model="service.documents">
+            <field name="sub_document_id" ref="orient_employee_self_service_portal.portal_sub12_documents12"/>
+        </record>
+
+    </data>
+</odoo>

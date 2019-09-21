@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<template id="report_appraisal_document_new1">
+    <t t-call="orient_hr_resignation.external_layout_standard_list">
+        <t t-set="doc" t-value="doc.with_context({'lang':doc.employee.user_id.partner_id.lang})"/>
+
+        <div class="page">
+            <head>
+                <style>
+                    p.padding {
+                        padding-left: 3cm;
+                        padding-right: 3cm;
+                        font-size: 16px;
+                    }
+                    h1 {
+                        border-bottom: solid;
+                    }
+                    .underline {
+                            border-bottom: 2px solid currentColor;
+                            font-size: 20px;
+                    }
+                    table {
+                            font-family: times new roman;
+                            border-collapse: collapse;
+                            width: 100%;
+                        }
+
+                        td, th {
+                            border: 1px solid #dddddd;
+                            text-align: left;
+                            padding: 6px;
+                        }
+                        .make_center{
+                            text-align: center;
+                    }
+                    .subheader {
+                        font-size : 14px;
+                    }
+                    .normalsize {
+                        font-size : 11px;
+                    }
+
+
+                </style>
+            </head>
+
+            <div class="oe_structure"/>
+
+
+
+            <div class="row">
+                <div>
+                    <m><p style="padding-left:1cm; font-size:18px"><b>Date: <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d %B %Y')"/></b></p></m>
+                    <p class="make_center">
+                        <span class="underline"><b>APPRAISAL LETTER</b></span><br/><br/>
+                    </p>
+
+                    <h4 style="padding-left: 1cm;padding-right: 1cm;"><b><var t-field="doc.employee.title"/>. <span t-esc="doc.employee.name"/></b></h4>
+                    <h4 style="padding-left: 1cm;padding-right: 1cm;"><b>Emp Code: <span t-esc="doc.employee.emp_code"/></b></h4>
+                    <h4 style="padding-left: 1cm;padding-right: 1cm;"><b>Location: <span t-esc="doc.employee.site_master_id.name"/></b></h4>
+                    <br/>
+                    <h4 style="padding-left: 1cm;padding-right: 1cm;"><b>Dear <span t-esc="doc.employee.first_name"/>,</b></h4>
+                </div>
+                <div>
+                    <h6 class="subheader" style="padding-left: 1cm;padding-right: 1cm;;font-size: 14px;">
+                        We are pleased to inform you that your untiring effort, zeal and commitment shown throughout your job have had a great
+                        impact to the overall performance of the organization and we are confident that you will continue to give your best
+                        performance and play a stellar role in the years to come to take the company to a greater height.
+                    </h6>
+
+                    <h6 class="subheader" style="padding-left: 1cm;padding-right: 1cm;;font-size: 14px;">
+                        With effect from <b><span t-esc="datetime.datetime.strptime(doc.salary_with_effect_from, '%Y-%m-%d').strftime('%d %B %Y')"/></b> you are in <b><span t-esc="doc.proposed_grade"/></b> of our organization structure. Your designation would be <b><span t-esc="doc.proposed_designation_name"/></b> and you will be entitled to the benefits as applicable to your Grade.
+                    </h6>
+
+                    <h6 class="subheader" style="padding-left: 1cm;padding-right: 1cm;;font-size: 14px;">
+                        Please go through the detailed annexure for your revised compensation breakup details.
+                    </h6>       
+
+                    <h6 class="subheader" style="padding-left: 1cm;padding-right: 1cm;font-size: 14px;">
+                        <u><b>Terms and Conditions:</b></u>
+                    </h6> 
+                    <u><h6 style="padding-left: 1cm;padding-right: 1cm;;font-size: 17px;">Appraisal Amount:</h6></u>
+                    <h6 style="padding-left: 1cm;padding-right: 1cm;;font-size: 14px;">
+                        The revised compensation package has been customized for you taking into consideration your performance, company policies and related factors.
+                    </h6>
+                    <u><h6 style="padding-left: 1cm;padding-right: 1cm;;font-size: 17px;">Confidentiality:</h6></u>
+                    <h6 style="padding-left: 1cm;padding-right: 1cm;;font-size: 14px;">
+                        Matter of your compensation is confidential information of the company. Any discussion or disclosuer of your compensation with anybody other than your departmental head or HR will be considered as breach of agreement by you.
+                    </h6>
+                    <h6 style="padding-left: 1cm;padding-right: 1cm;;font-size: 14px;padding-bottom: 0.2cm;">
+                        Your compensation package is unique to you and not for comparison with other employees of the company.
+                    </h6>
+
+                    <!-- <br/> -->
+                    <h6 style="padding-left: 1cm;padding-right: 1cm;;font-size: 14px;padding-bottom: 0.2cm;">
+                        All other terms and conditions as stipulated in your appointment letter will remain unchanged.
+                    </h6>
+
+                    <h6 style="padding-left: 1cm;padding-right: 1cm;;font-size: 14px;padding-bottom: 0.2cm;">
+                        We wish you all the very best and look forward to a long and fruitful association with Orient Technologies.
+                    </h6>
+                </div>
+                <div class="row">
+                    <div class="col-md-6" style="width:50%;float:left;">
+                        <h5 class="subheader" style="padding-left: 1cm;padding-right: 1cm;font-size: 17px;">
+                            <b>With Best Wishes</b>
+                        </h5>
+
+                        <h5 class="subheader" style="padding-left: 1cm;padding-right: 1cm;padding-bottom:0.1cm;font-size: 16px;">
+                            <b>For <span t-esc="doc.employee.company_id.name"/></b>
+                        </h5> 
+                        <h5 class="subheader" style="padding-left: 1cm;padding-right: 1cm;padding-bottom:0.3cm;font-size: 16px;"><b>Authorised Signatory</b></h5>
+                    </div>  
+                    <div class="col-md-6" style="width:50%;float:right;text-align:right">
+                        <h5 class="subheader" style="padding-left: 1cm;padding-right: 1cm;padding-top: 1cm;font-size: 16px;">
+                            <b>Accepted By</b>
+                        </h5>   
+                        <h5 class="subheader" style="padding-left: 1cm;padding-right: 1cm;font-size: 16px;">
+                            <b><span t-esc="doc.employee.name"/></b>
+                        </h5>                       
+                    </div>      
+                </div>
+                <p style="page-break-before:always;"> </p>
+                <!-- TABLE -->
+                <div>
+                <h5><b>Annexure: Compensation Break-up is as under:</b></h5>
+                <table>
+                    <t t-set="i" t-value="0" /> 
+                    <tr>
+                        <th> </th>
+                        <th class="make_center">SALARY - HEAD</th>
+                        <th>MONTHLY (Rs.)</th>
+                        <th>YEARLY (Rs.)</th>
+                    </tr>
+                    <tr>
+                        <td><b>A</b></td>
+                        <td><b>FIXED COMPONENT:</b></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <span t-if="doc.basic_da != 0.0"><tr>
+                        <t t-foreach="range(1)" t-as="p">
+                          <t t-set="i" t-value="i+1"/> 
+                        </t>
+                        <td class="col-xs-1">
+                            <span t-esc="i"/> 
+                        </td>
+                        <td style="text-align:left;font-size:12.5px;">BASIC+DA</td>   
+                        <td style="text-align:right;font-size:12.5px;"><span t-esc="'%.2f'%(doc.basic_da)"/></td> 
+                        <td style="text-align:right;font-size:12.5px;"><span t-esc="'%.2f'%(doc.basic_da * 12)"/></td>               
+                    </tr></span>
+
+                    <span t-if="doc.hra != 0.0"><tr>
+                        <t t-foreach="range(1)" t-as="p">
+                            <t t-set="i" t-value="i+1"/> 
+                        </t>
+                        <td class="col-xs-1">
+                            <span t-esc="i"/> 
+                        </td>
+                        <td style="text-align:left;font-size:12.5px;">HRA</td>   
+                        <td style="text-align:right;font-size:12.5px;"><span t-esc="'%.2f'%(doc.hra)"/></td> 
+                        <td style="text-align:right;font-size:12.5px;"><span t-esc="'%.2f'%(doc.hra * 12)"/></td>                      
+                    </tr></span>
+
+                    <span t-if="doc.transport_allowance_residence_office != 0.0"><tr>
+                        <t t-foreach="range(1)" t-as="p">
+                            <t t-set="i" t-value="i+1"/> 
+                        </t>
+                        <td class="col-xs-1">
+                            <span t-esc="i"/> 
+                        </td>
+                        <td style="text-align:left;font-size:12.5px;">TRANSPORTATION ALLOWANCE FROM HOME TO OFFICE</td>   
+                        <td style="text-align:right;font-size:12.5px;"><span t-esc="'%.2f'%(doc.transport_allowance_residence_office)"/></td> 
+                        <td style="text-align:right;font-size:12.5px;"><span t-esc="'%.2f'%(doc.transport_allowance_residence_office * 12)"/></td>
+                    </tr></span>
+
+                    <span t-if="doc.prof_development != 0.0"><tr>
+                        <t t-foreach="range(1)" t-as="p">
+                            <t t-set="i" t-value="i+1"/> 
+                        </t>
+                        <td class="col-xs-1">
+                            <span t-esc="i"/> 
+                        </td>
+                        <td style="text-align:left;font-size:12.5px;">PROF. DEVELOPMENT REIMBURSEMENT (TRAINING and CERTIFCATION, UNIFORM ALLOWANCE)</td>   
+                        <td style="text-align:right;font-size:12.5px;"><span t-esc="'%.2f'%(doc.prof_development)"/></td> 
+                        <td style="text-align:right;font-size:12.5px;"><span t-esc="'%.2f'%(doc.prof_development * 12)"/></td>                      
+                    </tr></span>
+
+                    <span t-if="doc.advance_bonus_payout != 0.0"><tr>
+                        <t t-foreach="range(1)" t-as="p">
+                            <t t-set="i" t-value="i+1"/> 
+                        </t>
+                        <td class="col-xs-1">
+                            <span t-esc="i"/> 
+                        </td>
+                        <td style="text-align:left;font-size:12.5px;">ADVANCE BONUS PAYOUT</td>
+                        <td style="text-align:right;font-size:12.5px;"><span t-esc="'%.2f'%(doc.advance_bonus_payout)"/></td> 
+                        <td style="text-align:right;font-size:12.5px;"><span t-esc="'%.2f'%(doc.advance_bonus_payout * 12)"/></td>                     
+                    </tr></span>
+
+                    <span t-if="doc.other_allowance != 0.0"><tr>
+                        <t t-foreach="range(1)" t-as="p">
+                            <t t-set="i" t-value="i+1"/> 
+                        </t>
+                        <td class="col-xs-1">
+                            <span t-esc="i"/> 
+                        </td>
+                        <td style="text-align:left;font-size:12.5px;">OTHER ALLOWANCES</td>   
+                        <td style="text-align:right;font-size:12.5px;"><span t-esc="'%.2f'%(doc.other_allowance)"/></td> 
+                        <td style="text-align:right;font-size:12.5px;"><span t-esc="'%.2f'%(doc.other_allowance * 12)"/></td>                      
+                    </tr></span>
+
+                    <span t-if="doc.medical_reimbursement != 0.0"><tr>
+                        <t t-foreach="range(1)" t-as="p">
+                            <t t-set="i" t-value="i+1"/> 
+                        </t>
+                        <td class="col-xs-1">
+                            <span t-esc="i"/> 
+                        </td>
+                        <td style="text-align:left;font-size:12.5px;">MEDICAL ALLOWANCES</td>   
+                        <td style="text-align:right;font-size:12.5px;"><span t-esc="'%.2f'%(doc.medical_reimbursement)"/></td> 
+                        <td style="text-align:right;font-size:12.5px;"><span t-esc="'%.2f'%(doc.medical_reimbursement * 12)"/></td>
+                    </tr></span>
+
+                    <span t-if="doc.educational_allowance != 0.0"><tr>
+                        <t t-foreach="range(1)" t-as="p">
+                            <t t-set="i" t-value="i+1"/> 
+                        </t>
+                        <td class="col-xs-1">
+                            <span t-esc="i"/> 
+                        </td>
+                        <td style="text-align:left;font-size:12.5px;">EDUCATION ALLOWANCES FOR CHILDREN</td>   
+                        <td style="text-align:right;font-size:12.5px;"><span t-esc="'%.2f'%(doc.educational_allowance)"/></td> 
+                        <td style="text-align:right;font-size:12.5px;"><span t-esc="'%.2f'%(doc.educational_allowance * 12)"/></td>
+                    </tr></span>
+
+                    <span t-if="doc.contribution_towards_nps_us_80ccd != 0.0"><tr>
+                        <t t-foreach="range(1)" t-as="p">
+                            <t t-set="i" t-value="i+1"/> 
+                        </t>
+                        <td class="col-xs-1">
+                            <span t-esc="i"/> 
+                        </td>
+                        <td style="text-align:left;font-size:12.5px;">CONTRIBUTION TOWARDS NPS U/S 80CCD(2)</td>   
+                        <td style="text-align:right;font-size:12.5px;"><span t-esc="'%.2f'%(doc.contribution_towards_nps_us_80ccd)"/></td> 
+                        <td style="text-align:right;font-size:12.5px;"><span t-esc="'%.2f'%(doc.contribution_towards_nps_us_80ccd * 12)"/></td>
+                    </tr></span>
+
+                    <span t-if="doc.news_paper_journal_allowance != 0.0"><tr>
+                        <t t-foreach="range(1)" t-as="p">
+                            <t t-set="i" t-value="i+1"/> 
+                        </t>
+                        <td class="col-xs-1">
+                            <span t-esc="i"/> 
+                        </td>
+                        <td style="text-align:left;font-size:12.5px;">NEWS PAPER / JOURNAL ALLOWANCE</td>   
+                        <td style="text-align:right;font-size:12.5px;"><span t-esc="'%.2f'%(doc.news_paper_journal_allowance)"/></td> 
+                        <td style="text-align:right;font-size:12.5px;"><span t-esc="'%.2f'%(doc.news_paper_journal_allowance * 12)"/></td>
+                    </tr></span>                                                                               
+                    <span t-if="doc.gadget_for_professional_use != 0.0"><tr>
+                        <t t-foreach="range(1)" t-as="p">
+                            <t t-set="i" t-value="i+1"/> 
+                        </t>
+                        <td class="col-xs-1">
+                            <span t-esc="i"/> 
+                        </td>
+                        <td style="text-align:left;font-size:12.5px;">GADGET FOR PROFESSIONAL USE</td>   
+                        <td style="text-align:right;font-size:12.5px;"><span t-esc="'%.2f'%(doc.gadget_for_professional_use)"/></td> 
+                        <td style="text-align:right;font-size:12.5px;"><span t-esc="'%.2f'%(doc.gadget_for_professional_use * 12)"/></td>
+                    </tr></span>
+
+                    <tr>
+                        <td></td>
+                        <td style="text-align:left;font-size:12.5px;"><b>GROSS SALARY</b></td>   
+                        <td style="text-align:right;font-size:12.5px;"><span t-esc="'%.2f'%(doc.gross_salary)"/></td> 
+                        <td style="text-align:right;font-size:12.5px;"><span t-esc="'%.2f'%(doc.gross_salary * 12)"/></td>                      
+                    </tr> 
+                    <tr>
+                        <td><b>B</b></td>
+                        <td><b>REIMBURSED COMPONENT:</b></td>   
+                        <td></td> 
+                        <td></td>                      
+                    </tr> 
+
+                    <span t-if="doc.conveyance != 0.0"><tr>
+                        <t t-foreach="range(1)" t-as="p">
+                            <t t-set="i" t-value="i+1"/> 
+                        </t>
+                        <td class="col-xs-1">
+                            <span t-esc="i"/> 
+                        </td>
+                        <td style="text-align:left;font-size:12.5px;">CONVEYANCE ALLOWANCE</td>
+                        <td style="text-align:right;font-size:12.5px;"><span t-esc="'%.2f'%(doc.conveyance)"/></td>
+                        <td style="text-align:right;font-size:12.5px;"><span t-esc="'%.2f'%(doc.conveyance * 12)"/></td>
+                    </tr></span>
+
+                     <span t-if="doc.mobile != 0.0"><tr>
+                        <t t-foreach="range(1)" t-as="p">
+                            <t t-set="i" t-value="i+1"/> 
+                        </t>
+                        <td class="col-xs-1">
+                            <span t-esc="i"/> 
+                        </td>
+                        <td style="text-align:left;font-size:12.5px;">MOBILE ALLOWANCE</td>
+                        <td style="text-align:right;font-size:12.5px;"><span t-esc="'%.2f'%(doc.mobile)"/></td>
+                        <td style="text-align:right;font-size:12.5px;"><span t-esc="'%.2f'%(doc.mobile * 12)"/></td>
+                    </tr></span>
+
+                    <!--<tr>
+                        <td><b>3</b></td>
+                        <td>LTA</td>
+                        <td></td>
+                        <td></td>
+                    </tr> -->
+                    <tr>
+                        <td><b>C</b></td>
+                        <td><b>OTHER BENEFITS:</b></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <span t-if="doc.mediclaim != 0.0"><tr>
+                        <t t-foreach="range(1)" t-as="p">
+                            <t t-set="i" t-value="i+1"/> 
+                        </t>
+                        <td class="col-xs-1">
+                            <span t-esc="i"/> 
+                        </td>
+                        <td style="text-align:left;font-size:12.5px;">MEDICAL INSURANCE</td>   
+                        <td style="text-align:right;font-size:12.5px;"><span t-esc="'%.2f'%(doc.mediclaim)"/></td> 
+                        <td style="text-align:right;font-size:12.5px;"><span t-esc="'%.2f'%(doc.mediclaim * 12)"/></td>                      
+                    </tr></span>
+
+                    <span t-if="doc.gratuity != 0.0"><tr>
+                        <t t-foreach="range(1)" t-as="p">
+                            <t t-set="i" t-value="i+1"/> 
+                        </t>
+                        <td class="col-xs-1">
+                            <span t-esc="i"/> 
+                        </td>
+                        <td style="text-align:left;font-size:12.5px;">GRATUITY</td>   
+                        <td style="text-align:right;font-size:12.5px;"><span t-esc="'%.2f'%(doc.gratuity)"/></td> 
+                        <td style="text-align:right;font-size:12.5px;"><span t-esc="'%.2f'%(doc.gratuity * 12)"/></td>                      
+                    </tr></span>
+
+                    <span t-if="doc.pf != 0.0"><tr>
+                        <t t-foreach="range(1)" t-as="p">
+                            <t t-set="i" t-value="i+1"/> 
+                        </t>
+                        <td class="col-xs-1">
+                            <span t-esc="i"/> 
+                        </td>
+                        <td style="text-align:left;font-size:12.5px;">PROVIDENT FUND (EMPLOYER'S CONTRIBUTIONS)</td>   
+                        <td style="text-align:right;font-size:12.5px;"><span t-esc="'%.2f'%(doc.pf)"/></td> 
+                        <td style="text-align:right;font-size:12.5px;"><span t-esc="'%.2f'%(doc.pf * 12)"/></td>                      
+                    </tr></span>
+
+                   <span t-if="doc.esic != 0.0"><tr>
+                        <t t-foreach="range(1)" t-as="p">
+                            <t t-set="i" t-value="i+1"/> 
+                        </t>
+                        <td class="col-xs-1">
+                            <span t-esc="i"/> 
+                        </td>
+                        <td style="text-align:left;font-size:12.5px;">ESI (EMPLOYER'S CONTRIBUTIONS)</td>   
+                        <td style="text-align:right;font-size:12.5px;"><span t-esc="'%.2f'%(doc.esic)"/></td> 
+                        <td style="text-align:right;font-size:12.5px;"><span t-esc="'%.2f'%(doc.esic * 12)"/></td>                      
+                    </tr></span>
+
+                    <!--<tr>
+                        <td><b>5</b></td>
+                        <td>SODEXO</td>   
+                        <td></td> 
+                        <td></td>                      
+                    </tr> -->
+                    <span t-if="doc.monthly_ctc_t != 0.0"><tr>
+                        <td></td>
+                        <td style="text-align:left;font-size:12.5px;"><b>CTC ( COST TO THE COMPANY )</b></td>   
+                        <td style="text-align:right;font-size:12.5px;"><span t-esc="'%.2f'%(doc.monthly_ctc_t)"/></td> 
+                        <td style="text-align:right;font-size:12.5px;"><span t-esc="'%.2f'%(doc.monthly_ctc_t * 12)"/></td>                      
+                    </tr></span>
+                </table>
+                </div>
+                <p>
+                    <span t-if="doc.conveyance != 0.0">*Conveyance at actuals subject to a maximum of Rs. <span t-esc="'%.2f'%(doc.conveyance)"/> per month.</span>
+                    <br/>
+                    <span t-if="doc.mobile != 0.0">*Mobile at actuals subject to a maximum of Rs. <span t-esc="'%.2f'%(doc.mobile)"/> per month.</span>
+                </p>
+            </div> 
+            <p style="page-break-before:always;"> </p>
+            <!-- Third page -->
+            <div>
+                <h4 class="subheader" style="padding-left: 1cm;padding-right: 1cm;">
+                    <b>NOTICE FOR SEPARATION AND TERMINATION</b>
+                </h4>
+
+                <div class="normalsize">
+                    <ul>
+                        <li style="font-size:12.5px;">You are required to serve <span t-esc="doc.employee.notice_period"/> days’ notice period or salary in lieu thereof; as considered appropriate by the management. If you fail to serve the required notice period or salary in lieu, you will not be applicable for experience certificate and full and final settlement dues if any. Also, in case of any short notice served by you; the same will be deducted from your full and final settlement. In case of termination of your employment by the company, you will be entitled to serve one-month notice period or payment in lieu thereof.</li>
+                        <br/>
+                        <li style="font-size:12.5px;">However, if you are found to be guilty of misconduct which includes, but not limited to, any act of dishonesty, conflict of interest, on account of non-performance, unauthorized absence, breach of confidentiality, assault, insubordination etc., an employment contract may be terminated by the employer at any time for cause, without notice or salary in lieu of notice or severance pay whatsoever.</li>
+                        <br/>
+                        <li style="font-size:12.5px;">On separation of employment for whatever reasons, you will be required to hand over charge of your responsibilities to a person nominated by the management and for the company’s satisfaction. You will also be responsible for the recovery of any business outstanding arising out of any business transactions performed by you on behalf of the company. Till such a time as the above conditions are fulfilled your full and final settlement will not be processed and you will not be formally relieved from the services of the company. Kindly note that as per our company policy when you are separating from the rolls of the company your full and final settlement will be processed after 45 days from your Last working date. Your Full and Final Settlement will be adjusted as per the leaves availed by you and adjusted accordingly.</li>
+                        <br/>
+                        <li style="font-size:12.5px;">In case an employee leaves an organization without prior intimation and wilfully remains absent for a period more than 7 days shall lose occupancy over the job, the employee will be termed as absconding; the employer holds the right to withheld the Full and final settlement and the experience letter.</li>
+                        <br/>
+                        <li style="font-size:12.5px;">It will be responsibility of the Supervisor to create checklist and get it signed off from exiting employee if resigned if absconded supervisor needs to get it approved by Vertical Director/s, Human Resources Department, and employee to whom the handover has been decided upon. This activity needs to be completed within 7 days of employee resigning or absconding. The sign off the above shall be done in presence of HR representative, exiting employee, vertical Director.</li>
+                        <br/>
+                        <li style="font-size:12.5px;">No accumulated leaves will be adjusted against notice period a special approval of MD needs to be taken upon case to case basis, this shall happen in knowledge of HR representatives.</li>
+                        <br/>
+                        <li style="font-size:12.5px;">Leave/s which has been prior approved and coincides with notice period shall deemed to be cancelled.</li>
+                        <br/>
+                        <li style="font-size:12.5px;">Leaves taken during Notice period will be deducted in full and final settlement. Last working day of the employee will not be extended.</li>
+                    </ul>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6" style="width:50%;float:left;">
+                        <h5 class="subheader" style="padding-left: 1cm;padding-right: 1cm;padding-bottom:0.1cm;font-size: 15px;">
+                            <b>For <span t-esc="doc.employee.company_id.name"/></b>
+                        </h5> 
+                        <h5 class="subheader" style="padding-left: 1cm;padding-right: 1cm;padding-bottom:0.3cm;font-size: 15px;"><b>Authorised Signatory</b></h5>
+                    </div>  
+                    <div class="col-md-6" style="width:50%;float:right;text-align:right">
+                        <h5 class="subheader" style="padding-left: 1cm;padding-right: 1cm;padding-top: 1cm;font-size: 15px;">
+                            <b>Accepted By</b>
+                        </h5>   
+                        <h5 class="subheader" style="padding-left: 1cm;padding-right: 1cm;font-size: 15px;">
+                            <b><span t-esc="doc.employee.name"/></b>
+                        </h5>                       
+                    </div>      
+                </div>
+                <div>
+                    <p class="subheader">
+                    <i>This is computer generated document, signature not required.</i>
+                    </p>
+                </div>              
+            </div>
+
+        </div>
+
+    </t>
+</template>
+
+    <template id="report_appraisal_form_new1">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="orient_pms.report_appraisal_document_new1" />
+            </t>
+        </t>
+    </template>
+
+</odoo>

@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Experiences -->
+
+        <record id="portal_exp1" model="service.experiance">
+            <field name="experiance">1-2 years</field>
+        </record>
+
+        <record id="portal_exp2" model="service.experiance">
+            <field name="experiance">2-3 years</field>
+        </record>
+
+        <record id="portal_exp3" model="service.experiance">
+            <field name="experiance">3-4 years</field>
+        </record>
+
+        <record id="portal_exp4" model="service.experiance">
+            <field name="experiance">4-5 years</field>
+        </record>
+
+        <record id="portal_exp5" model="service.experiance">
+            <field name="experiance">5-6 years</field>
+        </record>
+
+        <record id="portal_exp6" model="service.experiance">
+            <field name="experiance">6-7 years</field>
+        </record>
+
+        <record id="portal_exp7" model="service.experiance">
+            <field name="experiance">7-8 years</field>
+        </record>
+
+        <record id="portal_exp8" model="service.experiance">
+            <field name="experiance">8-9 years</field>
+        </record>
+
+        <record id="portal_exp9" model="service.experiance">
+            <field name="experiance">9-10 years</field>
+        </record>
+
+        <record id="portal_exp10" model="service.experiance">
+            <field name="experiance">10-12 years</field>
+        </record>
+
+        <record id="portal_exp11" model="service.experiance">
+            <field name="experiance">12-15 years</field>
+        </record>
+
+        <record id="portal_exp12" model="service.experiance">
+            <field name="experiance">15-20 years</field>
+        </record>
+
+        <record id="portal_exp13" model="service.experiance">
+            <field name="experiance">20+ years</field>
+        </record>
+
+        <!-- Domain -->
+
+        <record id="portal_domain1" model="service.domain">
+            <field name="domain">IT</field>
+        </record>
+
+        <record id="portal_domain2" model="service.domain">
+            <field name="domain">Management</field>
+        </record>
+
+        <record id="portal_domain3" model="service.domain">
+            <field name="domain">Sales</field>
+        </record>
+
+        <record id="portal_domain4" model="service.domain">
+            <field name="domain">Finance</field>
+        </record>
+
+        <record id="portal_domain5" model="service.domain">
+            <field name="domain">Marketing</field>
+        </record>
+
+        <!-- Nominees -->
+
+        <record id="service_nominee1" model="service.pf.esic.nominee">
+            <field name="nominee">Father</field>
+        </record>
+
+        <record id="service_nominee2" model="service.pf.esic.nominee">
+            <field name="nominee">Mother</field>
+        </record>
+
+        <record id="service_nominee3" model="service.pf.esic.nominee">
+            <field name="nominee">Spouse</field>
+        </record>
+
+        <record id="service_nominee4" model="service.pf.esic.nominee">
+            <field name="nominee">First Child</field>
+        </record>
+
+        <record id="service_nominee5" model="service.pf.esic.nominee">
+            <field name="nominee">Second Child</field>
+        </record>      
+
+        <!-- Cost Centers -->
+
+        <record id="cost_center_cloud" model="cost.center">
+            <field name="name">CLOUD AND DEV-OPS</field>
+        </record>
+
+        <record id="cost_center_ebs" model="cost.center">
+            <field name="name">EBS</field>
+        </record>
+
+        <record id="cost_center_esvs" model="cost.center">
+            <field name="name">ESVS</field>
+        </record>
+
+        <record id="cost_center_hp" model="cost.center">
+            <field name="name">HP</field>
+        </record>
+
+        <record id="cost_center_ites" model="cost.center">
+            <field name="name">ITES</field>
+        </record>
+
+        <record id="cost_center_ites_fmsps" model="cost.center">
+            <field name="name">ITES-FMS/PS</field>
+        </record>
+
+        <record id="cost_center_mep" model="cost.center">
+            <field name="name">MEP</field>
+        </record>
+
+        <record id="cost_center_niss" model="cost.center">
+            <field name="name">NISS</field>
+        </record>
+
+        <record id="cost_center_pis" model="cost.center">
+            <field name="name">PIS</field>
+        </record>
+
+
+        <!-- Skills -->
+
+        <record id="skill_c" model="skillset">
+            <field name="name">C</field>
+        </record>
+
+        <record id="skill_c++" model="skillset">
+            <field name="name">C++</field>
+        </record>
+
+        <record id="skill_core_java" model="skillset">
+            <field name="name">Core Java</field>
+        </record>
+
+        <record id="skill_python" model="skillset">
+            <field name="name">Python</field>
+        </record>
+
+        <record id="skill_js" model="skillset">
+            <field name="name">JavaScript</field>
+        </record>
+
+        <record id="skill_android" model="skillset">
+            <field name="name">Android</field>
+        </record>
+
+        <record id="skill_oracle" model="skillset">
+            <field name="name">Oracle</field>
+        </record>
+
+        <record id="skill_sql" model="skillset">
+            <field name="name">SQL</field>
+        </record>S
+
+        <!-- Banks -->
+
+<!--         <record id="bank_icici" model="bank.name">
+            <field name="name">ICICI</field>
+        </record>
+
+        <record id="bank_axis" model="bank.name">
+            <field name="name">AXIS</field>
+        </record>
+
+        <record id="bank_sbi" model="bank.name">
+            <field name="name">SBI</field>
+        </record> -->
+
+
+        <!-- Sub Documents -->
+
+<!--         <record id="portal_sub1_documents1" model="service.sub.documents">
+            <field name="name">CV</field>
+            <field name="technical_name">cv</field>
+        </record>
+
+        <record id="portal_sub2_documents2" model="service.sub.documents">
+            <field name="name">Residence proof(Passport/Electricity Bill/Rental Agreement/Mobile bill)</field>
+            <field name="technical_name">residence_proof</field>
+        </record>
+
+        <record id="portal_sub3_documents3" model="service.sub.documents">
+            <field name="name">Identity proof(PAN)</field>
+            <field name="technical_name">pan</field>
+        </record>
+
+        <record id="portal_sub4_documents4" model="service.sub.documents">
+            <field name="name">Identity proof(Aadhar)</field>
+            <field name="technical_name">aadhar</field>
+        </record>
+
+        <record id="portal_sub5_documents5" model="service.sub.documents">
+            <field name="name">Passport size photograph</field>
+            <field name="technical_name">photo</field>
+        </record>
+
+        <record id="portal_sub6_documents6" model="service.sub.documents">
+            <field name="name">Birth certificate</field>
+            <field name="technical_name">birth_certificate</field>
+        </record>
+
+        <record id="portal_sub7_documents7" model="service.sub.documents">
+            <field name="name">Latest appraisal letter</field>
+            <field name="technical_name">appraisal</field>
+        </record>
+
+        <record id="portal_sub8_documents8" model="service.sub.documents">
+            <field name="name">Latest appointment letter</field>
+            <field name="technical_name">appointment</field>
+        </record>
+
+        <record id="portal_sub9_documents9" model="service.sub.documents">
+            <field name="name">Latest payslip</field>
+            <field name="technical_name">payslip</field>
+        </record>
+
+        <record id="portal_sub10_documents10" model="service.sub.documents">
+            <field name="name">Highest qualification certificate(Academic marksheet)</field>
+            <field name="technical_name">qualification_certificate</field>
+        </record>
+
+        <record id="portal_sub11_documents11" model="service.sub.documents">
+            <field name="name">Leaving certificate</field>
+            <field name="technical_name">lc</field>
+        </record>
+
+        <record id="portal_sub12_documents12" model="service.sub.documents">
+            <field name="name">Skill certificate/Extra activity certificate</field>
+            <field name="technical_name">skill_certificate</field>
+        </record> -->
+
+    </data>
+</odoo>

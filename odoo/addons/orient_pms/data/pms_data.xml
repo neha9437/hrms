@@ -1,0 +1,201 @@
+<?xml version="1.0"?>
+<odoo>
+<data>
+
+    <!-- Templates for Hr Resignation from employee process -->
+    <record id="email_template_for_self_rating" model="mail.template">
+        <field name="name">Employee: </field>
+        <field name="subject">Self Rating Employee level: ${object.employee.name | safe}</field>
+        <field name="email_from">${object.employee.parent_id.work_email | safe}</field>
+        <field name="email_to">${object.employee.work_email | safe}</field>
+        <!-- <field name="partner_to">${object.partner_id.id or ''}</field> xzbqjxpiervxdbbz-->
+        <!-- <field name="email_cc">${object.hr_manager_id.work_email | safe}</field> -->
+        <field name="lang">${object.employee.user_id.partner_id.lang or ''}</field>
+        <field name="model_id" ref="orient_pms.model_kra_main"/>
+        <field name="user_signature" eval="False"/>
+        <field name="body_html"><![CDATA[
+<p>Hi ${object.employee.name},</p>
+<p>You are requested to give self rating for ${object.quarter} quarter, Kindly rate yourself in the HRMS PMS portal </p>
+<p><b>Note: </b>Kindly, do not reply to this mail. </p>
+]]></field>
+    </record>
+
+    <record id="email_template_self_rating_done" model="mail.template">
+        <field name="name">Self rating Completed</field>
+        <field name="subject">Self Rating Employee level processed: ${object.employee.name | safe}</field>
+        <field name="email_from">${object.employee.work_email | safe}</field>
+        <field name="email_to">${object.employee.parent_id.work_email | safe}</field>
+        <!-- <field name="partner_to">${object.partner_id.id or ''}</field> xzbqjxpiervxdbbz-->
+        <!-- <field name="email_cc">${object.hr_manager_id.work_email | safe}</field> -->
+        <field name="lang">${object.employee.user_id.partner_id.lang or ''}</field>
+        <field name="model_id" ref="orient_pms.model_kra_main"/>
+        <field name="user_signature" eval="False"/>
+        <field name="body_html"><![CDATA[
+<p>Hi,</p>
+<p>I have completed the Self rating process in the HRMS PMS portal. </p>
+<p>Thank You.</p>
+<p>Regards,</p>
+${object.employee.name}
+]]></field>
+    </record>
+
+    <record id="email_template_manager_rating_done" model="mail.template">
+        <field name="name">Self rating Completed</field>
+        <field name="subject">TL Rating level processed: ${object.employee.name | safe}</field>
+        <field name="email_from">${object.employee.parent_id.work_email | safe}</field>
+        <field name="email_to">${object.employee.work_email | safe}</field>
+        <!-- <field name="partner_to">${object.partner_id.id or ''}</field> xzbqjxpiervxdbbz-->
+        <!-- <field name="email_cc">${object.hr_manager_id.work_email | safe}</field> -->
+        <field name="lang">${object.employee.user_id.partner_id.lang or ''}</field>
+        <field name="model_id" ref="orient_pms.model_kra_main"/>
+        <field name="user_signature" eval="False"/>
+        <field name="body_html"><![CDATA[
+<p>Hi ${object.employee.name},</p>
+<p>Your quarterly review process is approved for the ${object.quarter} quarter in the HRMS PMS portal. </p>
+<p>Kindly check your ratings.</p>
+<p>Thank You.</p>
+<p>Regards,</p>
+${object.employee.parent_id.name}
+]]></field>
+    </record>
+
+    <record id="email_template_for_quarterly_kra_reminder" model="mail.template">
+        <field name="name">Quarterly KRA Review</field>
+        <field name="subject">Quarterly KRA Review Form:</field>
+        <field name="email_from">${object.work_email | safe}</field>
+        <field name="email_to">${object.company_id.all_employee_email | safe}</field>
+        <!-- <field name="partner_to">${object.partner_id.id or ''}</field> xzbqjxpiervxdbbz-->
+        <!-- <field name="email_cc">${object.hr_manager_id.work_email | safe}</field> -->
+        <field name="lang">${object.user_id.partner_id.lang or ''}</field>
+        <field name="model_id" ref="orient_pms.model_hr_employee"/>
+        <field name="user_signature" eval="False"/>
+        <field name="body_html"><![CDATA[
+<p>Hi,</p>
+<p>You are requested to fill Quarterly KRA review form for Previous Quarter and give Self Rating in your HRMS portal profile.</p>
+<p></p>
+<p>Thank You.</p>
+<p>Regards,</p>
+${object.name}
+]]></field>
+    </record>
+
+    <record id="email_template_pip_selection" model="mail.template">
+        <field name="name">PIP Review</field>
+        <field name="subject">PIP selection:</field>
+        <field name="email_from">${object.company_id.admin_user_email | safe}</field>
+        <field name="email_to">${object.employee.work_email | safe}</field>
+        <!-- <field name="partner_to">${object.partner_id.id or ''}</field> xzbqjxpiervxdbbz-->
+        <!-- <field name="email_cc">${object.hr_manager_id.work_email | safe}</field> -->
+        <field name="lang">${object.employee.user_id.partner_id.lang or ''}</field>
+        <field name="model_id" ref="orient_pms.model_kra_main"/>
+        <field name="user_signature" eval="False"/>
+        <field name="body_html"><![CDATA[
+<p>Hi,</p>
+<p>You fall under PIP for ${object.quarter} Quarter. </p>
+<p></p>
+<p>Thank You.</p>
+<p>Regards,</p>
+HR Department
+]]></field>
+    </record>
+
+
+    <record id="email_template_for_quarterly_kra_reminder_manager" model="mail.template">
+        <field name="name">Quarterly KRA Review</field>
+        <field name="subject">Quarterly KRA Review Form:</field>
+        <field name="email_from">${object.company_id.admin_user_email | safe}</field>
+        <field name="email_to">${object.parent_id.work_email | safe}</field>
+        <field name="lang">${object.user_id.partner_id.lang or ''}</field>
+        <field name="model_id" ref="orient_pms.model_hr_employee"/>
+        <field name="user_signature" eval="False"/>
+        <field name="body_html"><![CDATA[
+<p>Hi,</p>
+<p>You are requested to give ratings to your subordinates in HRMS portal</p>
+<p></p>
+<p>Thank You.</p>
+<p>Regards,</p>
+${object.name}
+]]></field>
+    </record>
+
+    <record id="email_template_for_annual_review_reminder" model="mail.template">
+        <field name="name">Annual Appraisal</field>
+        <field name="subject">Annual Appraisal Process:</field>
+        <field name="email_from">${object.company_id.admin_user_email | safe}</field>
+        <field name="email_to">${object.work_email | safe}</field>
+        <field name="lang">${object.user_id.partner_id.lang or ''}</field>
+        <field name="model_id" ref="orient_pms.model_hr_employee"/>
+        <field name="user_signature" eval="False"/>
+        <field name="body_html"><![CDATA[
+<p>Hi,</p>
+<p>Your Annual Review process has been initiated. 
+You are requested to fill the Goalsheet and Appraisal form and submit it to the Manager in HRMS portal</p>
+<p></p>
+<p>Thank You.</p>
+<p>Regards,</p>
+${object.name}
+]]></field>
+    </record>
+
+
+    <record id="email_template_for_appraisal_rejection" model="mail.template">
+        <field name="name">Annual Appraisal</field>
+        <field name="subject">Annual Appraisal Acknowledgment</field>
+        <field name="email_from">${object.work_email | safe}</field>
+        <field name="email_to">${object.parent_id.work_email | safe}</field>
+        <field name="email_cc">${object.hr_executive_id.work_email | safe}</field>
+        <field name="lang">${object.user_id.partner_id.lang or ''}</field>
+        <field name="model_id" ref="orient_pms.model_hr_employee"/>
+        <field name="user_signature" eval="False"/>
+        <field name="body_html"><![CDATA[
+<p>Hi,</p>
+<p>I kindly reject the appraisal for the year ${object.year.name} for reason: ${object.reason_for_rejection} </p>
+<p></p>
+<p>Thank You.</p>
+<p>Regards,</p>
+${object.name}
+]]></field>
+    </record>
+
+
+    <record id="email_template_for_appraisal_acceptance" model="mail.template">
+        <field name="name">Annual Appraisal</field>
+        <field name="subject">Annual Appraisal Acknowledgment</field>
+        <field name="email_from">${object.work_email | safe}</field>
+        <field name="email_to">${object.parent_id.work_email | safe}</field>
+        <field name="email_cc">${object.hr_executive_id.work_email | safe}</field>
+        <field name="lang">${object.user_id.partner_id.lang or ''}</field>
+        <field name="model_id" ref="orient_pms.model_hr_employee"/>
+        <field name="user_signature" eval="False"/>
+        <field name="body_html"><![CDATA[
+<p>Hi,</p>
+<p>I kindly accept the appraisal for the year ${object.year.name} </p>
+<p></p>
+<p>Thank You.</p>
+<p>Regards,</p>
+${object.name}
+]]></field>
+    </record>
+
+
+<record id="orient_pms.mail_template_data_notification_email_annual_appraisal" model="mail.template">
+            <field name="name">Account: Invoice notification header</field>
+            <field name="subject">Annual Appraisal Due Reminder</field>
+            <field name="email_from">${object.company_id.admin_user_email | safe}</field>
+            <field name="email_to">${object.email_chars | safe}</field>
+            <field name="email_cc">${object.manager_email_chars | safe}</field>
+            <field name="model_id" ref="orient_pms.model_appraisal_due_report"/>
+            <field name="auto_delete" eval="True"/>
+             <field name="body_html"><![CDATA[
+<p>Hi,</p>
+<p>Your Annual Review process has been initiated. 
+You are requested to fill the Goalsheet and Appraisal form and submit it to the Manager in HRMS portal</p>
+<p></p>
+<p>Thank You.</p>
+<p>Regards,</p>
+${object.name}
+]]></field>
+    </record>
+
+</data>
+</odoo>
